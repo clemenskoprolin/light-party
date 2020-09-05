@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="LightParty.Pages.PartyMode.MicrophoneColorOption"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.PartyMode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Pages/Resources/SliderStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="ColorGradientComboBox" Grid.Row="0" SelectedIndex="0" Width="225"
+                      SelectionChanged="ColorGradientComboBox_SelectionChanged">
+            <x:String>Change between two colors</x:String>
+            <x:String>Change between three colors</x:String>
+        </ComboBox>
+
+        <Frame x:Name="ColorGradientFrame" Grid.Row="1" Margin="0,10,0,0"/>
+        <Slider x:Name="MircophoneInputSlider" Grid.Row="1" Style="{StaticResource OnlyThumbVisable}" Margin="0,44.5,0,0" Width="278"
+                Background="Transparent" Minimum="0" Maximum="100" IsEnabled="False" HorizontalAlignment="Left" Value="50"/>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource Information}"
+                   Text="The gray thumb is the current input."/>
+    </Grid>
+</Page>

@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="LightParty.Pages.LightControl.BasicLightControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.LightControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+    
+    <Grid x:Name="ElementGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
+                   Text="Basic Light Actions"/>
+
+        <Frame x:Name="LightSelectionFrame" Grid.Row="1" Margin="0,10,0,0" Height="60"/>
+
+        <Grid x:Name="InformationGird" Grid.Row="2" Margin="0,10,0,0" Opacity="1">
+            <Grid.OpacityTransition>
+                <ScalarTransition/>
+            </Grid.OpacityTransition>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource MediumInformation}" Text="Click on the lights above in order to control them."/>
+        </Grid>
+
+        <Grid x:Name="UserControlGrid" Grid.Row="2" Margin="0,10,0,0" Visibility="Collapsed" Opacity="0">
+            <Grid.OpacityTransition>
+                <ScalarTransition/>
+            </Grid.OpacityTransition>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ToggleSwitch x:Name="LightToggleSwitch" Grid.Column="0" Margin="0,0,5,0" Toggled="LightToggleSwitch_Toggled"/>
+
+                <Slider x:Name="BrightnessSlider" Minimum="1" Maximum="100" Width="250" Grid.Column="1" Margin="0, 0, 7.5, 0" IsEnabled="False"
+                ManipulationStarting="BrightnessSlider_ManipulationStarting" ManipulationCompleted="BrightnessSlider_ManipulationCompleted" ManipulationMode="All"/>
+                <TextBlock Grid.Column="2" Style="{StaticResource Information}"
+                           Padding="5.5" Text="Brightness"/>
+            </Grid>
+
+            <NavigationView Grid.Row="1" x:Name="ColorPickerNav" Margin="0,10,0,0"
+                            PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" ItemInvoked="ColorPickerNav_ItemInvoked" Grid.ColumnSpan="2">
+                <NavigationView.MenuItems>
+                    <NavigationViewItem x:Name="RGBMenuItem" Content="RGB"/>
+                    <NavigationViewItem x:Name="TemperatureMenuItem" Content="Temperature"/>
+                </NavigationView.MenuItems>
+
+                <Frame x:Name="ColorPickerFrame" Margin="10,5,0,0"/>
+            </NavigationView>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,164 @@
+﻿<Page
+    x:Class="LightParty.Pages.BridgeConfiguration.BridgeConfig"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.BridgeConfiguration"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,15,0,0"
+                       Grid.Row="0"
+                       Style="{StaticResource MainHeading}" 
+                       Text="Bridge Configuartion"/>
+
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform"
+                         Grid.Column="0" Height="200" Width="200" VerticalAlignment="Center">
+                    <Canvas Width="1000" Height="1000">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <Canvas>
+                            <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="17.485003" Canvas.Top="17.485003" Width="965.02991" Height="965.02997" RadiusY="173.70538" RadiusX="173.70538" Name="rect1976" StrokeThickness="34.97" Stroke="{StaticResource SystemBaseHighColor}" StrokeMiterLimit="4"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="315.6" Canvas.Top="315.6" Width="368.9" Height="368.9" Name="path1979" StrokeThickness="35" Stroke="{StaticResource SystemBaseHighColor}" StrokeMiterLimit="4"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="482.5" Canvas.Top="152" Width="35" Height="35" Name="path1981" Fill="{StaticResource SystemBaseHighColor}" StrokeThickness="357.845" StrokeMiterLimit="4"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="652" Canvas.Top="152" Width="35" Height="35" Name="path19817" Fill="{StaticResource SystemBaseHighColor}" StrokeThickness="357.845" StrokeMiterLimit="4"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="313" Canvas.Top="152" Width="35" Height="35" Name="path19815" Fill="{StaticResource SystemBaseHighColor}" StrokeThickness="357.845" StrokeMiterLimit="4"/>
+                        </Canvas>
+                    </Canvas>
+                </Viewbox>
+
+                <Grid Grid.Column="1" Margin="30,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="BridgeName" Grid.Row="0" Style="{StaticResource BigInformation}"
+                               Text="BridgeName"/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="model ID"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="IP address"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="netmask"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="MAC address"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="local time"/>
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="software version"/>
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="API version"/>
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource Information}"
+                               Text="app key"/>
+
+
+                            <TextBlock x:Name="ModelId" Grid.Row="0" Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="ABC111"/>
+                            <TextBlock x:Name="IPAddress" Grid.Row="1" Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="192.168.000.00"/>
+                            <TextBlock x:Name="NetMask" Grid.Row="2"  Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="255.255.255.255"/>
+                            <TextBlock x:Name="MacAddress" Grid.Row="3"  Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="aa:aa:aa:aa:aa:aa"/>
+
+                            <TextBlock x:Name="LocalTime" Grid.Row="5" Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="11/11/1111 11:11:11"/>
+                            <TextBlock x:Name="SoftwareVersion" Grid.Row="6"  Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="1111011010"/>
+                            <TextBlock x:Name="APIVersion" Grid.Row="7"  Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="1.11.1"/>
+                            <Button x:Name="ShowAPIKeyButton" Grid.Row="8" Content="click to see API key" FontWeight="Bold"  Grid.Column="2"
+                                    Click="ShowAPIKeyButton_Click"  Padding="-2" FontSize="15" Background="#00FFFFFF"/>
+                            <TextBlock x:Name="APIKey" Grid.Row="9" Visibility="Collapsed" Grid.Column="2" TextWrapping="Wrap"
+                               Style="{StaticResource BoldInformation}" Text="1.11.1"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <TextBlock Grid.Row="2" Margin="0,30,0,0" Style="{StaticResource MediumInformation}"
+                       Text="You are successfully connected to your Bridge!" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="3" Style="{StaticResource Information}"
+                       Text="You are now able to control your Philips Hue lights and start the Party Mode!" TextWrapping="Wrap"/>
+            <Button x:Name="OpenNavigationView" Grid.Row="4" Margin="0,5,0,0"
+                    Content="What can I do now?" Click="OpenNavigationView_Click"/>
+        </Grid>
+
+        <Grid x:Name="PopupGrid">
+            <Grid x:Name="APIKeyPopup" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Scale="0,0,0">
+                <Grid.ScaleTransition>
+                    <Vector3Transition />
+                </Grid.ScaleTransition>
+
+                <controls:DropShadowPanel BlurRadius="8.0" ShadowOpacity="0.3" Color="Black" OffsetX="0" OffsetY="4">
+                    <Border BorderThickness="1" CornerRadius="3" BorderBrush="{StaticResource SystemBaseHighColor}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
+                        <Grid x:Name="APIKeyPopupGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Margin="14,10,14,0" Style="{StaticResource MediumInformation}" HorizontalAlignment="Center"
+                               Text="Do you really want to show your API key? Don't share the key with others!" TextWrapping="Wrap"/>
+                            <Grid Grid.Row="1" Margin="0,10,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="No" Margin="0,0,10,0"
+                                Click="NoAPIPopup_Click" HorizontalAlignment="Right"/>
+                                <Button Grid.Column="1" Content="Yes" Margin="10,0,0,0"
+                                Click="YesAPIPopup_Click" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </controls:DropShadowPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

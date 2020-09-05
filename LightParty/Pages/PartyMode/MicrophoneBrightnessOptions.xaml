@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="LightParty.Pages.PartyMode.MicrophoneBrightnessOptions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.PartyMode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource Information}"
+                   Text="Select the range of the microphone input"/>
+
+        <Slider x:Name="MircophoneInputSlider" Grid.Row="1" Width="300" Minimum="0" Maximum="100" IsEnabled="False" HorizontalAlignment="Left"/>
+        <controls:RangeSelector x:Name="MircophoneInputRangeSelector" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeMin="45" RangeMax="85"
+                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                ThumbDragCompleted="MircophoneInputRangeSelector_ThumbDragCompleted" Tapped="MircophoneInputRangeSelector_Tapped"/>
+
+        <TextBlock Grid.Row="2" Style="{StaticResource Information}"
+                   Text="The gray thumb is the current input."/>
+        <CheckBox Grid.Row="3" x:Name="StartWithZeroBrightnessInRangeCheckBox" Margin="0,10,0,0"
+                  Content="Start with zero brightness in range" IsChecked="True" Click="StartWithZeroBrightnessInRangeCheckBox_Click"/>
+    </Grid>
+</Page>

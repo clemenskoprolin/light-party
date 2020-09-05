@@ -1,10 +1,10 @@
 # Light Party
 Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source.
 
-[<img style="display: inline" width="450" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png" alt="Control muliply light at once with just a few clicks!">
-<img style="display: inline" width="450" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png" alt="Full dark mode support!">
-<img width="450" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_1_english.png" alt="Sync your lights to your music lights live!">
-<img width="450" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_4_english.png" alt="Clean and modern interface.">](https://clemenskoprolin.com/lightparty/)
+[<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png" alt="Control muliply light at once with just a few clicks!">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png)
+[<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png" alt="Full dark mode support!">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png)
+[<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_1_english.png" alt="Sync your lights to your music lights live!">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_1_english.png)
+[<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_4_english.png" alt="Clean and modern interface.">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_4_english.png)
 
 [<img width="180" src="https://clemenskoprolin.com/lightparty/images/sharing/website.svg" alt="Website">](https://clemenskoprolin.com/lightparty/)
 [<img width="180" src="https://clemenskoprolin.com/lightparty/images/logos/GetItFromMicrosoftStore/GetItFromMircosoftStore_eng.svg" alt="Get this app from Microsoft Store">](http://www.microsoft.com/en-us/store/apps/windows)
@@ -21,9 +21,15 @@ You can always download the newest stable version of Light Party from the [Micro
 ### Roadmap
 - Release of version 1.0.0
 - Many, many, many bug fixes
+- Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
 
 ### I found a bug (or have a feature request)!
 There two ways to get in contact. Firstly, you can [directly contact me](https://clemenskoprolin.com/contactme/) e.g. per email or you can [open an issue on GitHub](https://github.com/clemenskoprolin/light-party/issues).
 
+### License and Privacy Policy
+By using Light Party, you hereby consent to it's [Privacy Policy](https://clemenskoprolin.com/lightparty/legal/privacypolicy/). There is also a [summary of the Privacy Policy](https://clemenskoprolin.com/lightparty/legal/).
+
+This application uses the [GNU AFFERO GENERAL PUBLIC LICENSE Version 3](https://clemenskoprolin.com/lightparty/legal/license/license.txt). [choosealicense.com](https://choosealicense.com/licenses/agpl-3.0/) from GitHub Inc. provides a summary about the license.
+
 ### More Information
-You can find more information at the [offical website](https://clemenskoprolin.com/lightparty/) and in the [documentation](https://clemenskoprolin.com/lightparty/docs/).
+You can find out more about Light Party on the [offical website](https://clemenskoprolin.com/lightparty/) and in the [documentation](https://clemenskoprolin.com/lightparty/docs/).

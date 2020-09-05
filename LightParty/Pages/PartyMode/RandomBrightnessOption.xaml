@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="LightParty.Pages.PartyMode.RandomBrightnessOption"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.PartyMode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource Information}"
+                   Text="Select the range of the random brightness"/>
+        <controls:RangeSelector x:Name="RandomInputRangeSelector" VerticalAlignment="Center" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeMin="35" RangeMax="100"
+                                HorizontalAlignment="Left" ThumbDragCompleted="RandomInputRangeSelector_ThumbDragCompleted" Tapped="RandomInputRangeSelector_Tapped"/>
+
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Style="{StaticResource Information}" Text="Change every" Margin="0,3.5,0,0"/>
+            <TextBox x:Name="RandomUpdateIntervalTextBox" Grid.Column="1" Margin="10,0,10,0" TextAlignment="Center"
+                     Text="3" LostFocus="RandomUpdateIntervalTextBox_LostFocus" KeyDown="RandomUpdateIntervalTextBox_KeyDown"/>
+            <TextBlock Grid.Column="2" Style="{StaticResource Information}" Text="Seconds" Margin="0,3.5,0,0"/>
+            
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="LightParty.Pages.MainShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid x:Name="LayoutRoot">
+        <Frame x:Name="FullScreenFrame" Visibility="Collapsed"/>
+
+        <NavigationView x:Name="MainNav" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed"
+                        ItemInvoked="MainNav_ItemInvoked">
+            
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
+                <NavigationViewItem x:Name="BasicLightActionMenuItem" Content="Basic Light Actions" Tag="1">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA80;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="PartyModeMenuItem" Content="Party Mode" Icon="Play" Tag="2"/>
+            </NavigationView.MenuItems>
+
+            <Grid>
+                <Frame x:Name="MainFrame" Margin="20,0,0,0"/>
+                
+                <Rectangle x:Name="BlackOverlay" Fill="#4C000000" Visibility="Collapsed" Opacity="0">
+                    <Rectangle.OpacityTransition>
+                        <ScalarTransition />
+                    </Rectangle.OpacityTransition>
+                </Rectangle>
+            </Grid>
+        </NavigationView>
+    </Grid> 
+</Page>

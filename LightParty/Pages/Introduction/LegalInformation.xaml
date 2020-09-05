@@ -1,0 +1,270 @@
+﻿<Page
+    x:Class="LightParty.Pages.Introduction.LegalInformation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.Introduction"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Storyboard x:Name="LegalPageStoryboard">
+            <DoubleAnimation
+              Storyboard.TargetName="AgreeBorderColor"
+              Storyboard.TargetProperty="Opacity"
+              EnableDependentAnimation ="True"
+              From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
+        <Storyboard x:Name="TelemetryPageStoryboard">
+            <DoubleAnimation
+              Storyboard.TargetName="TelemetryBorderColor"
+              Storyboard.TargetProperty="Opacity"
+              EnableDependentAnimation ="True"
+              From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="LegalPage" Grid.Row="0">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+            
+            <Grid.Background>
+                <media:RadialGradientBrush
+                        RadiusX="0.5" RadiusY="0.5" Center="1,0"
+                        GradientOrigin="1,0">
+                    <GradientStop Color="#7FBA00"  Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <ScrollViewer x:Name="LegalScrollView" Grid.Row="0" VerticalScrollBarVisibility="Auto"
+                          HorizontalAlignment="Center" Margin="20,0">
+                <Grid Margin="5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="600"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
+                       Text="License and Privacy Policy"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource ParagraphHeading}"
+                               Text="Privacy Policy Summary"/>
+                    <TextBlock Grid.Row="2" Style="{StaticResource ExtraInformation}" TextWrapping="Wrap">
+                            The following text is only a summary of the most important information for the user from my perspective. 
+                            You have to also read the Privacy Policy itself in order to agree to it. 
+                            If there are any content-related differences between the summary and the Privacy Policy, 
+                            the Privacy Policy always takes affect on those differences.
+                    </TextBlock>
+                    <TextBlock Grid.Row="3" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                            Light Party sends a request to a server after you agreed to the privacy policy and license. The server saves the approximate period when you agreed to those. 
+                            On the next screen, you can choose whether you to enable telemetry or not.
+                    </TextBlock>
+                    <TextBlock Grid.Row="4" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                            I'm pleased for everyone who enables it, you can read more about that in
+                            <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/docs/shouldienabletelemetry/">"Should I enable telemetry?"</Hyperlink>. 
+                            However, if you disable it no data will be collected from you ever again by this application 
+                            (at least as long as you keep it disabled and don't reset Light Party).
+                    </TextBlock>
+                    <TextBlock Grid.Row="5" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        But when you enable it (Thank you!), the following data will be collected anonymized:
+                    </TextBlock>
+                    <TextBlock Grid.Row="6" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        - Information that you have enabled telementry
+                    </TextBlock>
+                    <TextBlock Grid.Row="7" Style="{StaticResource Information}" TextWrapping="Wrap">
+                        - The name of your country
+                    </TextBlock>
+                    <TextBlock Grid.Row="8" Style="{StaticResource Information}" TextWrapping="Wrap">
+                        - The name of your state
+                    </TextBlock>
+                    <TextBlock Grid.Row="9" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        But why do I need this data? You can read more a about that in
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/docs/shouldienabletelemetry/">"Should I enable telemetry?"</Hyperlink>. 
+                        Light Party does not collect any sort of personal data with which you cloud be identified. All data that is collect is collected anonymized.
+                    </TextBlock>
+                    <TextBlock Grid.Row="10" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        In order to obtain the name of country, Light Party uses a service from Cloudflare.
+                        Therefore, I advice you to read the 
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://www.cloudflare.com/privacypolicy/">Privacy Policy of Cloudflare</Hyperlink>, too.
+                    </TextBlock>
+                    <TextBlock Grid.Row="11" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        Except for Cloudflare, the application does not share any collected data with third parties. 
+                        The application also does not sell your data to third parties.
+                    </TextBlock>
+                    <TextBlock Grid.Row="12" Style="{StaticResource Paragraph}">
+                        → <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/legal/privacypolicy/">Full Privacy Policy</Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="13" Style="{StaticResource ParagraphHeading}"
+                               Text="License Summary"/>
+                    <TextBlock Grid.Row="14" Style="{StaticResource ExtraInformation}" TextWrapping="Wrap">
+                        The following text is only a summary of the most important information for the user from my perspective. 
+                        You have to also read the license itself in order to agree to it. If there are any content-related differences between the summary 
+                        and the license, the license always takes affect on those differences.
+                    </TextBlock>
+                    <TextBlock Grid.Row="15" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        The application Light Party is open source on 
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin">GitHub</Hyperlink>.
+                        Therefore, it uses the GNU Affero General Public License v3.0.
+                    </TextBlock>
+                    <TextBlock Grid.Row="16" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://choosealicense.com/licenses/agpl-3.0/">choosealicense.com</Hyperlink>
+                        from GitHub Inc. provides a summary about the license.
+                    </TextBlock>
+                    <TextBlock x:Name="Test" Grid.Row="17" Style="{StaticResource Paragraph}">
+                        → <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/legal/license/license.txt">Full license</Hyperlink>
+                    </TextBlock>
+
+                    <Grid x:Name="AgreeGrid" Grid.Row="18" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border x:Name="AgreeBorder" Grid.Column="0" BorderThickness="2" Padding="4,0" Margin="-4,0" CornerRadius="3">
+                            <Border.BorderBrush>
+                                <SolidColorBrush x:Name="AgreeBorderColor" Color="Red" Opacity="0"/>
+                            </Border.BorderBrush>
+                            <CheckBox x:Name="AgreeCheckbox">
+                                <CheckBox.Content>
+                                    <TextBlock>
+                                    I agree to the
+                                    <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/legal/license/license.txt">GNU AGPLv3 license</Hyperlink> and to the
+                                    <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/legal/privacypolicy/">Privacy Policy</Hyperlink>.
+                                    </TextBlock>
+                                </CheckBox.Content>
+                            </CheckBox>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        
+        <Grid x:Name="TelemetryPage" Grid.Row="0" Visibility="Collapsed">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+
+            <Grid.Background>
+                <media:RadialGradientBrush RadiusX="0.4" RadiusY="0.5" Center="1,0.1"
+                                           GradientOrigin="1,0.1">
+                    <GradientStop Color="#FFB900"  Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <ScrollViewer x:Name="TelemetryScrollView" Grid.Row="0" VerticalScrollBarVisibility="Auto"
+                          HorizontalAlignment="Center" Margin="20,0">
+                <Grid Margin="5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="600"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
+                               Text="Telemetry"/>
+                    <TextBlock Grid.Row="1" Style="{StaticResource ParagraphHeading}" TextWrapping="Wrap"
+                               Text="Which data is sent by Light Party, when telemetry is enabled?"/>
+                    <TextBlock Grid.Row="2" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        When telemetry is enabled, a request is sent to a server each time you start the application.
+                        This request contains the name of your country and state, which are detected in beforehand with the help of a service from Cloudflare.
+                    </TextBlock>
+                    <TextBlock Grid.Row="3" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        You can find more about that topic in 
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/legal/" >the summary of the Privacy Policy.</Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="4" Style="{StaticResource ParagraphHeading}" TextWrapping="Wrap"
+                               Text="Why does Light Party collect this data?"/>
+                    <TextBlock Grid.Row="5" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        Basically, I (the developer) want to know how many people are really using Light Party so that I can evaluate translations of the application in other 
+                        languages or whether adding new features makes sense.
+                    </TextBlock>
+                    <TextBlock Grid.Row="6" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        For example, if I know that more than a third of users use the application in Germany I might be tempted to release a german translation. 
+                        Or when I notice that the application is very popular, it's far more likely that I implement a demanding feature.
+                    </TextBlock>
+                    <TextBlock Grid.Row="7" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                        In the end, it is of course your own desision. I can competly understand you, if you don't want to have telemetry activated. 
+                        However, I'm pleased for everyone who enables telemetry.
+                    </TextBlock>
+
+                    <Border x:Name="TelemetryBorder" Grid.Row="8" BorderThickness="2" Padding="0,8" Margin="0,10,0,0" CornerRadius="3">
+                        <Border.BorderBrush>
+                            <SolidColorBrush x:Name="TelemetryBorderColor" Color="Red" Opacity="0"/>
+                        </Border.BorderBrush>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton x:Name="DisableTelemetryButton" Grid.Column="0" Margin="0,0,20,0" HorizontalAlignment="Right"
+                                    Content="Disable Telemetry" Click="DisableTelemetryButton_Click"/>
+                            <ToggleButton x:Name="EnableTelemetryButton" Grid.Column="1" Margin="20,0,0,0"
+                                    Content="Enable Telemetry" Click="EnableTelemetryButton_Click"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,30" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="PreviousButton" Grid.Column="0" Height="50" Width="50" Margin="0,0,10,0" Click="PreviousButton_Click">
+                <Button.Content>
+                    <SymbolIcon Symbol="Previous" />
+                </Button.Content>
+            </Button>
+            <Button x:Name="NextButton" Grid.Column="1" Height="50" Width="50" Margin="10,0,0,0" Click="NextButton_Click">
+                <Button.Content>
+                    <SymbolIcon Symbol="Next" />
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

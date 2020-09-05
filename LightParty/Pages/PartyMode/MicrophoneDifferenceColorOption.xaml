@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="LightParty.Pages.PartyMode.MicrophoneDifferenceColorOption"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.PartyMode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Style="{StaticResource Information}" Text="Change when the microphone input difference is greater than" Margin="0,3.5,0,0"/>
+            <TextBox x:Name="InputDifferenceTextBox" Grid.Column="1" Margin="10,0,10,0" TextAlignment="Center"
+                     Text="3.5" LostFocus="InputDifferenceTextBox_LostFocus" KeyDown="InputDifferenceTextBox_KeyDown"/>
+            <TextBlock Grid.Column="2" Style="{StaticResource Information}" Text="percent." Margin="0,3.5,0,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Style="{StaticResource Information}" Text="Current microphone input difference:" Margin="0,0,0,0"/>
+            <TextBlock x:Name="CurrentInputDifferenceText" Grid.Column="1" Style="{StaticResource Information}" Text="0" Margin="3,0,0,0"/>
+            <TextBlock Grid.Column="2" Style="{StaticResource Information}" Text="percent" Margin="3,0,0,0"/>
+        </Grid>
+
+        <ComboBox x:Name="RandomTypeComboBox" Grid.Row="2" Margin="0,14,0,0" SelectedIndex="0" Width="225"
+                    SelectionChanged="RandomTypeComboBox_SelectionChanged">
+            <x:String>Random between two colors</x:String>
+            <x:String>Random between three colors</x:String>
+            <x:String>Completely random</x:String>
+        </ComboBox>
+
+        <Frame x:Name="ColorGradientFrame" Grid.Row="3" Margin="0,10,0,0"/>
+    </Grid>
+</Page>

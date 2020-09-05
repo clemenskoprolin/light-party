@@ -1,0 +1,187 @@
+﻿<Page
+    x:Class="LightParty.Pages.Introduction.Explanations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.Introduction"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid x:Name="WelcomePage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Visible">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+
+            <Grid.Background>
+                <media:RadialGradientBrush RadiusX="1" RadiusY="1" 
+                                           Center="1,1" GradientOrigin="1,1">
+                    <GradientStop Color="#FF6B6B" Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Height="160" Width="160">
+                    <Image.Source>
+                        <SvgImageSource UriSource="/Assets/Icons/LightParty_logo.svg"
+                        RasterizePixelHeight="1000"
+                        RasterizePixelWidth="1000" />
+                    </Image.Source>
+                </Image>
+
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" FontSize="35" Margin="0,0,0,0" Text="Welcome to Light Party!"/>
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap"  FontSize="22" Margin="0,0,10,0"
+                               Text="A completely free and open source controller for Philips Hue lights!"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="LiveSyncPage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+            
+            <Grid.Background>
+                <media:RadialGradientBrush RadiusX="0.8" RadiusY="0.8" Center="0.5,1"
+                                           GradientOrigin="0.5,1">
+                    <GradientStop Color="#02ff20" Offset="0" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" MaxWidth="550"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="10,0,20,0" CornerRadius="3">
+                    <Image Source="/Assets/Screenshots/LightParty_PartyMode.jpg"/>
+                </Border>
+
+                <Grid Grid.Column="1" VerticalAlignment="Center" Margin="20,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="30" Margin="0,0,0,0" Text="Sync your lights to your music live!"/>
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="22" Margin="0,0,0,0"
+                               Text='Works with "White and Color" and "White Ambiance" bulbs, too.'/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="ControlMultiplyLightsPage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+            
+            <Grid.Background>
+                <media:RadialGradientBrush RadiusX="0.9" RadiusY="0.9" Center="0,1" GradientOrigin="0,1">
+                    <GradientStop Color="#ffed89" Offset="0" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*" MaxWidth="550"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" VerticalAlignment="Center" Margin="10,0,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="30" Margin="0,0,0,0" Text="Control multiply lights at once with a few clicks!"/>
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="22" Margin="0,0,0,0"
+                               Text='Just click on them and change the color.'/>
+                </Grid>
+
+                <Border Grid.Column="1" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="20,0,10,0" CornerRadius="3">
+                    <Image Source="/Assets/Screenshots/LightParty_BasicLightActions_dual_light.jpg"/>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="DarkModePage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed">
+            <Grid.TranslationTransition>
+                <Vector3Transition />
+            </Grid.TranslationTransition>
+            
+            <Grid.Background>
+                <media:RadialGradientBrush RadiusX="1" RadiusY="1" Center="1,0" GradientOrigin="1,0">
+                    <GradientStop Color="#00e1ff" Offset="0" />
+                    <GradientStop Color="Transparent" Offset="1" />
+                </media:RadialGradientBrush>
+            </Grid.Background>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" MaxWidth="550"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="10,0,20,0" >
+                    <Image Source="/Assets/Screenshots/LightParty_BasicLightActions_single_light.jpg"/>
+                </Border>
+
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="10,0,20,0" CornerRadius="3">
+                    <Image x:Name="LightActionsDarkImage" Opacity="0" Source="/Assets/Screenshots/LightParty_BasicLightActions_single_dark.jpg">
+                        <Image.OpacityTransition>
+                            <ScalarTransition Duration="0:0:0.8"/>
+                        </Image.OpacityTransition>
+                    </Image>
+                </Border>
+
+                <Grid Grid.Column="1" VerticalAlignment="Center" Margin="20,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="30" Margin="0,0,0,0" Text="Full dark mode support!"/>
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="22" Margin="0,0,0,0"
+                               Text="So that you don't go blind in the night."/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="PreviousButton" Grid.Column="0" Height="50" Width="50" Margin="0,0,10,0" IsEnabled="False" Click="PreviousButton_Click">
+                <Button.Content>
+                    <SymbolIcon Symbol="Previous" />
+                </Button.Content>
+            </Button>
+            <Button x:Name="NextButton" Grid.Column="1" Height="50" Width="50" Margin="10,0,0,0" Click="NextButton_Click">
+                <Button.Content>
+                    <SymbolIcon Symbol="Next" />
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

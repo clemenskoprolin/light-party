@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="LightParty.Pages.BridgeConfiguration.FindBridge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.BridgeConfiguration"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <muxc:ProgressBar IsIndeterminate="True"/>
+
+        <TextBlock Margin="0,5,0,0" Grid.Row="1" Style="{StaticResource MainHeading}" 
+                   Text="Searching for your Philips Hue Bridge..."/>
+
+        <Grid Grid.Row="2" Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon Grid.Column="0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE839;"/>
+            <TextBlock Grid.Column="1" Margin="7,0,0,0" Style="{StaticResource Information}" VerticalAlignment="Center" TextWrapping="Wrap"
+                    Text="Please make sure that your Bridge is in the same network as your computer. Once you see the IP address of your Bridge, just click on it!"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="AvailableBridgeButtonsGrid">
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MaxWidth="500"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <SymbolIcon Symbol="Edit" Grid.Column="0"/>
+            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Margin="10,0,0,0" 
+                       Style="{StaticResource MediumInformation}" Grid.Column="1" 
+                       Text="Enter the IP adress manually" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="ManualIPInput" Grid.Column="2" Padding="12" TextWrapping="Wrap"
+                     FontSize="26" TextAlignment="Center" Text="192.168.000.00"
+                     TextChanged="ManualIPInput_TextChanged" 
+                     BorderBrush="Transparent" FocusVisualSecondaryBrush="Transparent"
+                     Background="Transparent" SelectionHighlightColorWhenNotFocused="Transparent"/>
+            <Button x:Name="ManualIPInputAcceptButton" Grid.Column="3"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Click="ManualIPInputAcceptButton_Click" Background="#00FFFFFF">
+                <SymbolIcon Symbol="Accept"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

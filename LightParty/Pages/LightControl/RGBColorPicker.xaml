@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="LightParty.Pages.LightControl.RGBColorPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightParty.Pages.LightControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox HorizontalAlignment="Left" Grid.Row="0" Height="235" Width="235" Stretch="Fill">
+            <ColorPicker x:Name="RGBColorRingPicker" Height="320" Width="320" ColorSpectrumShape="Ring" IsEnabled="False"
+                            IsColorChannelTextInputVisible="False" IsColorPreviewVisible="False" IsHexInputVisible="False"
+                            IsColorSliderVisible="False" ColorChanged="RGBColorRingPicker_ColorChange"/>
+        </Viewbox>
+        <ColorPicker x:Name="RGBColorPickerHex" Grid.Row="1" Margin="55,0,0,0" HorizontalAlignment="Left" IsColorChannelTextInputVisible="False" IsEnabled="False"
+                     IsColorPreviewVisible="False" IsColorSliderVisible="False" IsColorSpectrumVisible="False" ColorChanged="RGBColorPickerHex_ColorChanged"/>
+    </Grid>
+</Page>
