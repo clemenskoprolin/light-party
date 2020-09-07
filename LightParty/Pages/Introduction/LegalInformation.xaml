@@ -134,7 +134,7 @@
                     </TextBlock>
                     <TextBlock Grid.Row="15" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
                         The application Light Party is open source on 
-                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin">GitHub</Hyperlink>.
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party">GitHub</Hyperlink>.
                         Therefore, it uses the GNU Affero General Public License v3.0.
                     </TextBlock>
                     <TextBlock Grid.Row="16" Style="{StaticResource Paragraph}" TextWrapping="Wrap">

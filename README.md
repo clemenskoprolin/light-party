@@ -22,7 +22,7 @@ You can always download the newest stable version of Light Party from the [Micro
 - ~~Release of version 1.0.0~~
 - Many, many, many bug fixes
 - Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
-- Support for internal audio in Party Mode
+- More fluent design (e.g. in the navigation view and titel bar)!
 
 ### I found a bug (or have a feature request)!
 There two ways to get in contact. Firstly, you can [directly contact me](https://clemenskoprolin.com/contactme/) e.g. per email or you can [open an issue on GitHub](https://github.com/clemenskoprolin/light-party/issues).
