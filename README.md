@@ -7,7 +7,7 @@ Light Party is a controller for Philips Hue lights available for Windows 10. Its
 [<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_4_english.png" alt="Clean and modern interface.">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_4_english.png)
 
 [<img width="180" src="https://clemenskoprolin.com/lightparty/images/sharing/website.svg" alt="Website">](https://clemenskoprolin.com/lightparty/)
-[<img width="180" src="https://clemenskoprolin.com/lightparty/images/logos/GetItFromMicrosoftStore/GetItFromMircosoftStore_eng.svg" alt="Get this app from Microsoft Store">](http://www.microsoft.com/en-us/store/apps/windows)
+[<img width="180" src="https://clemenskoprolin.com/lightparty/images/logos/GetItFromMicrosoftStore/GetItFromMircosoftStore_eng.svg" alt="Get this app from Microsoft Store">](https://www.microsoft.com/en-us/p/light-party/9n5kgbnczrj4)
 
 The application is written with the Universal Windows Platform in C# and with the help of some amazing tools:
 - [Q42.HueApi](https://github.com/Q42/Q42.HueApi) by Q42 - Copyright (C) 2013 Q42 - [MIT License](https://github.com/Q42/Q42.HueApi/blob/master/LICENSE.txt)
@@ -19,9 +19,10 @@ The application is written with the Universal Windows Platform in C# and with th
 You can always download the newest stable version of Light Party from the [Microsoft Store](http://www.microsoft.com/en-us/store/apps/windows). As an alternative you are also able to [download the latest releases manually](https://github.com/clemenskoprolin/light-party/releases).
 
 ### Roadmap
-- Release of version 1.0.0
+- ~~Release of version 1.0.0~~
 - Many, many, many bug fixes
 - Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
+- Support for internal audio in Party Mode
 
 ### I found a bug (or have a feature request)!
 There two ways to get in contact. Firstly, you can [directly contact me](https://clemenskoprolin.com/contactme/) e.g. per email or you can [open an issue on GitHub](https://github.com/clemenskoprolin/light-party/issues).
