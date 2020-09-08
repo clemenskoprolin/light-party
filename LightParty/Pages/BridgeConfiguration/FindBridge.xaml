@@ -19,7 +19,7 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <muxc:ProgressBar IsIndeterminate="True"/>
+        <muxc:ProgressBar Grid.Row="0" IsIndeterminate="True"/>
 
         <TextBlock Margin="0,5,0,0" Grid.Row="1" Style="{StaticResource MainHeading}" 
                    Text="Searching for your Philips Hue Bridge..."/>

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LightParty")]
-[assembly: AssemblyDescription("Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source.")]
+[assembly: AssemblyDescription("Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiple Philips Hue lights with just a few clicks, too. The application is also completely free and open source.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LightParty")]

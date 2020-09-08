@@ -35,7 +35,7 @@
         DisplayName="Light Party"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source."
+        Description="Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiple Philips Hue lights with just a few clicks, too. The application is also completely free and open source."
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

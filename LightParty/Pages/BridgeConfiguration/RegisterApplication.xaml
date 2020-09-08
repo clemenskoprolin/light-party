@@ -7,19 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Loaded="Page_Loaded">
+    Loaded="Page_Loaded"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}" 
+
+        <muxc:ProgressBar Grid.Row="0" IsIndeterminate="True"/>
+
+        <TextBlock Grid.Row="1" Style="{StaticResource MainHeading}" 
             Text="Register Application"/>
-        <Grid Grid.Row="1" Height="100">
+        
+        <Grid Grid.Row="2" Height="100">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -82,14 +87,9 @@
                 </Canvas>
             </Viewbox>
 
-            <Button x:Name="ProceedButton" Grid.Column="1"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                Click="ProceedButton_Click" Background="#00FFFFFF">
-                <SymbolIcon Symbol="Accept"/>
-            </Button>
-            <TextBlock x:Name="BridgeInformation" Grid.Column="2"
+            <TextBlock x:Name="BridgeInformation" Grid.Column="1"
                     VerticalAlignment="Center" TextWrapping="Wrap" Margin="7,0,8,0" Style="{StaticResource MediumInformation}" 
-                    Text="Push the button in the center of your Philips Hue Bridge and then click on the check mark in order to proceed."/>
+                    Text="Push the button in the center of your Philips Hue Bridge, so that this application can register itself."/>
         </Grid>
     </Grid>
 </Page>

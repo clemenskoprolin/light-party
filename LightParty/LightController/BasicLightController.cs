@@ -18,7 +18,7 @@ namespace LightParty.LightController
     class BasicLightController
     {
         public static bool canControl = false; // Determines, whether  a command can be send or not.
-        private static LightCommand commonLightCommand = new LightCommand(); // Used to store a light command to which multiply attitudes will be added.
+        private static LightCommand commonLightCommand = new LightCommand(); // Used to store a light command to which multiple attitudes will be added.
 
         #region light selection
 
