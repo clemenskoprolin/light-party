@@ -75,7 +75,7 @@
                         <ColumnDefinition MaxWidth="600"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
+                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}" Margin="0,10,0,0"
                        Text="License and Privacy Policy"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource ParagraphHeading}"
                                Text="Privacy Policy Summary"/>
@@ -201,7 +201,7 @@
                         <ColumnDefinition MaxWidth="600"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
+                    <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}" Margin="0,10,0,0"
                                Text="Telemetry"/>
                     <TextBlock Grid.Row="1" Style="{StaticResource ParagraphHeading}" TextWrapping="Wrap"
                                Text="Which data is sent by Light Party, when telemetry is enabled?"/>

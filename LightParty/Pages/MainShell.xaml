@@ -50,7 +50,7 @@
             </NavigationView.MenuItems>
 
             <Grid>
-                <Frame x:Name="MainFrame" Margin="20,0,0,0"/>
+                <Frame x:Name="MainFrame" Margin="20,10,0,0"/>
 
                 <Rectangle x:Name="BlackOverlay" Fill="#4C000000" Visibility="Collapsed" Opacity="0">
                     <Rectangle.OpacityTransition>
