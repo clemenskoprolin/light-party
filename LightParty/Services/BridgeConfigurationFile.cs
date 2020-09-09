@@ -30,10 +30,17 @@ namespace LightParty.Services
         /// <returns>Whether or not the file exists</returns>
         public static async Task<bool> CheckForBridgeConfiguration()
         {
-            var item = await storageFolder.TryGetItemAsync(bridgeConfigurationFileName);
+            try
+            {
+                var item = await storageFolder.TryGetItemAsync(bridgeConfigurationFileName);
 
-            bool result = item != null;
-            return result;
+                bool result = item != null;
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

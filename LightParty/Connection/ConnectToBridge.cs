@@ -149,12 +149,41 @@ namespace LightParty.Connection
 
             try
             {
-                appKey = await BridgeInformation.client.RegisterAsync("LightParty", Environment.MachineName);
-                return true;
+                appKey = await BridgeInformation.client.RegisterAsync("LightParty", GetDeviceName());
+                SaveNewAppKey(appKey);
+
+                if (await BridgeInformation.client.CheckConnection())
+                    BridgeInformation.isConnected = true;
+
+                return BridgeInformation.isConnected;
             }
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the device name which is used to register the device at the Bridge.
+        /// </summary>
+        /// <returns>The device name which is used to register the device at the Bridge</returns>
+        private static string GetDeviceName()
+        {
+            string deviceName = Environment.MachineName.Trim();
+            deviceName = deviceName.Replace(" ", "");
+
+            if (deviceName.Length > 15)
+            {
+                deviceName = deviceName.Substring(0, 15);
+            }
+
+            if (deviceName.Length > 0)
+            {
+                return deviceName;
+            }
+            else
+            {
+                return "Windows10Device";
             }
         }
 

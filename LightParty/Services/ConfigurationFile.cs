@@ -26,10 +26,17 @@ namespace LightParty.Services
         /// <returns>Whether or not the file exists</returns>
         public static async Task<bool> CheckForConfiguration()
         {
-            var item = await storageFolder.TryGetItemAsync(configurationFileName);
+            try
+            {
+                var item = await storageFolder.TryGetItemAsync(configurationFileName);
 
-            bool result = item != null;
-            return result;
+                bool result = item != null;
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

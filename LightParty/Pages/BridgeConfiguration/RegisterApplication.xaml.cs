@@ -75,12 +75,9 @@ namespace LightParty.Pages.BridgeConfiguration
             {
                 if (await ConnectToBridge.RegisterApplication())
                 {
-                    if (await ConnectToBridge.InitializeKey())
-                    {
-                        Connection.BridgeInformation.redirectToLightControl = false;
-                        Frame.Navigate(typeof(BridgeConfig));
-                        break;
-                    }
+                    Connection.BridgeInformation.redirectToLightControl = false;
+                    Frame.Navigate(typeof(BridgeConfig));
+                    break;
                 }
 
                 await Task.Delay(5000);
