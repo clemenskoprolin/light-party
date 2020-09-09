@@ -10,11 +10,35 @@
     Loaded="Page_Loaded">
 
     <Grid x:Name="LayoutRoot">
-        <Frame x:Name="FullScreenFrame" Visibility="Collapsed"/>
+        <Grid.Resources>
+            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8"/>
+            <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8"/>
+        </Grid.Resources>
 
-        <NavigationView x:Name="MainNav" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Grid.Row="0">
+            <Grid.Background>
+                <AcrylicBrush BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.95"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="1" Text="Light Party" Style="{StaticResource CaptionTextBlockStyle}" Margin="14,8,0,0"/>
+        </Grid>
+
+        <Frame x:Name="FullScreenFrame" Grid.Row="1" Visibility="Collapsed"/>
+
+        <NavigationView x:Name="MainNav" Grid.Row="1" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed"
                         ItemInvoked="MainNav_ItemInvoked">
-            
+
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
                 <NavigationViewItem x:Name="BasicLightActionMenuItem" Content="Basic Light Actions" Tag="1">
@@ -27,7 +51,7 @@
 
             <Grid>
                 <Frame x:Name="MainFrame" Margin="20,0,0,0"/>
-                
+
                 <Rectangle x:Name="BlackOverlay" Fill="#4C000000" Visibility="Collapsed" Opacity="0">
                     <Rectangle.OpacityTransition>
                         <ScalarTransition />

@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.System;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.ViewManagement;
+using Windows.UI;
+using Windows.ApplicationModel.Core;
 using LightParty.Pages;
 using LightParty.Services;
 
@@ -89,10 +92,12 @@ namespace LightParty.Pages
         #region Application configuration
 
         /// <summary>
-        /// Configure the application by checking, reading and writing the configuration files.
+        /// Configure the application by setting up the titel bar and checking, reading and writing the configuration files.
         /// </summary>
         private async Task ConfigureApp()
         {
+            TitelBarSetup();
+
             if (await BridgeConfigurationFile.CheckForBridgeConfiguration())
             {
                 if (!await BridgeConfigurationFile.ReadBridgeConfigurationFile())
@@ -116,6 +121,24 @@ namespace LightParty.Pages
             {
                 await ConfigurationFile.CreateConfiguration();
             }
+        }
+
+        /// <summary>
+        /// Applies AppTitleBar and sets the colors of the title bar buttons according to the current theme. Thank you SFM61319 (https://github.com/SFM61319) for the idea!
+        /// </summary>
+        public void TitelBarSetup()
+        {
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            Window.Current.SetTitleBar(AppTitleBar);
+
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            titleBar.ButtonForegroundColor = (Color?)Resources["SystemBaseHighColor"];
+            titleBar.ButtonHoverBackgroundColor = (Color?)Resources["SystemBaseLowColor"];
+            titleBar.ButtonHoverForegroundColor = (Color?)Resources["SystemBaseHighColor"];
         }
 
         /// <summary>

@@ -144,6 +144,7 @@ namespace LightParty.Connection
             if (BridgeInformation.demoMode)
             {
                 appKey = "demo-mode";
+                BridgeInformation.isConnected = true;
                 return true;
             }
 
