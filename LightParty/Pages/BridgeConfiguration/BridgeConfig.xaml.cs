@@ -41,10 +41,10 @@ namespace LightParty.Pages.BridgeConfiguration
             Frame mainShellFrame = Window.Current.Content as Frame;
             mainShell = mainShellFrame.Content as MainShell;
 
-            _ = PassOn();
+            PassOn();
         }
 
-        private async Task PassOn()
+        private void PassOn()
         {
             if (!TelemetryService.HasTelemetryConfig() || (BridgeInformation.demoMode && !BridgeInformation.showedDemoModeIntroduction))
             {
@@ -77,7 +77,7 @@ namespace LightParty.Pages.BridgeConfiguration
 
             if (!BridgeInformation.isConnected && !BridgeInformation.demoMode)
             {
-                if (await ConnectToSavedBridge())
+                if (ConnectToSavedBridge())
                 {
                     _ = TelemetryService.SendTelemetryReport();
                     mainShell.userCanUseNav = true;
@@ -96,11 +96,11 @@ namespace LightParty.Pages.BridgeConfiguration
             }
         }
 
-        private async Task<bool> ConnectToSavedBridge()
+        private bool ConnectToSavedBridge()
         {
             if (ConnectToBridge.SelectBridgeWithSavedIPAddress())
             {
-                if (await ConnectToBridge.InitializeKey())
+                if (ConnectToBridge.InitializeKey())
                 {
                     return true;
                 }

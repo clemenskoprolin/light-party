@@ -144,6 +144,8 @@ namespace LightParty.Connection
             if (BridgeInformation.demoMode)
             {
                 appKey = "demo-mode";
+                SaveNewAppKey(appKey);
+
                 BridgeInformation.isConnected = true;
                 return true;
             }
@@ -153,6 +155,7 @@ namespace LightParty.Connection
                 appKey = await BridgeInformation.client.RegisterAsync("LightParty", GetDeviceName());
                 SaveNewAppKey(appKey);
 
+                BridgeInformation.isConnected = true;
                 return true;
             }
             catch
@@ -208,6 +211,8 @@ namespace LightParty.Connection
             if (BridgeInformation.demoMode)
             {
                 BridgeInformation.isConnected = true;
+                SaveNewAppKey(appKey);
+
                 return true;
             }
 
@@ -219,6 +224,7 @@ namespace LightParty.Connection
                 BridgeInformation.client.Initialize(appKey);
                 SaveNewAppKey(appKey);
 
+                BridgeInformation.isConnected = true;
                 return true;
             }
             catch
