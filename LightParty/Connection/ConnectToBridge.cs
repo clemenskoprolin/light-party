@@ -153,10 +153,7 @@ namespace LightParty.Connection
                 appKey = await BridgeInformation.client.RegisterAsync("LightParty", GetDeviceName());
                 SaveNewAppKey(appKey);
 
-                if (await BridgeInformation.client.CheckConnection())
-                    BridgeInformation.isConnected = true;
-
-                return BridgeInformation.isConnected;
+                return true;
             }
             catch
             {
@@ -206,7 +203,7 @@ namespace LightParty.Connection
         /// Trys to initialize the app key.
         /// </summary>
         /// <returns>Whether or not the initialization was successful</returns>
-        public static async Task<bool> InitializeKey()
+        public static bool InitializeKey()
         {
             if (BridgeInformation.demoMode)
             {
@@ -217,13 +214,17 @@ namespace LightParty.Connection
             if (appKey == "")
                 return false;
 
-            BridgeInformation.client.Initialize(appKey);
-            SaveNewAppKey(appKey);
+            try
+            {
+                BridgeInformation.client.Initialize(appKey);
+                SaveNewAppKey(appKey);
 
-            if (await BridgeInformation.client.CheckConnection())
-                BridgeInformation.isConnected = true;
-
-            return BridgeInformation.isConnected;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
