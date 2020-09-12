@@ -59,5 +59,8 @@
                 </Rectangle>
             </Grid>
         </NavigationView>
+
+        <TextBlock x:Name="DebugLogNotice" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="Collapsed"
+                   TextWrapping="Wrap" Text="DebugLog is activated. Path to file: " />
     </Grid> 
 </Page>

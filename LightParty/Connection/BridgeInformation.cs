@@ -12,6 +12,8 @@ namespace LightParty.Connection
     /// </summary>
     class BridgeInformation
     {
+        public static bool useDebugLog = false; //When set to true, the application will create a log file which can be handy while debugging without Visual Studio.
+                                                //Open Services.DebugLog for more information.
         public static bool demoMode = false; //Determines if the demo mode is on or not.
         // In the demo mode the application doen't need a real bridge or complatitable ligths, because it it simulates them.
         // This mode should only be used for testing purpuses!

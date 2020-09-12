@@ -92,10 +92,11 @@ namespace LightParty.Pages
         #region Application configuration
 
         /// <summary>
-        /// Configure the application by setting up the titel bar and checking, reading and writing the configuration files.
+        /// Configure the application by setting up the DebugLog, the titel bar and checking, reading and writing the configuration files.
         /// </summary>
         private async Task ConfigureApp()
         {
+            DebugLogSetup();
             TitelBarSetup();
 
             if (await BridgeConfigurationFile.CheckForBridgeConfiguration())
@@ -120,6 +121,23 @@ namespace LightParty.Pages
             else
             {
                 await ConfigurationFile.CreateConfiguration();
+            }
+        }
+
+        /// <summary>
+        /// If Connection.BridgeInformation.useDebugLog is true, the DebugLog will be created and the user will be notified of the path to the file by the DebugLogNotice.
+        /// </summary>
+        private void DebugLogSetup()
+        {
+            DebugLogNotice.Visibility = Connection.BridgeInformation.useDebugLog ? Visibility.Visible : Visibility.Collapsed;
+
+            if (Connection.BridgeInformation.useDebugLog)
+            {
+                string pathDebugLog = DebugLog.CreateDebugLog();
+                DebugLogNotice.Text += pathDebugLog;
+
+                DebugLog.WriteToLog("Path to DebugLog: " + pathDebugLog, 0);
+                DebugLog.WriteToLog("MainShell launched.", 0);
             }
         }
 

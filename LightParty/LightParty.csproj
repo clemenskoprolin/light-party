@@ -210,6 +210,7 @@
     <Compile Include="Services\ColorAssistant.cs" />
     <Compile Include="Services\ConfigurationFile.cs" />
     <Compile Include="Services\CryptographyAssistant.cs" />
+    <Compile Include="Services\DebugLog.cs" />
     <Compile Include="Services\InternetRequests.cs" />
     <Compile Include="Services\Permissons.cs" />
     <Compile Include="Services\TelemetryService.cs" />
