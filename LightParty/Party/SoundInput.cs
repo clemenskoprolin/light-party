@@ -216,7 +216,7 @@ namespace LightParty.Party
                 double soundLevel = CalculateAverage(rawLevel);
 
                 LightProcessingSoundInput.NewSoundLevel(soundLevel);
-                PartyUIUpdater.NewSoundLevel(soundLevel);
+                PartyUIUpdaterAdvanced.NewSoundLevel(soundLevel);
             }
         }
 

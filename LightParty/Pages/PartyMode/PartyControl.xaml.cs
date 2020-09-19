@@ -22,8 +22,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace LightParty.Pages.PartyMode
 {
     /// <summary>
@@ -35,7 +33,6 @@ namespace LightParty.Pages.PartyMode
         SoundInput soundInput = new SoundInput();
         LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
 
-        dynamic colorOption;
         bool canSelect = false;
 
         dynamic colorPickerSource;
@@ -54,112 +51,7 @@ namespace LightParty.Pages.PartyMode
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
 
-            BrightnessOptionComboBox.SelectedIndex = PartyOptions.brightnessOptionIndex;
-            ColorOptionComboBox.SelectedIndex = PartyOptions.colorOptionIndex;
-            NavigateToBrighnessOption(PartyOptions.brightnessOptionIndex);
-            NavigateToColorOption(PartyOptions.colorOptionIndex);
-
             canSelect = true;
-            BasicLightController.canControl = true;
-
-            PartyUIUpdater.GiveVariablesOutput(this);
-        }
-
-        public void LightSelectionChanged()
-        {
-            colorOption.LightSelectionChanged();
-
-            if (!LightInformation.CheckIfTurnedOn())
-            {
-                BasicLightController.TurnOn();
-            }
-        }
-
-        //Brightness
-
-        private void BrightnessOptionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (canSelect)
-                NavigateToBrighnessOption(BrightnessOptionComboBox.SelectedIndex);
-        }
-
-        private void NavigateToBrighnessOption(int index)
-        {
-            PartyOptions.brightnessOptionIndex = index;
-
-            switch (index)
-            {
-                case 0:
-                    BrightnessOptionFrame.Visibility = Visibility.Visible;
-                    BrightnessOptionFrame.Navigate(typeof(MicrophoneBrightnessOptions));
-                    break;
-                case 1:
-                    BrightnessOptionFrame.Visibility = Visibility.Visible;
-                    BrightnessOptionFrame.Navigate(typeof(RandomBrightnessOption));
-                    break;
-                case 2:
-                    BrightnessOptionFrame.Visibility = Visibility.Collapsed;
-                    break;
-            }
-
-            if (CheckIfSoundInputIsUsed())
-                SelectedMircophoneInput();
-            else
-                UnselectedMircrophoneInput();
-
-            if (CheckIfRandomIsUsed())
-                SelectedRandom();
-            else
-                UnselectedRandom();
-        }
-
-        private void ColorOptionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (canSelect)
-                NavigateToColorOption(ColorOptionComboBox.SelectedIndex);
-        }
-
-        //Color
-
-        private void NavigateToColorOption(int index)
-        {
-            PartyOptions.colorOptionIndex = index;
-
-            switch (index)
-            {
-                case 0:
-                    ColorOptionFrame.Visibility = Visibility.Visible;
-                    ColorOptionFrame.Navigate(typeof(MicrophoneColorOption));
-
-                    ((MicrophoneColorOption)ColorOptionFrame.Content).GiveVariables(this);
-                    break;
-                case 1:
-                    ColorOptionFrame.Visibility = Visibility.Visible;
-                    ColorOptionFrame.Navigate(typeof(MicrophoneDifferenceColorOption));
-
-                    ((MicrophoneDifferenceColorOption)ColorOptionFrame.Content).GiveVariables(this);
-                    break;
-                case 2:
-                    ColorOptionFrame.Visibility = Visibility.Visible;
-                    ColorOptionFrame.Navigate(typeof(RandomColorOption));
-                    ((RandomColorOption)ColorOptionFrame.Content).GiveVariables(this);
-                    break;
-                case 3:
-                    ColorOptionFrame.Visibility = Visibility.Collapsed;
-                    break;
-            }
-
-            if (CheckIfSoundInputIsUsed())
-                SelectedMircophoneInput();
-            else
-                UnselectedMircrophoneInput();
-
-            if (CheckIfRandomIsUsed())
-                SelectedRandom();
-            else
-                UnselectedRandom();
-
-            colorOption = Convert.ChangeType(ColorOptionFrame.Content, ColorOptionFrame.CurrentSourcePageType);
         }
 
         public void OpenColorRGBPickerPopup<T>(Color defaultColor, T source, int idOnReturn)
@@ -227,95 +119,7 @@ namespace LightParty.Pages.PartyMode
 
         public void StopActiveProcesses()
         {
-            StopMircophoneInput();
-            UnselectedRandom();
-        }
-
-        //mircophone input
-
-        private async void SelectedMircophoneInput()
-        {
-            GiveMicrophoneInputSlidersVariables();
-            await StartMircophoneInput();
-        }
-
-        private void UnselectedMircrophoneInput()
-        {
-            if (!CheckIfSoundInputIsUsed())
-            {
-                StopMircophoneInput();
-            }
-
-            GiveMicrophoneInputSlidersVariables();
-        }
-
-        private async Task StartMircophoneInput()
-        {
-            if (!SoundInput.isListing && !SoundInput.isCreating)
-            {
-                SoundInput.stopOnCreation = false;
-                await SoundInput.StartInput();
-            }
-        }
-
-        public void StopMircophoneInput()
-        {
-            if (SoundInput.isCreating)
-            {
-                SoundInput.stopOnCreation = true;
-            }
-
-            if (SoundInput.isListing && !SoundInput.isCreating)
-            {
-                _ = SoundInput.StopInput();
-            }
-        }
-
-        private void GiveMicrophoneInputSlidersVariables()
-        {
-            MicrophoneBrightnessOptions brightnessOption = BrightnessOptionFrame.Content as MicrophoneBrightnessOptions;
-            MicrophoneColorOption colorOption = ColorOptionFrame.Content as MicrophoneColorOption;
-
-            PartyUIUpdater.GiveVariablesSlider<MicrophoneBrightnessOptions, MicrophoneColorOption>(brightnessOption, colorOption);
-        }
-
-        private bool CheckIfSoundInputIsUsed()
-        {
-            bool isUsed = PartyOptions.brightnessOptionIndex == 0 || PartyOptions.colorOptionIndex == 0 || PartyOptions.colorOptionIndex == 1;
-            return isUsed;
-        }
-
-        //random
-
-        private void SelectedRandom()
-        {
-            if (!LightProcessingRandom.isUpdating)
-                LightProcessingRandom.StartUpdates();
-
-            RandomBrightnessOption randomBrightnessOption = BrightnessOptionFrame.Content as RandomBrightnessOption;
-            RandomColorOption randomColorOption = ColorOptionFrame.Content as RandomColorOption;
-            PartyUIUpdater.GiveVariablesInterval<RandomBrightnessOption, RandomColorOption>(randomBrightnessOption, randomColorOption);
-        }
-
-        private void UnselectedRandom()
-        {
-            LightProcessingRandom.StopUpdates();
-        }
-
-        private bool CheckIfRandomIsUsed()
-        {
-            return PartyOptions.brightnessOptionIndex == 1 || PartyOptions.colorOptionIndex == 2;
-        }
-
-        //Output Display
-
-        public void UpdateOutputDisplay(int? brightness, Color? color)
-        {
-            if (brightness != null)
-                BrightnessOutput.Value = Convert.ToDouble(brightness);
-
-            if (color != null)
-                ColorOutput.Color = (Color)color;
+            //TODO
         }
     }
 }

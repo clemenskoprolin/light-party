@@ -19,14 +19,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MicrophoneColorOption : Page
     {
-        PartyControl partyControl;
+        PartyControlAdvanced partyControlAdvanced;
         dynamic colorGradient;
 
         bool canSelect = false;
@@ -36,9 +36,9 @@ namespace LightParty.Pages.PartyMode
             this.InitializeComponent();
         }
 
-        public void GiveVariables(PartyControl newPartyControl)
+        public void GiveVariables(PartyControlAdvanced newPartyControlAdvanced)
         {
-            partyControl = newPartyControl;
+            partyControlAdvanced = newPartyControlAdvanced;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace LightParty.Pages.PartyMode
             colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
             LightProcessingColor lightProcessingColor = new LightProcessingColor();
-            colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
+            colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
         }
 
         public void SetMircophoneInputSlider(double newValue)

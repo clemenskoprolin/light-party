@@ -20,14 +20,14 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MicrophoneDifferenceColorOption : Page
     {
-        PartyControl partyControl;
+        PartyControlAdvanced partyControlAdvanced;
         dynamic colorGradient;
 
         bool canSelect = false;
@@ -42,12 +42,12 @@ namespace LightParty.Pages.PartyMode
             NavigateToRandomType(0);
             canSelect = true;
 
-            PartyUIUpdater.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
+            PartyUIUpdaterAdvanced.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
         }
 
-        public void GiveVariables(PartyControl newPartyControl)
+        public void GiveVariables(PartyControlAdvanced newPartyControlAdvanced)
         {
-            partyControl = newPartyControl;
+            partyControlAdvanced = newPartyControlAdvanced;
         }
 
         public void LightSelectionChanged()
@@ -87,7 +87,7 @@ namespace LightParty.Pages.PartyMode
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
                 LightProcessingColor lightProcessingColor = new LightProcessingColor();
-                colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
+                colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
 
                 colorGradient.UpdateInputs();
             }

@@ -23,12 +23,12 @@ namespace LightParty.Party
                 {
                     updateInterval = Convert.ToInt32(intervalInSeconds * 1000);
 
-                    PartyUIUpdater.NewRandomInterval(intervalInSeconds);
+                    PartyUIUpdaterAdvanced.NewRandomInterval(intervalInSeconds);
                     PartyOptions.randomInterval = intervalInSeconds;
                 }
             }
 
-            PartyUIUpdater.UpdateRandomIntervalTextBoxes();
+            PartyUIUpdaterAdvanced.UpdateRandomIntervalTextBoxes();
         }
 
         public static void StartUpdates()
@@ -74,7 +74,7 @@ namespace LightParty.Party
                 BasicLightController.SendCommonCommond();
 
             if (newBrightness != null || colorInformation.rgbColor != null || colorInformation.colorTemperature != null)
-                PartyUIUpdater.UpdateOutputDisplay(newBrightness, colorInformation.rgbColor, colorInformation.colorTemperature);
+                PartyUIUpdaterAdvanced.UpdateOutputDisplay(newBrightness, colorInformation.rgbColor, colorInformation.colorTemperature);
         }
 
         private static int? SetRandomBrightness()

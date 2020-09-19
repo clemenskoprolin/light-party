@@ -1,13 +1,13 @@
 ﻿<Page
-    x:Class="LightParty.Pages.PartyMode.RandomColorOption"
+    x:Class="LightParty.Pages.PartyMode.Advanced.RandomBrightnessOption"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LightParty.Pages.PartyMode"
+    xmlns:local="using:LightParty.Pages.PartyMode.Advanced"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Loaded="Page_Loaded">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,15 +15,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <ComboBox x:Name="RandomTypeComboBox" Grid.Row="0" SelectedIndex="0" Width="225"
-                      SelectionChanged="RandomTypeComboBox_SelectionChanged">
-            <x:String>Random between two colors</x:String>
-            <x:String>Random between three colors</x:String>
-            <x:String>Completely random</x:String>
-        </ComboBox>
 
-        <Frame x:Name="ColorGradientFrame" Grid.Row="1" Margin="0,10,0,0"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource Information}"
+                   Text="Select the range of the random brightness"/>
+        <controls:RangeSelector x:Name="RandomInputRangeSelector" VerticalAlignment="Center" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeMin="35" RangeMax="100"
+                                HorizontalAlignment="Left" ThumbDragCompleted="RandomInputRangeSelector_ThumbDragCompleted" Tapped="RandomInputRangeSelector_Tapped"/>
 
         <Grid Grid.Row="2" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
@@ -36,6 +32,7 @@
             <TextBox x:Name="RandomUpdateIntervalTextBox" Grid.Column="1" Margin="10,0,10,0" TextAlignment="Center"
                      Text="3" LostFocus="RandomUpdateIntervalTextBox_LostFocus" KeyDown="RandomUpdateIntervalTextBox_KeyDown"/>
             <TextBlock Grid.Column="2" Style="{StaticResource Information}" Text="Seconds" Margin="0,3.5,0,0"/>
+            
         </Grid>
     </Grid>
 </Page>
