@@ -172,12 +172,6 @@
     <Compile Include="Pages\MainShell.xaml.cs">
       <DependentUpon>MainShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\ColorGradientThree.xaml.cs">
-      <DependentUpon>ColorGradientThree.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PartyMode\ColorGradientTwo.xaml.cs">
-      <DependentUpon>ColorGradientTwo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\PartyMode\Extended\ColorGradientThree.xaml.cs">
       <DependentUpon>ColorGradientThree.xaml</DependentUpon>
     </Compile>
@@ -334,14 +328,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MainShell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PartyMode\ColorGradientThree.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PartyMode\ColorGradientTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
