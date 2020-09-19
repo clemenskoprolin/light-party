@@ -178,22 +178,22 @@
     <Compile Include="Pages\PartyMode\ColorGradientTwo.xaml.cs">
       <DependentUpon>ColorGradientTwo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneBrightnessOptions.xaml.cs">
+    <Compile Include="Pages\PartyMode\Extended\MicrophoneBrightnessOptions.xaml.cs">
       <DependentUpon>MicrophoneBrightnessOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Extended\MicrophoneColorOption.xaml.cs">
       <DependentUpon>MicrophoneColorOption.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneDifferenceColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Extended\MicrophoneDifferenceColorOption.xaml.cs">
       <DependentUpon>MicrophoneDifferenceColorOption.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PartyMode\PartyControl.xaml.cs">
       <DependentUpon>PartyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\RandomBrightnessOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Extended\RandomBrightnessOption.xaml.cs">
       <DependentUpon>RandomBrightnessOption.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\RandomColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Extended\RandomColorOption.xaml.cs">
       <DependentUpon>RandomColorOption.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\MainSettings.xaml.cs">
@@ -333,15 +333,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\MicrophoneBrightnessOptions.xaml">
+    <Page Include="Pages\PartyMode\Extended\MicrophoneBrightnessOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\MicrophoneColorOption.xaml">
+    <Page Include="Pages\PartyMode\Extended\MicrophoneColorOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\MicrophoneDifferenceColorOption.xaml">
+    <Page Include="Pages\PartyMode\Extended\MicrophoneDifferenceColorOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,11 +349,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\RandomBrightnessOption.xaml">
+    <Page Include="Pages\PartyMode\Extended\RandomBrightnessOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\RandomColorOption.xaml">
+    <Page Include="Pages\PartyMode\Extended\RandomColorOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -396,7 +396,9 @@
   <ItemGroup>
     <None Include="LightParty_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\PartyMode\Simple\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
