@@ -87,7 +87,7 @@ namespace LightParty.Pages.PartyMode.Advanced
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
                 LightProcessingColor lightProcessingColor = new LightProcessingColor();
-                colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
+                colorGradient.GiveVariables<PartyControlAdvanced, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
 
                 colorGradient.UpdateInputs();
             }

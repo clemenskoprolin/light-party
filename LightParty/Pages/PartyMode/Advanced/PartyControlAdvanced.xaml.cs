@@ -50,12 +50,8 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         public void LightSelectionChanged()
         {
-            colorOption.LightSelectionChanged();
-
-            if (!LightInformation.CheckIfTurnedOn())
-            {
-                BasicLightController.TurnOn();
-            }
+            if (colorOption != null)
+                colorOption.LightSelectionChanged();
         }
 
         //Brightness

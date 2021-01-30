@@ -26,5 +26,15 @@ namespace LightParty.Pages.PartyMode.Simple
         {
             this.InitializeComponent();
         }
+
+        public void LightSelectionChanged()
+        {
+
+        }
+
+        public void StopActiveProcesses()
+        {
+
+        }
     }
 }

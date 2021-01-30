@@ -1,5 +1,8 @@
 ﻿using LightParty.LightController;
+using LightParty.Pages.PartyMode;
 using LightParty.Pages.LightControl;
+using LightParty.Pages.PartyMode.Simple;
+using LightParty.Pages.PartyMode.Advanced;
 using LightParty.Party;
 using LightParty.Services;
 using System;
@@ -34,6 +37,7 @@ namespace LightParty.Pages.PartyMode
         LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
 
         bool canSelect = false;
+        dynamic partyOptionsFrameContent;
 
         dynamic colorPickerSource;
         int colorPickerSourceId;
@@ -51,8 +55,86 @@ namespace LightParty.Pages.PartyMode
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
 
+            SelectMenuItem("Simple");
+            NavigateToItem("Simple");
+
             canSelect = true;
         }
+
+        public void LightSelectionChanged()
+        {
+            partyOptionsFrameContent.LightSelectionChanged();
+
+            if (!LightInformation.CheckIfTurnedOn())
+            {
+                BasicLightController.TurnOn();
+            }
+        }
+
+        //PartyOptionsNav
+
+        private void PartyOptionsNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+             NavigateToItem(args.InvokedItem.ToString());
+        }
+
+        private void SelectMenuItem(string itemName)
+        {
+            foreach (NavigationViewItem item in PartyOptionsNav.MenuItems)
+            {
+                if (item.Content.ToString() == itemName)
+                {
+                    PartyOptionsNav.SelectedItem = item;
+                }
+            }
+        }
+
+        private void NavigateToItem(string itemName)
+        {
+            Type newPartyOption;
+            switch (itemName)
+            {
+                case "Simple":
+                    newPartyOption = typeof(PartyControlSimple);
+                    break;
+                case "Advanced":
+                    newPartyOption = typeof(PartyControlAdvanced);
+                    break;
+                default:
+                    newPartyOption = typeof(PartyControlSimple);
+                    break;
+            }
+
+            bool showAnimation = true;
+            if (PartyOptionsFrame.CurrentSourcePageType == newPartyOption)
+                showAnimation = false;
+
+            NavigateToPage(newPartyOption, showAnimation);
+            partyOptionsFrameContent = Convert.ChangeType(PartyOptionsFrame.Content, newPartyOption);
+            partyOptionsFrameContent.LightSelectionChanged();
+
+            /*switch (itemName)
+            {
+                case "Simple":
+                    //SetRGBColorPicker();
+                    break;
+                case "Advanced":
+                    //SetTemperatureColorPicker();
+                    break;
+                default:
+                    break;
+            }*/
+        }
+
+        public void NavigateToPage(Type pageType, bool showAnimation)
+        {
+            if (showAnimation)
+                PartyOptionsFrame.Navigate(pageType);
+            else
+                PartyOptionsFrame.Navigate(pageType, null, new SuppressNavigationTransitionInfo());
+        }
+
+        //Popup
 
         public void OpenColorRGBPickerPopup<T>(Color defaultColor, T source, int idOnReturn)
         {
@@ -119,7 +201,7 @@ namespace LightParty.Pages.PartyMode
 
         public void StopActiveProcesses()
         {
-            //TODO
+            partyOptionsFrameContent.StopActiveProcesses();
         }
     }
 }
