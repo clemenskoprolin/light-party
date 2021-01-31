@@ -29,6 +29,7 @@ namespace LightParty.Pages.PartyMode.Advanced
     /// </summary>
     public sealed partial class PartyControlAdvanced : Page
     {
+        PartyControl partyControl;
         dynamic colorOption;
         bool canSelect = false;
 
@@ -46,6 +47,11 @@ namespace LightParty.Pages.PartyMode.Advanced
 
             canSelect = true;
             PartyUIUpdaterAdvanced.GiveVariablesOutput(this);
+        }
+
+        public void GiveVariables(PartyControl newPartyControl)
+        {
+            partyControl = newPartyControl;
         }
 
         public void LightSelectionChanged()
@@ -110,18 +116,18 @@ namespace LightParty.Pages.PartyMode.Advanced
                     ColorOptionFrame.Visibility = Visibility.Visible;
                     ColorOptionFrame.Navigate(typeof(MicrophoneColorOption));
 
-                    ((MicrophoneColorOption)ColorOptionFrame.Content).GiveVariables(this);
+                    ((MicrophoneColorOption)ColorOptionFrame.Content).GiveVariables(partyControl);
                     break;
                 case 1:
                     ColorOptionFrame.Visibility = Visibility.Visible;
                     ColorOptionFrame.Navigate(typeof(MicrophoneDifferenceColorOption));
 
-                    ((MicrophoneDifferenceColorOption)ColorOptionFrame.Content).GiveVariables(this);
+                    ((MicrophoneDifferenceColorOption)ColorOptionFrame.Content).GiveVariables(partyControl);
                     break;
                 case 2:
                     ColorOptionFrame.Visibility = Visibility.Visible;
                     ColorOptionFrame.Navigate(typeof(RandomColorOption));
-                    ((RandomColorOption)ColorOptionFrame.Content).GiveVariables(this);
+                    ((RandomColorOption)ColorOptionFrame.Content).GiveVariables(partyControl);
                     break;
                 case 3:
                     ColorOptionFrame.Visibility = Visibility.Collapsed;

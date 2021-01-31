@@ -26,7 +26,7 @@ namespace LightParty.Pages.PartyMode.Advanced
     /// </summary>
     public sealed partial class MicrophoneColorOption : Page
     {
-        PartyControlAdvanced partyControlAdvanced;
+        PartyControl partyControl;
         dynamic colorGradient;
 
         bool canSelect = false;
@@ -36,9 +36,9 @@ namespace LightParty.Pages.PartyMode.Advanced
             this.InitializeComponent();
         }
 
-        public void GiveVariables(PartyControlAdvanced newPartyControlAdvanced)
+        public void GiveVariables(PartyControl newPartyControl)
         {
-            partyControlAdvanced = newPartyControlAdvanced;
+            partyControl = newPartyControl;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
             LightProcessingColor lightProcessingColor = new LightProcessingColor();
-            colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
+            colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
         }
 
         public void SetMircophoneInputSlider(double newValue)

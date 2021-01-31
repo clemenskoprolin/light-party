@@ -113,6 +113,8 @@ namespace LightParty.Pages.PartyMode
             partyOptionsFrameContent = Convert.ChangeType(PartyOptionsFrame.Content, newPartyOption);
             partyOptionsFrameContent.LightSelectionChanged();
 
+            partyOptionsFrameContent.GiveVariables(this);
+
             /*switch (itemName)
             {
                 case "Simple":

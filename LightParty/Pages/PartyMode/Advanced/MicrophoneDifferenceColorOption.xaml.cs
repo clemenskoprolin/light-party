@@ -27,7 +27,7 @@ namespace LightParty.Pages.PartyMode.Advanced
     /// </summary>
     public sealed partial class MicrophoneDifferenceColorOption : Page
     {
-        PartyControlAdvanced partyControlAdvanced;
+        PartyControl partyControl;
         dynamic colorGradient;
 
         bool canSelect = false;
@@ -45,9 +45,9 @@ namespace LightParty.Pages.PartyMode.Advanced
             PartyUIUpdaterAdvanced.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
         }
 
-        public void GiveVariables(PartyControlAdvanced newPartyControlAdvanced)
+        public void GiveVariables(PartyControl newPartyControl)
         {
-            partyControlAdvanced = newPartyControlAdvanced;
+            partyControl = newPartyControl;
         }
 
         public void LightSelectionChanged()
@@ -87,7 +87,7 @@ namespace LightParty.Pages.PartyMode.Advanced
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
                 LightProcessingColor lightProcessingColor = new LightProcessingColor();
-                colorGradient.GiveVariables<PartyControlAdvanced, LightProcessingColor>(partyControlAdvanced, lightProcessingColor, PartyOptions.GetColorGradientInformation());
+                colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
 
                 colorGradient.UpdateInputs();
             }

@@ -22,9 +22,16 @@ namespace LightParty.Pages.PartyMode.Simple
     /// </summary>
     public sealed partial class PartyControlSimple : Page
     {
+        PartyControl partyControl;
+
         public PartyControlSimple()
         {
             this.InitializeComponent();
+        }
+
+        public void GiveVariables(PartyControl newPartyControl)
+        {
+            partyControl = newPartyControl;
         }
 
         public void LightSelectionChanged()
