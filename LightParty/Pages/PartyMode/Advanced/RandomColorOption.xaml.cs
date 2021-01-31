@@ -72,14 +72,14 @@ namespace LightParty.Pages.PartyMode.Advanced
                     ColorGradientFrame.Navigate(typeof(ColorGradientThree));
                     break;
                 case 2:
-                    PartyOptions.changeColorCompletelyRandom = true;
+                    PartyOptions.activePartyOption.changeColorCompletelyRandom = true;
                     ColorGradientFrame.Visibility = Visibility.Collapsed;
                     break;
             }
 
             if (ColorGradientFrame.Visibility == Visibility.Visible)
             {
-                PartyOptions.changeColorCompletelyRandom = false;
+                PartyOptions.activePartyOption.changeColorCompletelyRandom = false;
 
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 

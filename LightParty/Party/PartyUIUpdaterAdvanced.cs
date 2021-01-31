@@ -163,7 +163,7 @@ namespace LightParty.Party
                 useIntervalPageTwo = true;
             }
 
-            randomInterval = PartyOptions.randomInterval;
+            randomInterval = PartyOptions.activePartyOption.randomInterval;
             UpdateRandomIntervalTextBoxes();
         }
 

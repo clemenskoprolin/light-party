@@ -55,6 +55,7 @@ namespace LightParty.Pages.PartyMode
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
 
+            PartyOptions.SetPartyOption(0);
             SelectMenuItem("Simple");
             NavigateToItem("Simple");
 

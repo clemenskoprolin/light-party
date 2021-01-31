@@ -75,14 +75,14 @@ namespace LightParty.Pages.PartyMode.Advanced
                     ColorGradientFrame.Navigate(typeof(ColorGradientThree));
                     break;
                 case 2:
-                    PartyOptions.changeColorCompletelyRandom = true;
+                    PartyOptions.activePartyOption.changeColorCompletelyRandom = true;
                     ColorGradientFrame.Visibility = Visibility.Collapsed;
                     break;
             }
 
             if (ColorGradientFrame.Visibility == Visibility.Visible)
             {
-                PartyOptions.changeColorCompletelyRandom = false;
+                PartyOptions.activePartyOption.changeColorCompletelyRandom = false;
 
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
@@ -110,11 +110,11 @@ namespace LightParty.Pages.PartyMode.Advanced
             {
                 if (number > 0.1f && number < 100)
                 {
-                    PartyOptions.colorDifferencePercent = number;
+                    PartyOptions.activePartyOption.colorDifferencePercent = number;
                 }
             }
 
-            InputDifferenceTextBox.Text = PartyOptions.colorDifferencePercent.ToString();
+            InputDifferenceTextBox.Text = PartyOptions.activePartyOption.colorDifferencePercent.ToString();
         }
 
         public void UpdateInputDifferenceText(double newInputDifference)

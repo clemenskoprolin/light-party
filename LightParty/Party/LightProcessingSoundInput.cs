@@ -24,14 +24,14 @@ namespace LightParty.Party
                 int? newBrightness = null;
                 ColorInformation colorInformation = new ColorInformation();
 
-                switch (PartyOptions.brightnessOptionIndex)
+                switch (PartyOptions.activePartyOption.brightnessOptionIndex)
                 {
                     case 0:
                         newBrightness = ProcessSoundLevelBrightness(soundLevel);
                         break;
                 }
 
-                switch (PartyOptions.colorOptionIndex)
+                switch (PartyOptions.activePartyOption.colorOptionIndex)
                 {
                     case 0:
                         colorInformation = LightProcessingColor.SetColorGradienStep((float)soundLevel / 100f);
@@ -58,13 +58,13 @@ namespace LightParty.Party
         {
             double brightnessDouble = 0;
 
-            if (!(soundLevel < PartyOptions.minSoundLevel && PartyOptions.startWithZeroInRange))
+            if (!(soundLevel < PartyOptions.activePartyOption.minSoundLevel && PartyOptions.activePartyOption.startWithZeroInRange))
             {
-                soundLevel = soundLevel > PartyOptions.maxSoundLevel ? PartyOptions.maxSoundLevel : soundLevel;
+                soundLevel = soundLevel > PartyOptions.activePartyOption.maxSoundLevel ? PartyOptions.activePartyOption.maxSoundLevel : soundLevel;
 
-                brightnessDouble = (soundLevel - PartyOptions.minSoundLevel) / (PartyOptions.maxSoundLevel - PartyOptions.minSoundLevel) * 100;
-                if (!PartyOptions.startWithZeroInRange)
-                    brightnessDouble = brightnessDouble < PartyOptions.minSoundLevel ? PartyOptions.minSoundLevel : brightnessDouble;
+                brightnessDouble = (soundLevel - PartyOptions.activePartyOption.minSoundLevel) / (PartyOptions.activePartyOption.maxSoundLevel - PartyOptions.activePartyOption.minSoundLevel) * 100;
+                if (!PartyOptions.activePartyOption.startWithZeroInRange)
+                    brightnessDouble = brightnessDouble < PartyOptions.activePartyOption.minSoundLevel ? PartyOptions.activePartyOption.minSoundLevel : brightnessDouble;
             }
 
             int brightness = Convert.ToInt32(brightnessDouble);
@@ -79,7 +79,7 @@ namespace LightParty.Party
 
             double inputDifference = soundLevel - savedSoundLevel;
 
-            if (inputDifference > PartyOptions.colorDifferencePercent)
+            if (inputDifference > PartyOptions.activePartyOption.colorDifferencePercent)
             {
                 colorInformation = LightProcessingColor.SetRandomColorFromUIInput();
             }

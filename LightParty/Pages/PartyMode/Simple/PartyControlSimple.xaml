@@ -8,7 +8,86 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Pages/Resources/SliderStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="PartyModeGrid" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Padding="0" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Button.Content>
+                    <Border Padding="5" BorderThickness="2" BorderBrush="{ThemeResource SystemAccentColor}" CornerRadius="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Style="{StaticResource BigInformation}"
+                               Padding="5.5" Text="Random"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Information}" TextWrapping="Wrap"
+                               Padding="5.5" Text="Randomly generates the color and brightness."/>
+
+                            <Grid Grid.Row="2" Margin="5,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Style="{StaticResource Information}" Text="Change every" Margin="0,3.5,0,0"/>
+                                <TextBox x:Name="RandomUpdateIntervalTextBox" Grid.Column="1" Margin="10,0,10,0" TextAlignment="Center"
+                                    Text="3" />
+                                <!-- LostFocus="RandomUpdateIntervalTextBox_LostFocus" KeyDown="RandomUpdateIntervalTextBox_KeyDown" -->
+                                <TextBlock Grid.Column="2" Style="{StaticResource Information}" Text="Seconds" Margin="0,3.5,0,0"/>
+                            </Grid>
+
+                            <Button Grid.Row="3" Margin="5,10,0,8" Content="More options"/>
+                        </Grid>
+                    </Border>
+                </Button.Content>
+            </Button>
+            
+            <Button Grid.Row="0" Grid.Column="1" Padding="0" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Button.Content>
+                    <Border Padding="5" BorderThickness="0" BorderBrush="{ThemeResource SystemAccentColor}" CornerRadius="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Style="{StaticResource BigInformation}"
+                               Padding="5.5" Text="Microphone"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Information}" TextWrapping="Wrap"
+                               Padding="5.5" Text="Changes the color and the brightness based on your microphone input."/>
+
+                            <Slider Grid.Row="2" Style="{StaticResource OutputStyle}" x:Name="BrightnessOutput" IsEnabled="False"/>
+
+                            <Button Grid.Row="3" Margin="5,10,0,8" Content="More options"/>
+                        </Grid>
+                    </Border>
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
 </Page>

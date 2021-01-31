@@ -24,7 +24,7 @@ namespace LightParty.Party
         /// <returns>A color as a ColorInformation Type</returns>
         public static ColorInformation SetColorGradienStep(float step)
         {
-            if (PartyOptions.useRGBColor)
+            if (PartyOptions.activePartyOption.useRGBColor)
                 return SetRGBColorGradientStep(step);
             else
                 return SetColorTemperatuerGradientStep(step);
@@ -39,13 +39,13 @@ namespace LightParty.Party
         {
             Color outputColor = new Color();
 
-            switch (PartyOptions.colorGradientCount)
+            switch (PartyOptions.activePartyOption.colorGradientCount)
             {
                 case 2:
-                    outputColor = ColorAssistant.GetStepBetweenTwoColors(PartyOptions.startColor, PartyOptions.endColor, step);
+                    outputColor = ColorAssistant.GetStepBetweenTwoColors(PartyOptions.activePartyOption.startColor, PartyOptions.activePartyOption.endColor, step);
                     break;
                 case 3:
-                    outputColor = ColorAssistant.GetStepBetweenThreeColors(PartyOptions.startColor, PartyOptions.centerColor, PartyOptions.endColor, step);
+                    outputColor = ColorAssistant.GetStepBetweenThreeColors(PartyOptions.activePartyOption.startColor, PartyOptions.activePartyOption.centerColor, PartyOptions.activePartyOption.endColor, step);
                     break;
             }
 
@@ -62,15 +62,15 @@ namespace LightParty.Party
         /// <returns>A color temperature as integer from 153 to 500</returns>
         private static ColorInformation SetColorTemperatuerGradientStep(float step)
         {
-            int outputColorTemperature = PartyOptions.startColorTemperature;
+            int outputColorTemperature = PartyOptions.activePartyOption.startColorTemperature;
 
-            switch (PartyOptions.colorGradientCount)
+            switch (PartyOptions.activePartyOption.colorGradientCount)
             {
                 case 2:
-                    outputColorTemperature = ColorAssistant.GetStepBetweenTwoColorTemperatures(PartyOptions.startColorTemperature, PartyOptions.endColorTemperature, step);
+                    outputColorTemperature = ColorAssistant.GetStepBetweenTwoColorTemperatures(PartyOptions.activePartyOption.startColorTemperature, PartyOptions.activePartyOption.endColorTemperature, step);
                     break;
                 case 3:
-                    outputColorTemperature = ColorAssistant.GetStepBetweenThreeColorTemperatures(PartyOptions.startColorTemperature, PartyOptions.centerColorTemperature, PartyOptions.endColorTemperature, step);
+                    outputColorTemperature = ColorAssistant.GetStepBetweenThreeColorTemperatures(PartyOptions.activePartyOption.startColorTemperature, PartyOptions.activePartyOption.centerColorTemperature, PartyOptions.activePartyOption.endColorTemperature, step);
                     break;
             }
 
@@ -90,7 +90,7 @@ namespace LightParty.Party
         {
             ColorInformation colorInformation = new ColorInformation();
 
-            if (!PartyOptions.changeColorCompletelyRandom)
+            if (!PartyOptions.activePartyOption.changeColorCompletelyRandom)
             {
                 Random random = new Random();
                 colorInformation = SetColorGradienStep((float)random.NextDouble());
@@ -109,7 +109,7 @@ namespace LightParty.Party
         /// <returns>A color as a ColorInformation Type</returns>
         public static ColorInformation SetRandomColor()
         {
-            if (PartyOptions.useRGBColor)
+            if (PartyOptions.activePartyOption.useRGBColor)
                 return SetRandomRGBColor();
             else
                 return SetRandomColorTemperature();
@@ -144,40 +144,40 @@ namespace LightParty.Party
 
         public void ColorGradientTwoChanged(Color startColor, Color endColor)
         {
-            PartyOptions.useRGBColor = true;
-            PartyOptions.colorGradientCount = 2;
+            PartyOptions.activePartyOption.useRGBColor = true;
+            PartyOptions.activePartyOption.colorGradientCount = 2;
 
-            PartyOptions.startColor = startColor;
-            PartyOptions.endColor = endColor;
+            PartyOptions.activePartyOption.startColor = startColor;
+            PartyOptions.activePartyOption.endColor = endColor;
         }
 
         public void ColorTemperatureGradientTwoChanged(int startColorTemperature, int endColorTemperature)
         {
-            PartyOptions.useRGBColor = false;
-            PartyOptions.colorGradientCount = 2;
+            PartyOptions.activePartyOption.useRGBColor = false;
+            PartyOptions.activePartyOption.colorGradientCount = 2;
 
-            PartyOptions.startColorTemperature = startColorTemperature;
-            PartyOptions.endColorTemperature = endColorTemperature;
+            PartyOptions.activePartyOption.startColorTemperature = startColorTemperature;
+            PartyOptions.activePartyOption.endColorTemperature = endColorTemperature;
         }
 
         public void ColorGradientThreeChanged(Color startColor, Color centerColor, Color endColor)
         {
-            PartyOptions.useRGBColor = true;
-            PartyOptions.colorGradientCount = 3;
+            PartyOptions.activePartyOption.useRGBColor = true;
+            PartyOptions.activePartyOption.colorGradientCount = 3;
 
-            PartyOptions.startColor = startColor;
-            PartyOptions.centerColor = centerColor;
-            PartyOptions.endColor = endColor;
+            PartyOptions.activePartyOption.startColor = startColor;
+            PartyOptions.activePartyOption.centerColor = centerColor;
+            PartyOptions.activePartyOption.endColor = endColor;
         }
 
         public void ColorTemperatureGradientThreeChanged(int startColorTemperature, int centerColorTemperature, int endColorTemperature)
         {
-            PartyOptions.useRGBColor = false;
-            PartyOptions.colorGradientCount = 3;
+            PartyOptions.activePartyOption.useRGBColor = false;
+            PartyOptions.activePartyOption.colorGradientCount = 3;
 
-            PartyOptions.startColorTemperature = startColorTemperature;
-            PartyOptions.centerColorTemperature = centerColorTemperature;
-            PartyOptions.endColorTemperature = endColorTemperature;
+            PartyOptions.activePartyOption.startColorTemperature = startColorTemperature;
+            PartyOptions.activePartyOption.centerColorTemperature = centerColorTemperature;
+            PartyOptions.activePartyOption.endColorTemperature = endColorTemperature;
         }
 
         #endregion

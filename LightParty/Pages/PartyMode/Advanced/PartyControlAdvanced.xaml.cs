@@ -40,10 +40,10 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            BrightnessOptionComboBox.SelectedIndex = PartyOptions.brightnessOptionIndex;
-            ColorOptionComboBox.SelectedIndex = PartyOptions.colorOptionIndex;
-            NavigateToBrighnessOption(PartyOptions.brightnessOptionIndex);
-            NavigateToColorOption(PartyOptions.colorOptionIndex);
+            BrightnessOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.brightnessOptionIndex;
+            ColorOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
+            NavigateToBrighnessOption(PartyOptions.activePartyOption.brightnessOptionIndex);
+            NavigateToColorOption(PartyOptions.activePartyOption.colorOptionIndex);
 
             canSelect = true;
             PartyUIUpdaterAdvanced.GiveVariablesOutput(this);
@@ -70,7 +70,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void NavigateToBrighnessOption(int index)
         {
-            PartyOptions.brightnessOptionIndex = index;
+            PartyOptions.activePartyOption.brightnessOptionIndex = index;
 
             switch (index)
             {
@@ -108,7 +108,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void NavigateToColorOption(int index)
         {
-            PartyOptions.colorOptionIndex = index;
+            PartyOptions.activePartyOption.colorOptionIndex = index;
 
             switch (index)
             {
@@ -203,7 +203,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private bool CheckIfSoundInputIsUsed()
         {
-            bool isUsed = PartyOptions.brightnessOptionIndex == 0 || PartyOptions.colorOptionIndex == 0 || PartyOptions.colorOptionIndex == 1;
+            bool isUsed = PartyOptions.activePartyOption.brightnessOptionIndex == 0 || PartyOptions.activePartyOption.colorOptionIndex == 0 || PartyOptions.activePartyOption.colorOptionIndex == 1;
             return isUsed;
         }
 
@@ -226,7 +226,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private bool CheckIfRandomIsUsed()
         {
-            return PartyOptions.brightnessOptionIndex == 1 || PartyOptions.colorOptionIndex == 2;
+            return PartyOptions.activePartyOption.brightnessOptionIndex == 1 || PartyOptions.activePartyOption.colorOptionIndex == 2;
         }
 
         //Output Display

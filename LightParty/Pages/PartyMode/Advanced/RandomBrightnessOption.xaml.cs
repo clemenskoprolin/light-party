@@ -31,14 +31,14 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void RandomInputRangeSelector_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            PartyOptions.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
+            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
         }
 
         private void RandomInputRangeSelector_ThumbDragCompleted(object sender, DragCompletedEventArgs e)
         {
-            PartyOptions.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
+            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)

@@ -34,20 +34,20 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateMircophoneInputRangeSelector()
         {
-            MircophoneInputRangeSelector.RangeMin = PartyOptions.minSoundLevel;
-            MircophoneInputRangeSelector.RangeMax = PartyOptions.maxSoundLevel;
+            MircophoneInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minSoundLevel;
+            MircophoneInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxSoundLevel;
         }
 
         private void MircophoneInputRangeSelector_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            PartyOptions.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
-            PartyOptions.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
+            PartyOptions.activePartyOption.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
+            PartyOptions.activePartyOption.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
         }
 
         private void MircophoneInputRangeSelector_ThumbDragCompleted(object sender, DragCompletedEventArgs e)
         {
-            PartyOptions.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
-            PartyOptions.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
+            PartyOptions.activePartyOption.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
+            PartyOptions.activePartyOption.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
         }
 
         public void SetMircophoneInputSlider(double newValue)
@@ -57,7 +57,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void StartWithZeroBrightnessInRangeCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            PartyOptions.startWithZeroInRange = (bool)((CheckBox)sender).IsChecked;
+            PartyOptions.activePartyOption.startWithZeroInRange = (bool)((CheckBox)sender).IsChecked;
         }
     }
 }
