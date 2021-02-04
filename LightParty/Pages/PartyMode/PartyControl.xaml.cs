@@ -55,9 +55,20 @@ namespace LightParty.Pages.PartyMode
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
 
-            PartyOptions.SetPartyOption(0);
-            SelectMenuItem("Simple");
-            NavigateToItem("Simple");
+            if (PartyOptions.activePartyOption == null)
+                PartyOptions.SetPartyOption(0);
+
+            int id = PartyOptions.CompareCurrentWithSaves();
+            Debug.WriteLine(id);
+            if (id != -1)
+            {
+                SelectMenuItem("Simple");
+                NavigateToItem("Simple");
+            } else
+            {
+                SelectMenuItem("Advanced");
+                NavigateToItem("Advanced");
+            }
 
             canSelect = true;
         }

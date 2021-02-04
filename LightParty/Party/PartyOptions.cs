@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,10 +8,14 @@ using Windows.UI;
 
 namespace LightParty.Party
 {
+    /// <summary>
+    /// This class contains all templates and options that are used by the PartyMode
+    /// </summary>
     class PartyOptions
     {
-        public static PartyOption activePartyOption;
-        private static List<PartyOption> partyOptionSaves = new List<PartyOption>()
+        public static bool useRGBColor = true; //Whether or not the RGB color spectrum should be used. If deactived, only color temperatures are allowed.
+        public static PartyOption activePartyOption; //The actively used instance of PartyOptions. All changes that the user makes are saved here.
+        private static readonly List<PartyOption> partyOptionSaves = new List<PartyOption>() //This list contains the saves (templates) of PartyOption. They can be selected by the user in PartyControlSimple.
         {
             new PartyOption
             {
@@ -27,28 +32,85 @@ namespace LightParty.Party
                 colorOptionIndex = 1,
 
                 colorGradientCount = 2,
-                useRGBColor = true,
                 startColor = Color.FromArgb(255, 0, 255, 255),
                 centerColor = Color.FromArgb(255, 0, 255, 0),
                 endColor = Color.FromArgb(255, 255, 255, 0),
 
                 startColorTemperature = 154,
                 centerColorTemperature = 200,
-                endColorTemperature = 500
+                endColorTemperature = 500,
+
+                colorDifferencePercent = 2.5f,
+                changeColorCompletelyRandom = true,
+            },
+            new PartyOption
+            {
+                randomInterval = 3,
+
+                brightnessOptionIndex = 1,
+                minSoundLevel = 45,
+                maxSoundLevel = 85,
+                startWithZeroInRange = true,
+
+                minRandomBrightness = 35,
+                maxRandomBrightness = 100,
+
+                colorOptionIndex = 2,
+
+                colorGradientCount = 2,
+                startColor = Color.FromArgb(255, 0, 255, 255),
+                centerColor = Color.FromArgb(255, 0, 255, 0),
+                endColor = Color.FromArgb(255, 255, 255, 0),
+
+                startColorTemperature = 154,
+                centerColorTemperature = 200,
+                endColorTemperature = 500,
+
+                colorDifferencePercent = 2.5f,
+                changeColorCompletelyRandom = true,
             },
         };
 
+        /// <summary>
+        /// Replaces activePartyOption with a save whose ID is given.
+        /// </summary>
+        /// <param name="partyOptionId">The ID of the save. It's the index of it in partyOptionSaves</param>
         public static void SetPartyOption(int partyOptionId)
         {
             activePartyOption = partyOptionSaves[partyOptionId];
         }
 
+        /// <summary>
+        /// Compares activePartyOption with partyOptionSaves. Returns the index of the save, if all variables are equal. When not, -1 is returned.
+        /// </summary>
+        /// <returns>The index of the save, if all variables are equal. When not, -1 is returned</returns>
+        public static int CompareCurrentWithSaves()
+        {
+            for (int i = 0; i < partyOptionSaves.Count; i++)
+            {
+                if (activePartyOption.Equals(partyOptionSaves[i]))
+                {
+                    Debug.WriteLine(activePartyOption.startWithZeroInRange + ", " + partyOptionSaves[i].startWithZeroInRange);
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Returns the data of the color gradients from the active PartyOption as a ColorGradientInformation Type
+        /// </summary>
+        /// <returns>Data of the color gradients from the active PartyOption as a ColorGradientInformation Type</returns>
         public static ColorGradientInformation GetColorGradientInformation()
         {
             return activePartyOption.GetColorGradientInformation();
         }
     }
 
+    /// <summary>
+    /// This class contains all variables that can be changed in the Party Mode.
+    /// </summary>
     public class PartyOption
     {
         #region General
@@ -77,7 +139,6 @@ namespace LightParty.Party
 
         //Color gradient
         public int colorGradientCount; //Count of the selected colors in the color grandient.
-        public bool useRGBColor = true; //Whether or not the RGB color spectrum should be used. If deactived, only color temperatures are allowed.
 
         public Color startColor; //Start color of the RGB color spectrum color gradient.
         public Color centerColor; //Center color of the RGB color spectrum color gradient; is only used when colorGradientCount is 3.
@@ -106,10 +167,10 @@ namespace LightParty.Party
         }
 
         //Input difference
-        public float colorDifferencePercent = 3.5f; //Minimum microphone input difference in percent, when a new color should be generated.
+        public float colorDifferencePercent; //Minimum microphone input difference in percent, when a new color should be generated.
 
         //Random color
-        public bool changeColorCompletelyRandom = false; //Whether or not the generated colors should be completely random.
+        public bool changeColorCompletelyRandom; //Whether or not the generated colors should be completely random.
 
         #endregion
     }

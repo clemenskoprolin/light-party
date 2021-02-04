@@ -46,7 +46,7 @@ namespace LightParty.Party
                     BasicLightController.SendCommonCommond();
 
                 if (newBrightness != null || colorInformation.rgbColor != null || colorInformation.colorTemperature != null)
-                    PartyUIUpdaterAdvanced.UpdateOutputDisplay(newBrightness, colorInformation.rgbColor, colorInformation.colorTemperature);
+                    PartyUIUpdater.UpdateOutputDisplay(newBrightness, colorInformation.rgbColor, colorInformation.colorTemperature);
 
                 callCount = 0;
             }
@@ -84,7 +84,7 @@ namespace LightParty.Party
                 colorInformation = LightProcessingColor.SetRandomColorFromUIInput();
             }
 
-            PartyUIUpdaterAdvanced.NewInputDifference(inputDifference);
+            PartyUIUpdater.NewInputDifference(inputDifference);
             savedSoundLevel = soundLevel;
 
             return colorInformation;

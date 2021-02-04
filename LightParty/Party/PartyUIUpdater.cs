@@ -15,7 +15,7 @@ namespace LightParty.Party
     /// <summary>
     /// This class updates the visible UI elements of the Party Mode page.
     /// </summary>
-    class PartyUIUpdaterAdvanced
+    class PartyUIUpdater
     {
         static dynamic sliderPageOne; //Reference to the first class which contains a sound level slider.
         static dynamic sliderPageTwo; //Reference to the second class which contains a sound level slider.

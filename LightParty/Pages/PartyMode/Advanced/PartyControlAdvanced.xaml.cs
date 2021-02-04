@@ -46,7 +46,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             NavigateToColorOption(PartyOptions.activePartyOption.colorOptionIndex);
 
             canSelect = true;
-            PartyUIUpdaterAdvanced.GiveVariablesOutput(this);
+            PartyUIUpdater.GiveVariablesOutput(this);
         }
 
         public void GiveVariables(PartyControl newPartyControl)
@@ -149,7 +149,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         public void StopActiveProcesses()
         {
-            StopMircophoneInput();
+            SoundInput.StopMircophoneInputSafely();
             UnselectedRandom();
         }
 
@@ -158,39 +158,17 @@ namespace LightParty.Pages.PartyMode.Advanced
         private async void SelectedMircophoneInput()
         {
             GiveMicrophoneInputSlidersVariables();
-            await StartMircophoneInput();
+            await SoundInput.StartMircophoneInputSafely();
         }
 
         private void UnselectedMircrophoneInput()
         {
             if (!CheckIfSoundInputIsUsed())
             {
-                StopMircophoneInput();
+                SoundInput.StopMircophoneInputSafely();
             }
 
             GiveMicrophoneInputSlidersVariables();
-        }
-
-        private async Task StartMircophoneInput()
-        {
-            if (!SoundInput.isListing && !SoundInput.isCreating)
-            {
-                SoundInput.stopOnCreation = false;
-                await SoundInput.StartInput();
-            }
-        }
-
-        public void StopMircophoneInput()
-        {
-            if (SoundInput.isCreating)
-            {
-                SoundInput.stopOnCreation = true;
-            }
-
-            if (SoundInput.isListing && !SoundInput.isCreating)
-            {
-                _ = SoundInput.StopInput();
-            }
         }
 
         private void GiveMicrophoneInputSlidersVariables()
@@ -198,7 +176,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             MicrophoneBrightnessOptions brightnessOption = BrightnessOptionFrame.Content as MicrophoneBrightnessOptions;
             MicrophoneColorOption colorOption = ColorOptionFrame.Content as MicrophoneColorOption;
 
-            PartyUIUpdaterAdvanced.GiveVariablesSlider<MicrophoneBrightnessOptions, MicrophoneColorOption>(brightnessOption, colorOption);
+            PartyUIUpdater.GiveVariablesSlider<MicrophoneBrightnessOptions, MicrophoneColorOption>(brightnessOption, colorOption);
         }
 
         private bool CheckIfSoundInputIsUsed()
@@ -216,7 +194,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
             RandomBrightnessOption randomBrightnessOption = BrightnessOptionFrame.Content as RandomBrightnessOption;
             RandomColorOption randomColorOption = ColorOptionFrame.Content as RandomColorOption;
-            PartyUIUpdaterAdvanced.GiveVariablesInterval<RandomBrightnessOption, RandomColorOption>(randomBrightnessOption, randomColorOption);
+            PartyUIUpdater.GiveVariablesInterval<RandomBrightnessOption, RandomColorOption>(randomBrightnessOption, randomColorOption);
         }
 
         private void UnselectedRandom()

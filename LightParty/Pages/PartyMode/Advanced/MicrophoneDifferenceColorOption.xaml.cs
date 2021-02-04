@@ -42,7 +42,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             NavigateToRandomType(0);
             canSelect = true;
 
-            PartyUIUpdaterAdvanced.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
+            PartyUIUpdater.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
         }
 
         public void GiveVariables(PartyControl newPartyControl)

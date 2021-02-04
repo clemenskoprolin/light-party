@@ -39,10 +39,38 @@ namespace LightParty.Party
         private static int audioFrameUpdateCount = 0; //Is increased every time, a new audio frame is recognized.
 
         /// <summary>
+        /// Starts the microphone input and trys not to crash the application.
+        /// </summary>
+        public async static Task StartMircophoneInputSafely()
+        {
+            if (!isListing && !isCreating)
+            {
+                stopOnCreation = false;
+                await SoundInput.StartInput();
+            }
+        }
+
+        /// <summary>
+        /// Stops the microphone input and trys not to crash the application.
+        /// </summary>
+        public static void StopMircophoneInputSafely()
+        {
+            if (isCreating)
+            {
+                stopOnCreation = true;
+            }
+
+            if (isListing && !isCreating)
+            {
+                _ = SoundInput.StopInput();
+            }
+        }
+
+        /// <summary>
         /// Starts the microphone input.
         /// </summary>
         /// <returns>Whether or not the start was successful</returns>
-        public static async Task<bool> StartInput()
+        private static async Task<bool> StartInput()
         {
             isCreating = true;
 
@@ -87,7 +115,7 @@ namespace LightParty.Party
         /// <summary>
         /// Stops the mircrophone input by stopping the audio graph and resetting the nodes.
         /// </summary>
-        public static async Task StopInput()
+        private static async Task StopInput()
         {
             //Is used to prevent errors.
             if (graph.CompletedQuantumCount < 500)
@@ -216,7 +244,7 @@ namespace LightParty.Party
                 double soundLevel = CalculateAverage(rawLevel);
 
                 LightProcessingSoundInput.NewSoundLevel(soundLevel);
-                PartyUIUpdaterAdvanced.NewSoundLevel(soundLevel);
+                PartyUIUpdater.NewSoundLevel(soundLevel);
             }
         }
 

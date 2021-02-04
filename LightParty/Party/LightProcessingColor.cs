@@ -24,7 +24,7 @@ namespace LightParty.Party
         /// <returns>A color as a ColorInformation Type</returns>
         public static ColorInformation SetColorGradienStep(float step)
         {
-            if (PartyOptions.activePartyOption.useRGBColor)
+            if (PartyOptions.useRGBColor)
                 return SetRGBColorGradientStep(step);
             else
                 return SetColorTemperatuerGradientStep(step);
@@ -109,7 +109,7 @@ namespace LightParty.Party
         /// <returns>A color as a ColorInformation Type</returns>
         public static ColorInformation SetRandomColor()
         {
-            if (PartyOptions.activePartyOption.useRGBColor)
+            if (PartyOptions.useRGBColor)
                 return SetRandomRGBColor();
             else
                 return SetRandomColorTemperature();
@@ -144,7 +144,7 @@ namespace LightParty.Party
 
         public void ColorGradientTwoChanged(Color startColor, Color endColor)
         {
-            PartyOptions.activePartyOption.useRGBColor = true;
+            PartyOptions.useRGBColor = true;
             PartyOptions.activePartyOption.colorGradientCount = 2;
 
             PartyOptions.activePartyOption.startColor = startColor;
@@ -153,7 +153,7 @@ namespace LightParty.Party
 
         public void ColorTemperatureGradientTwoChanged(int startColorTemperature, int endColorTemperature)
         {
-            PartyOptions.activePartyOption.useRGBColor = false;
+            PartyOptions.useRGBColor = false;
             PartyOptions.activePartyOption.colorGradientCount = 2;
 
             PartyOptions.activePartyOption.startColorTemperature = startColorTemperature;
@@ -162,7 +162,7 @@ namespace LightParty.Party
 
         public void ColorGradientThreeChanged(Color startColor, Color centerColor, Color endColor)
         {
-            PartyOptions.activePartyOption.useRGBColor = true;
+            PartyOptions.useRGBColor = true;
             PartyOptions.activePartyOption.colorGradientCount = 3;
 
             PartyOptions.activePartyOption.startColor = startColor;
@@ -172,7 +172,7 @@ namespace LightParty.Party
 
         public void ColorTemperatureGradientThreeChanged(int startColorTemperature, int centerColorTemperature, int endColorTemperature)
         {
-            PartyOptions.activePartyOption.useRGBColor = false;
+            PartyOptions.useRGBColor = false;
             PartyOptions.activePartyOption.colorGradientCount = 3;
 
             PartyOptions.activePartyOption.startColorTemperature = startColorTemperature;

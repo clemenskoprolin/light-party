@@ -208,7 +208,7 @@
     <Compile Include="Party\LightProcessingColor.cs" />
     <Compile Include="Party\LightProcessingRandom.cs" />
     <Compile Include="Party\LightProcessingSoundInput.cs" />
-    <Compile Include="Party\PartyUIUpdaterAdvanced.cs" />
+    <Compile Include="Party\PartyUIUpdater.cs" />
     <Compile Include="Party\PartyOptions.cs" />
     <Compile Include="Party\SoundInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
