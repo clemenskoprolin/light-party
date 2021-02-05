@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +20,7 @@
         <TextBlock Grid.Row="0" Style="{StaticResource Information}"
                    Text="Select the range of the random brightness"/>
         <controls:RangeSelector x:Name="RandomInputRangeSelector" VerticalAlignment="Center" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeMin="35" RangeMax="100"
-                                HorizontalAlignment="Left" ThumbDragCompleted="RandomInputRangeSelector_ThumbDragCompleted" Tapped="RandomInputRangeSelector_Tapped"/>
+                                HorizontalAlignment="Left" ValueChanged="RandomInputRangeSelector_ValueChanged"/>
 
         <Grid Grid.Row="2" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>

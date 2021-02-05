@@ -39,10 +39,23 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigateToRandomType(0);
-            canSelect = true;
-
             PartyUIUpdater.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
+
+            UpdateControls();
+            canSelect = true;
+        }
+
+        private void UpdateControls()
+        {
+            if (!PartyOptions.activePartyOption.changeColorCompletelyRandom)
+            {
+                NavigateToRandomType(PartyOptions.activePartyOption.colorOptionIndex);
+                RandomTypeComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
+            } else
+            {
+                NavigateToRandomType(2);
+                RandomTypeComboBox.SelectedIndex = 2;
+            }
         }
 
         public void GiveVariables(PartyControl newPartyControl)

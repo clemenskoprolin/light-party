@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
 using System.Diagnostics;
@@ -128,13 +130,16 @@ namespace LightParty.Services
         }
 
         /// <summary>
-        /// Gets a random color in the RGB color spectrum.
+        /// Gets a random color in the RGB color spectrum based on a HSL color.
         /// </summary>
         /// <returns>A color as a RGBColor Type</returns>
         public static RGBColor GetRandomRGBColor()
         {
             Random random = new Random();
-            return new RGBColor { R = random.Next(257), B = random.Next(257), G = random.Next(257)  };
+            Color color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.FromHsl(random.Next(361), 1, 0.5f);
+
+            RGBColor rgbColor = new RGBColor { R = color.R / 255f, G = color.G / 255f, B = color.B / 255f };
+            return rgbColor;
         }
 
         /// <summary>

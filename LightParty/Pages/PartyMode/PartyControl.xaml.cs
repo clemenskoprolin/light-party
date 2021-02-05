@@ -59,7 +59,6 @@ namespace LightParty.Pages.PartyMode
                 PartyOptions.SetPartyOption(0);
 
             int id = PartyOptions.CompareCurrentWithSaves();
-            Debug.WriteLine(id);
             if (id != -1)
             {
                 SelectMenuItem("Simple");
@@ -75,6 +74,7 @@ namespace LightParty.Pages.PartyMode
 
         public void LightSelectionChanged()
         {
+            PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
             partyOptionsFrameContent.LightSelectionChanged();
 
             if (!LightInformation.CheckIfTurnedOn())
@@ -90,7 +90,7 @@ namespace LightParty.Pages.PartyMode
              NavigateToItem(args.InvokedItem.ToString());
         }
 
-        private void SelectMenuItem(string itemName)
+        public void SelectMenuItem(string itemName)
         {
             foreach (NavigationViewItem item in PartyOptionsNav.MenuItems)
             {
@@ -101,7 +101,7 @@ namespace LightParty.Pages.PartyMode
             }
         }
 
-        private void NavigateToItem(string itemName)
+        public void NavigateToItem(string itemName)
         {
             Type newPartyOption;
             switch (itemName)
@@ -126,18 +126,6 @@ namespace LightParty.Pages.PartyMode
             partyOptionsFrameContent.LightSelectionChanged();
 
             partyOptionsFrameContent.GiveVariables(this);
-
-            /*switch (itemName)
-            {
-                case "Simple":
-                    //SetRGBColorPicker();
-                    break;
-                case "Advanced":
-                    //SetTemperatureColorPicker();
-                    break;
-                default:
-                    break;
-            }*/
         }
 
         public void NavigateToPage(Type pageType, bool showAnimation)

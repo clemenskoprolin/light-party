@@ -77,9 +77,9 @@ namespace LightParty.Pages.PartyMode.Advanced
             colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
         }
 
-        public void SetMircophoneInputSlider(double newValue)
+        public void SetMicrophoneInputSlider(double newValue)
         {
-            MircophoneInputSlider.Value = newValue;
+            MicrophoneInputSlider.Value = newValue;
         }
     }
 }

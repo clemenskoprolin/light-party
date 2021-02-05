@@ -73,7 +73,7 @@ namespace LightParty.Party
             if (sliderUpdateCount > 3)
             {
                 double value = Math.Round(soundLevel);
-                SetMircophoneInputSliders(value);
+                SetMicrophoneInputSliders(value);
 
                 sliderUpdateCount = 0;
             }
@@ -82,17 +82,17 @@ namespace LightParty.Party
         /// <summary>
         /// Sets, if visable, the microphone input sliders to a given value.
         /// </summary>
-        private static async void SetMircophoneInputSliders(double value)
+        private static async void SetMicrophoneInputSliders(double value)
         {
             //Runs the code in the UI thread.
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
                 if (useSliderPageOne)
-                    sliderPageOne.SetMircophoneInputSlider(value);
+                    sliderPageOne.SetMicrophoneInputSlider(value);
 
                 if (useSliderPageTwo)
-                    sliderPageTwo.SetMircophoneInputSlider(value);
+                    sliderPageTwo.SetMicrophoneInputSlider(value);
             });
         }
 

@@ -31,7 +31,7 @@
         </ComboBox>
 
         <Frame x:Name="ColorGradientFrame" Grid.Row="1" Margin="0,10,0,0"/>
-        <Slider x:Name="MircophoneInputSlider" Grid.Row="1" Style="{StaticResource OnlyThumbVisable}" Margin="0,44.5,0,0" Width="278"
+        <Slider x:Name="MicrophoneInputSlider" Grid.Row="1" Style="{StaticResource OnlyThumbVisable}" Margin="0,44.5,0,0" Width="278"
                 Background="Transparent" Minimum="0" Maximum="100" IsEnabled="False" HorizontalAlignment="Left" Value="50"/>
 
         <TextBlock Grid.Row="2" Style="{StaticResource Information}"

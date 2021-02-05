@@ -88,7 +88,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             }
 
             if (CheckIfSoundInputIsUsed())
-                SelectedMircophoneInput();
+                SelectedMicrophoneInput();
             else
                 UnselectedMircrophoneInput();
 
@@ -135,7 +135,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             }
 
             if (CheckIfSoundInputIsUsed())
-                SelectedMircophoneInput();
+                SelectedMicrophoneInput();
             else
                 UnselectedMircrophoneInput();
 
@@ -150,23 +150,23 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         public void StopActiveProcesses()
         {
-            SoundInput.StopMircophoneInputSafely();
+            SoundInput.StopMicrophoneInputSafely();
             UnselectedRandom();
         }
 
-        //mircophone input
+        //Microphone input
 
-        private async void SelectedMircophoneInput()
+        private async void SelectedMicrophoneInput()
         {
             GiveMicrophoneInputSlidersVariables();
-            await SoundInput.StartMircophoneInputSafely();
+            await SoundInput.StartMicrophoneInputSafely();
         }
 
         private void UnselectedMircrophoneInput()
         {
             if (!CheckIfSoundInputIsUsed())
             {
-                SoundInput.StopMircophoneInputSafely();
+                SoundInput.StopMicrophoneInputSafely();
             }
 
             GiveMicrophoneInputSlidersVariables();

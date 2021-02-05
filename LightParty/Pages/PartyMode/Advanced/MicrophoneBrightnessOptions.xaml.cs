@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LightParty.Party;
+using System.Diagnostics;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LightParty.Pages.PartyMode.Advanced
@@ -29,35 +30,32 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateMircophoneInputRangeSelector();
+            UpdateControls();
         }
 
-        private void UpdateMircophoneInputRangeSelector()
+        private void UpdateControls()
         {
-            MircophoneInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minSoundLevel;
-            MircophoneInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxSoundLevel;
+            Debug.WriteLine(PartyOptions.activePartyOption.minSoundLevel);
+            MicrophoneInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minSoundLevel;
+            MicrophoneInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxSoundLevel;
+
+            ((CheckBox)StartWithZeroBrightnessInRangeCheckBox).IsChecked = PartyOptions.activePartyOption.startWithZeroInRange;
         }
 
-        private void MircophoneInputRangeSelector_Tapped(object sender, TappedRoutedEventArgs e)
+        private void MicrophoneInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
         {
-            PartyOptions.activePartyOption.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
-            PartyOptions.activePartyOption.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
-        }
-
-        private void MircophoneInputRangeSelector_ThumbDragCompleted(object sender, DragCompletedEventArgs e)
-        {
-            PartyOptions.activePartyOption.minSoundLevel = MircophoneInputRangeSelector.RangeMin;
-            PartyOptions.activePartyOption.maxSoundLevel = MircophoneInputRangeSelector.RangeMax;
-        }
-
-        public void SetMircophoneInputSlider(double newValue)
-        {
-            MircophoneInputSlider.Value = newValue;
+            PartyOptions.activePartyOption.minSoundLevel = MicrophoneInputRangeSelector.RangeMin;
+            PartyOptions.activePartyOption.maxSoundLevel = MicrophoneInputRangeSelector.RangeMax;
         }
 
         private void StartWithZeroBrightnessInRangeCheckBox_Click(object sender, RoutedEventArgs e)
         {
             PartyOptions.activePartyOption.startWithZeroInRange = (bool)((CheckBox)sender).IsChecked;
+        }
+
+        public void SetMicrophoneInputSlider(double newValue)
+        {
+            MicrophoneInputSlider.Value = newValue;
         }
     }
 }

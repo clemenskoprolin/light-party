@@ -46,7 +46,7 @@ namespace LightParty.Pages.PartyMode.Simple
 
         public void LightSelectionChanged()
         {
-            PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
+            //PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
         }
 
         private void SelectLastSaveButton()
@@ -100,12 +100,12 @@ namespace LightParty.Pages.PartyMode.Simple
         private async void SaveZeroActivated()
         {
             PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
-            await SoundInput.StartMircophoneInputSafely();
+            await SoundInput.StartMicrophoneInputSafely();
         }
 
         private void SaveZeroDeactivated()
         {
-            SoundInput.StopMircophoneInputSafely();
+            SoundInput.StopMicrophoneInputSafely();
             PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(null, null);
         }
 
@@ -122,9 +122,9 @@ namespace LightParty.Pages.PartyMode.Simple
             LightProcessingRandom.StopUpdates();
         }
 
-        public void SetMircophoneInputSlider(double newValue)
+        public void SetMicrophoneInputSlider(double newValue)
         {
-            MircophoneInputSlider.Value = newValue;
+            MicrophoneInputSlider.Value = newValue;
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)
@@ -143,9 +143,15 @@ namespace LightParty.Pages.PartyMode.Simple
                 LightProcessingRandom.SetUpdateInterval(RandomUpdateIntervalTextBox.Text);
         }
 
+        private void MoreOptionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            partyControl.SelectMenuItem("Advanced");
+            partyControl.NavigateToItem("Advanced");
+        }
+
         public void StopActiveProcesses()
         {
-            SoundInput.StopMircophoneInputSafely();
+            SoundInput.StopMicrophoneInputSafely();
             LightProcessingRandom.StopUpdates();
         }
     }

@@ -29,13 +29,18 @@ namespace LightParty.Pages.PartyMode.Advanced
             this.InitializeComponent();
         }
 
-        private void RandomInputRangeSelector_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            UpdateControls();
         }
 
-        private void RandomInputRangeSelector_ThumbDragCompleted(object sender, DragCompletedEventArgs e)
+        private void UpdateControls()
+        {
+            RandomInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minRandomBrightness;
+            RandomInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxRandomBrightness;
+        }
+
+        private void RandomInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
         {
             PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
             PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);

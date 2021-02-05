@@ -41,7 +41,7 @@ namespace LightParty.Party
         /// <summary>
         /// Starts the microphone input and trys not to crash the application.
         /// </summary>
-        public async static Task StartMircophoneInputSafely()
+        public async static Task StartMicrophoneInputSafely()
         {
             if (!isListing && !isCreating)
             {
@@ -53,7 +53,7 @@ namespace LightParty.Party
         /// <summary>
         /// Stops the microphone input and trys not to crash the application.
         /// </summary>
-        public static void StopMircophoneInputSafely()
+        public static void StopMicrophoneInputSafely()
         {
             if (isCreating)
             {
