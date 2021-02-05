@@ -144,7 +144,8 @@ namespace LightParty.Pages.PartyMode.Advanced
             else
                 UnselectedRandom();
 
-            colorOption = Convert.ChangeType(ColorOptionFrame.Content, ColorOptionFrame.CurrentSourcePageType);
+            if (ColorOptionFrame.Content != null)
+                colorOption = Convert.ChangeType(ColorOptionFrame.Content, ColorOptionFrame.CurrentSourcePageType);
         }
 
         public void StopActiveProcesses()

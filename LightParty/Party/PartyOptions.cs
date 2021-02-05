@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
@@ -88,9 +89,8 @@ namespace LightParty.Party
         {
             for (int i = 0; i < partyOptionSaves.Count; i++)
             {
-                if (activePartyOption.Equals(partyOptionSaves[i]))
+                if (activePartyOption == partyOptionSaves[i])
                 {
-                    Debug.WriteLine(activePartyOption.startWithZeroInRange + ", " + partyOptionSaves[i].startWithZeroInRange);
                     return i;
                 }
             }
@@ -111,7 +111,7 @@ namespace LightParty.Party
     /// <summary>
     /// This class contains all variables that can be changed in the Party Mode.
     /// </summary>
-    public class PartyOption
+    public struct PartyOption
     {
         #region General
         public float randomInterval; //Interval in seconds, in which the random color and/or the random brightness of the selected lights is changed.
@@ -125,7 +125,7 @@ namespace LightParty.Party
         //Input
         public double minSoundLevel; //The minimum soundlevel, from which the brightness is changend.
         public double maxSoundLevel; //The maximum soundlevel, from which the brightness is changend.
-        public bool startWithZeroInRange = true; //Whether or not the brightness starts with zero at the minimum sound level. If deactivated, it will start at the minimum itself.
+        public bool startWithZeroInRange; //Whether or not the brightness starts with zero at the minimum sound level. If deactivated, it will start at the minimum itself.
 
         //Random
         public int minRandomBrightness; //Minimum of the random brightness.
@@ -173,5 +173,53 @@ namespace LightParty.Party
         public bool changeColorCompletelyRandom; //Whether or not the generated colors should be completely random.
 
         #endregion
+
+        /// <summary>
+        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval.
+        /// </summary>
+        /// <param name="a">The first PartyOption</param>
+        /// <param name="b">The second PartyOption</param>
+        /// <returns>Whether or not all fields except randomInterval are equal</returns>
+        public static bool operator ==(PartyOption a, PartyOption b)
+        {
+            FieldInfo[] aFields = a.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            FieldInfo[] bFields = b.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+
+            for (int i = 0; i < aFields.Length; i++)
+            {
+                if (aFields[i].Name != "randomInterval")
+                {
+                    if (!aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval.
+        /// </summary>
+        /// <param name="a">The first PartyOption</param>
+        /// <param name="b">The second PartyOption</param>
+        /// <returns>Whether or not all fields except randomInterval are NOT equal</returns>
+        public static bool operator !=(PartyOption a, PartyOption b)
+        {
+            FieldInfo[] aFields = a.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            FieldInfo[] bFields = b.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+
+            for (int i = 0; i < aFields.Length; i++)
+            {
+                if (aFields[i].Name != "randomInterval")
+                {
+                    if (aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace LightParty.Pages.PartyMode
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
 
-            if (PartyOptions.activePartyOption == null)
+            if (PartyOptions.activePartyOption.Equals(default(PartyOption)))
                 PartyOptions.SetPartyOption(0);
 
             int id = PartyOptions.CompareCurrentWithSaves();
