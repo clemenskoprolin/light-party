@@ -29,6 +29,7 @@ namespace LightParty.Party
         private static List<double> lastSoundLevels = new List<double>(); //Contains the last sound levels and is used to calculate the average.
         private static ulong lastCompletedQuantumCount = 0; //Conatains the last CompletedQuantumCount of the graph. It's used to prevent errors.
 
+        private static bool isDisposed = true; //Whether or not the AudioGraph graph is disposed.
         private static AudioGraph graph; //The audio graph for the operations.
         private static AudioDeviceInputNode deviceInputNode; //The input node for the default microphone.
         private static AudioFrameOutputNode frameOutputNode; //The frame output node for the calculation of the sound level.
@@ -68,6 +69,19 @@ namespace LightParty.Party
         }
 
         /// <summary>
+        /// Disposes the AudioGraph and resets the properties.
+        /// </summary>
+        public static void ResetMicrophoneInput()
+        {
+            graph.Dispose();
+            isDisposed = true;
+
+            isListing = false;
+            isCreating = false;
+            stopOnCreation = false;
+        }
+
+        /// <summary>
         /// Starts the microphone input.
         /// </summary>
         /// <returns>Whether or not the start was successful</returns>
@@ -78,18 +92,17 @@ namespace LightParty.Party
             bool successAudioGraph = true;
             bool successOutgoingConnection = true;
 
-            if (graph == null)
-                successAudioGraph = await CreateAudioGraph();
-
-            if (deviceInputNode == null && frameOutputNode == null)
+            if (isDisposed)
             {
+                successAudioGraph = await CreateAudioGraph();
                 successOutgoingConnection = await CreateNodes();
-            }
+                isDisposed = false;
+            } 
             else
             {
                 deviceInputNode.Start();
                 frameOutputNode.Start();
-            }                          
+            }          
 
             if (successAudioGraph && successOutgoingConnection)
             {
