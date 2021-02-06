@@ -27,6 +27,7 @@ namespace LightParty.Party
         public static bool isListing = false; //Whether or not the audio graph is started.
         public static bool stopOnCreation = false; //Whether or not the audio graph should be deleted when the creation is done. Used to prevent errors.
         private static List<double> lastSoundLevels = new List<double>(); //Contains the last sound levels and is used to calculate the average.
+        private static ulong lastCompletedQuantumCount = 0; //Conatains the last CompletedQuantumCount of the graph. It's used to prevent errors.
 
         private static AudioGraph graph; //The audio graph for the operations.
         private static AudioDeviceInputNode deviceInputNode; //The input node for the default microphone.
@@ -117,9 +118,11 @@ namespace LightParty.Party
         /// </summary>
         private static async Task StopInput()
         {
-            //Is used to prevent errors.
-            if (graph.CompletedQuantumCount < 500)
+            //Caculates the CompletedQuantumCount of the current session and can delay the stop to prevent errors.
+            ulong completedQuantumCount = graph.CompletedQuantumCount - lastCompletedQuantumCount;
+            if (completedQuantumCount < 500)
                 await Task.Delay(100);
+            lastCompletedQuantumCount = graph.CompletedQuantumCount;
 
             //Runs the code in the UI thread. This is used to prevent error, too.
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

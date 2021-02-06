@@ -35,7 +35,6 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateControls()
         {
-            Debug.WriteLine(PartyOptions.activePartyOption.minSoundLevel);
             MicrophoneInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minSoundLevel;
             MicrophoneInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxSoundLevel;
 

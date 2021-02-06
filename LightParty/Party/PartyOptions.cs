@@ -20,6 +20,7 @@ namespace LightParty.Party
         {
             new PartyOption
             {
+                ignoreOnReplace = new string[] { "randomInterval" },
                 randomInterval = 3,
 
                 brightnessOptionIndex = 0,
@@ -46,6 +47,7 @@ namespace LightParty.Party
             },
             new PartyOption
             {
+                ignoreOnReplace = new string[] { "randomInterval" },
                 randomInterval = 3,
 
                 brightnessOptionIndex = 1,
@@ -73,12 +75,27 @@ namespace LightParty.Party
         };
 
         /// <summary>
-        /// Replaces activePartyOption with a save whose ID is given.
+        /// Replaces activePartyOption with a save whose ID is given, but ignores ignoreOnReplace and all variables in it if they are not null.
         /// </summary>
         /// <param name="partyOptionId">The ID of the save. It's the index of it in partyOptionSaves</param>
         public static void SetPartyOption(int partyOptionId)
         {
-            activePartyOption = partyOptionSaves[partyOptionId];
+            object newPartyOption = activePartyOption;
+
+            FieldInfo[] fields = activePartyOption.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+
+            for (int i = 0; i < fields.Length; i++)
+            {
+                var activeValue = fields[i].GetValue(activePartyOption);
+                var newValue = fields[i].GetValue(partyOptionSaves[partyOptionId]);
+
+                if (fields[i].Name != "ignoreOnReplace" && (!partyOptionSaves[partyOptionId].ignoreOnReplace.Contains(fields[i].Name) || activeValue == null))
+                {
+                    fields[i].SetValue(newPartyOption, newValue);
+                }
+            }
+
+            activePartyOption = (PartyOption)newPartyOption;
         }
 
         /// <summary>
@@ -114,7 +131,8 @@ namespace LightParty.Party
     public struct PartyOption
     {
         #region General
-        public float randomInterval; //Interval in seconds, in which the random color and/or the random brightness of the selected lights is changed.
+        public string[] ignoreOnReplace; //Variables of the activePartyOption with their names in this array will not be replaced when the save is activated.
+        public float? randomInterval; //Interval in seconds, in which the random color and/or the random brightness of the selected lights is changed.
         #endregion
         #region Brigthness
 
@@ -187,7 +205,7 @@ namespace LightParty.Party
 
             for (int i = 0; i < aFields.Length; i++)
             {
-                if (aFields[i].Name != "randomInterval")
+                if (aFields[i].Name != "randomInterval" && aFields[i].Name != "ignoreOnReplace")
                 {
                     if (!aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
                     {
@@ -206,14 +224,13 @@ namespace LightParty.Party
         /// <returns>Whether or not all fields except randomInterval are NOT equal</returns>
         public static bool operator !=(PartyOption a, PartyOption b)
         {
-            FieldInfo[] aFields = a.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            FieldInfo[] bFields = b.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            FieldInfo[] fields = a.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
 
-            for (int i = 0; i < aFields.Length; i++)
+            for (int i = 0; i < fields.Length; i++)
             {
-                if (aFields[i].Name != "randomInterval")
+                if (fields[i].Name != "randomInterval")
                 {
-                    if (aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
+                    if (fields[i].GetValue(a).Equals(fields[i].GetValue(b)))
                     {
                         return false;
                     }

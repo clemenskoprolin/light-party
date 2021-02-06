@@ -33,17 +33,16 @@ namespace LightParty.Pages.PartyMode
 
     public sealed partial class PartyControl : Page
     {
-        SoundInput soundInput = new SoundInput();
-        LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
+        private SoundInput soundInput = new SoundInput();
+        private LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
 
-        bool canSelect = false;
-        dynamic partyOptionsFrameContent;
+        private dynamic partyOptionsFrameContent;
 
-        dynamic colorPickerSource;
-        int colorPickerSourceId;
-        Color currentColor;
-        int currentColorTemperature;
-        bool isRGB = true;
+        private dynamic colorPickerSource;
+        private int colorPickerSourceId;
+        private Color currentColor;
+        private int currentColorTemperature;
+        private bool isRGB = true;
 
         public PartyControl()
         {
@@ -68,8 +67,6 @@ namespace LightParty.Pages.PartyMode
                 SelectMenuItem("Advanced");
                 NavigateToItem("Advanced");
             }
-
-            canSelect = true;
         }
 
         public void LightSelectionChanged()
@@ -83,7 +80,7 @@ namespace LightParty.Pages.PartyMode
             }
         }
 
-        //PartyOptionsNav
+        #region Party options navigation view
 
         private void PartyOptionsNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
@@ -136,7 +133,8 @@ namespace LightParty.Pages.PartyMode
                 PartyOptionsFrame.Navigate(pageType, null, new SuppressNavigationTransitionInfo());
         }
 
-        //Popup
+        #endregion
+        #region Color picker popup
 
         public void OpenColorRGBPickerPopup<T>(Color defaultColor, T source, int idOnReturn)
         {
@@ -200,6 +198,8 @@ namespace LightParty.Pages.PartyMode
             await Task.Delay((int)ColorPickerPopup.ScaleTransition.Duration.TotalMilliseconds);
             ColorPickerPopup.Visibility = Visibility.Collapsed;
         }
+
+        #endregion
 
         public void StopActiveProcesses()
         {

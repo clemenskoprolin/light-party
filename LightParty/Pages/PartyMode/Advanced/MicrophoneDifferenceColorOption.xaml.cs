@@ -47,6 +47,8 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateControls()
         {
+            InputDifferenceTextBox.Text = PartyOptions.activePartyOption.colorDifferencePercent.ToString();
+
             if (!PartyOptions.activePartyOption.changeColorCompletelyRandom)
             {
                 NavigateToRandomType(PartyOptions.activePartyOption.colorOptionIndex);

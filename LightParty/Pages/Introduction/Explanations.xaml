@@ -46,7 +46,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" FontSize="35" Margin="0,0,0,0" Text="Welcome to Light Party!"/>
-                    <TextBlock Grid.Row="1" TextWrapping="Wrap"  FontSize="22" Margin="0,0,10,0"
+                    <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="22" Margin="0,0,10,0"
                                Text="A completely free and open source controller for Philips Hue lights!"/>
                 </Grid>
             </Grid>
