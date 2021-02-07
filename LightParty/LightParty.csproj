@@ -172,29 +172,35 @@
     <Compile Include="Pages\MainShell.xaml.cs">
       <DependentUpon>MainShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\ColorGradientThree.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\ColorGradientThree.xaml.cs">
       <DependentUpon>ColorGradientThree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\ColorGradientTwo.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\ColorGradientTwo.xaml.cs">
       <DependentUpon>ColorGradientTwo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneBrightnessOptions.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\MicrophoneBrightnessOptions.xaml.cs">
       <DependentUpon>MicrophoneBrightnessOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\MicrophoneColorOption.xaml.cs">
       <DependentUpon>MicrophoneColorOption.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\MicrophoneDifferenceColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\MicrophoneDifferenceColorOption.xaml.cs">
       <DependentUpon>MicrophoneDifferenceColorOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PartyMode\Advanced\PartyControlAdvanced.xaml.cs">
+      <DependentUpon>PartyControlAdvanced.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PartyMode\PartyControl.xaml.cs">
       <DependentUpon>PartyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\RandomBrightnessOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\RandomBrightnessOption.xaml.cs">
       <DependentUpon>RandomBrightnessOption.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PartyMode\RandomColorOption.xaml.cs">
+    <Compile Include="Pages\PartyMode\Advanced\RandomColorOption.xaml.cs">
       <DependentUpon>RandomColorOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PartyMode\Simple\PartyControlSimple.xaml.cs">
+      <DependentUpon>PartyControlSimple.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\MainSettings.xaml.cs">
       <DependentUpon>MainSettings.xaml</DependentUpon>
@@ -325,35 +331,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\ColorGradientThree.xaml">
+    <Page Include="Pages\PartyMode\Advanced\ColorGradientThree.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\PartyMode\Advanced\ColorGradientTwo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\PartyMode\Advanced\MicrophoneBrightnessOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\ColorGradientTwo.xaml">
+    <Page Include="Pages\PartyMode\Advanced\MicrophoneColorOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\MicrophoneBrightnessOptions.xaml">
+    <Page Include="Pages\PartyMode\Advanced\MicrophoneDifferenceColorOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\MicrophoneColorOption.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Pages\PartyMode\Advanced\PartyControlAdvanced.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\PartyMode\MicrophoneDifferenceColorOption.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PartyMode\PartyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\RandomBrightnessOption.xaml">
+    <Page Include="Pages\PartyMode\Advanced\RandomBrightnessOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PartyMode\RandomColorOption.xaml">
+    <Page Include="Pages\PartyMode\Advanced\RandomColorOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PartyMode\Simple\PartyControlSimple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,7 +386,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.10</Version>
+      <Version>6.2.11</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>6.1.1</Version>
@@ -384,10 +398,10 @@
       <Version>6.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.4.3</Version>
+      <Version>2.5.0</Version>
     </PackageReference>
     <PackageReference Include="Q42.HueApi">
-      <Version>3.15.4</Version>
+      <Version>3.17.0</Version>
     </PackageReference>
     <PackageReference Include="Q42.HueApi.ColorConverters">
       <Version>3.14.0</Version>

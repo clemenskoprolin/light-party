@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -77,9 +77,9 @@ namespace LightParty.Pages.PartyMode
             colorGradient.GiveVariables<PartyControl, LightProcessingColor>(partyControl, lightProcessingColor, PartyOptions.GetColorGradientInformation());
         }
 
-        public void SetMircophoneInputSlider(double newValue)
+        public void SetMicrophoneInputSlider(double newValue)
         {
-            MircophoneInputSlider.Value = newValue;
+            MicrophoneInputSlider.Value = newValue;
         }
     }
 }

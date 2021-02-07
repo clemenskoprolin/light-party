@@ -8,6 +8,7 @@ using Windows.UI;
 using Windows.UI.Core;
 using Q42.HueApi.ColorConverters;
 using LightParty.Services;
+using LightParty.Pages.PartyMode.Advanced;
 
 namespace LightParty.Party
 {
@@ -32,7 +33,7 @@ namespace LightParty.Party
         private static bool useIntervalPageTwo = false; //Whether or not the second reference is used.
         private static float randomInterval; //The current random update interval.
 
-        static Pages.PartyMode.PartyControl partyControl; //Reference to the class which contains the output display
+        private static PartyControlAdvanced partyControlAdvanced; //Reference to the class which contains the output display
 
         #region Sound level slider
 
@@ -72,7 +73,7 @@ namespace LightParty.Party
             if (sliderUpdateCount > 3)
             {
                 double value = Math.Round(soundLevel);
-                SetMircophoneInputSliders(value);
+                SetMicrophoneInputSliders(value);
 
                 sliderUpdateCount = 0;
             }
@@ -81,17 +82,17 @@ namespace LightParty.Party
         /// <summary>
         /// Sets, if visable, the microphone input sliders to a given value.
         /// </summary>
-        private static async void SetMircophoneInputSliders(double value)
+        private static async void SetMicrophoneInputSliders(double value)
         {
             //Runs the code in the UI thread.
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
                 if (useSliderPageOne)
-                    sliderPageOne.SetMircophoneInputSlider(value);
+                    sliderPageOne.SetMicrophoneInputSlider(value);
 
                 if (useSliderPageTwo)
-                    sliderPageTwo.SetMircophoneInputSlider(value);
+                    sliderPageTwo.SetMicrophoneInputSlider(value);
             });
         }
 
@@ -162,7 +163,7 @@ namespace LightParty.Party
                 useIntervalPageTwo = true;
             }
 
-            randomInterval = PartyOptions.randomInterval;
+            randomInterval = (float)PartyOptions.activePartyOption.randomInterval;
             UpdateRandomIntervalTextBoxes();
         }
 
@@ -195,9 +196,9 @@ namespace LightParty.Party
         /// Sets
         /// </summary>
         /// <param name="newPartyControl"></param>
-        public static void GiveVariablesOutput(Pages.PartyMode.PartyControl newPartyControl)
+        public static void GiveVariablesOutput(PartyControlAdvanced newPartyControlAdvanced)
         {
-            partyControl = newPartyControl;
+            partyControlAdvanced = newPartyControlAdvanced;
         }
 
         /// <summary>
@@ -212,16 +213,16 @@ namespace LightParty.Party
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                if (partyControl != null)
+                if (partyControlAdvanced != null)
                 {
                     if (rgbColor == null && colorTemperature == null)
-                        partyControl.UpdateOutputDisplay(brightness, null);
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, null);
 
                     if (rgbColor != null && colorTemperature == null)
-                        partyControl.UpdateOutputDisplay(brightness, ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor));
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor));
 
                     if (rgbColor == null && colorTemperature != null)
-                        partyControl.UpdateOutputDisplay(brightness, ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature));
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature));
                 }
             });
         }

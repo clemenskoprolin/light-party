@@ -19,7 +19,7 @@ using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -38,13 +38,27 @@ namespace LightParty.Pages.PartyMode
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigateToRandomType(0);
+            UpdateControls();
             canSelect = true;
         }
 
         public void GiveVariables(PartyControl newPartyControl)
         {
             partyControl = newPartyControl;
+        }
+
+        private void UpdateControls()
+        {
+            if (!PartyOptions.activePartyOption.changeColorCompletelyRandom)
+            {
+                NavigateToRandomType(PartyOptions.activePartyOption.colorOptionIndex);
+                RandomTypeComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
+            }
+            else
+            {
+                NavigateToRandomType(2);
+                RandomTypeComboBox.SelectedIndex = 2;
+            }
         }
 
         public void LightSelectionChanged()
@@ -72,14 +86,14 @@ namespace LightParty.Pages.PartyMode
                     ColorGradientFrame.Navigate(typeof(ColorGradientThree));
                     break;
                 case 2:
-                    PartyOptions.changeColorCompletelyRandom = true;
+                    PartyOptions.activePartyOption.changeColorCompletelyRandom = true;
                     ColorGradientFrame.Visibility = Visibility.Collapsed;
                     break;
             }
 
             if (ColorGradientFrame.Visibility == Visibility.Visible)
             {
-                PartyOptions.changeColorCompletelyRandom = false;
+                PartyOptions.activePartyOption.changeColorCompletelyRandom = false;
 
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 

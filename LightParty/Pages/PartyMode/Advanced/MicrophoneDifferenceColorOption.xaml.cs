@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -39,10 +39,25 @@ namespace LightParty.Pages.PartyMode
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigateToRandomType(0);
-            canSelect = true;
-
             PartyUIUpdater.GiveVariablesInputDifference<MicrophoneDifferenceColorOption>(this);
+
+            UpdateControls();
+            canSelect = true;
+        }
+
+        private void UpdateControls()
+        {
+            InputDifferenceTextBox.Text = PartyOptions.activePartyOption.colorDifferencePercent.ToString();
+
+            if (!PartyOptions.activePartyOption.changeColorCompletelyRandom)
+            {
+                NavigateToRandomType(PartyOptions.activePartyOption.colorOptionIndex);
+                RandomTypeComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
+            } else
+            {
+                NavigateToRandomType(2);
+                RandomTypeComboBox.SelectedIndex = 2;
+            }
         }
 
         public void GiveVariables(PartyControl newPartyControl)
@@ -75,14 +90,14 @@ namespace LightParty.Pages.PartyMode
                     ColorGradientFrame.Navigate(typeof(ColorGradientThree));
                     break;
                 case 2:
-                    PartyOptions.changeColorCompletelyRandom = true;
+                    PartyOptions.activePartyOption.changeColorCompletelyRandom = true;
                     ColorGradientFrame.Visibility = Visibility.Collapsed;
                     break;
             }
 
             if (ColorGradientFrame.Visibility == Visibility.Visible)
             {
-                PartyOptions.changeColorCompletelyRandom = false;
+                PartyOptions.activePartyOption.changeColorCompletelyRandom = false;
 
                 colorGradient = Convert.ChangeType(ColorGradientFrame.Content, ColorGradientFrame.CurrentSourcePageType);
 
@@ -110,11 +125,11 @@ namespace LightParty.Pages.PartyMode
             {
                 if (number > 0.1f && number < 100)
                 {
-                    PartyOptions.colorDifferencePercent = number;
+                    PartyOptions.activePartyOption.colorDifferencePercent = number;
                 }
             }
 
-            InputDifferenceTextBox.Text = PartyOptions.colorDifferencePercent.ToString();
+            InputDifferenceTextBox.Text = PartyOptions.activePartyOption.colorDifferencePercent.ToString();
         }
 
         public void UpdateInputDifferenceText(double newInputDifference)

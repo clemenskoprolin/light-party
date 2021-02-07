@@ -24,7 +24,7 @@ namespace LightParty.Party
                     updateInterval = Convert.ToInt32(intervalInSeconds * 1000);
 
                     PartyUIUpdater.NewRandomInterval(intervalInSeconds);
-                    PartyOptions.randomInterval = intervalInSeconds;
+                    PartyOptions.activePartyOption.randomInterval = intervalInSeconds;
                 }
             }
 
@@ -56,14 +56,14 @@ namespace LightParty.Party
             int? newBrightness = null;
             ColorInformation colorInformation = new ColorInformation();
 
-            switch (PartyOptions.brightnessOptionIndex)
+            switch (PartyOptions.activePartyOption.brightnessOptionIndex)
             {
                 case 1:
                     newBrightness = SetRandomBrightness();
                     break;
             }
 
-            switch (PartyOptions.colorOptionIndex)
+            switch (PartyOptions.activePartyOption.colorOptionIndex)
             {
                 case 2:
                     colorInformation = LightProcessingColor.SetRandomColorFromUIInput();
@@ -80,7 +80,7 @@ namespace LightParty.Party
         private static int? SetRandomBrightness()
         {
             Random random = new Random();
-            int randomBrightness = random.Next(PartyOptions.minRandomBrightness, PartyOptions.maxRandomBrightness);
+            int randomBrightness = random.Next(PartyOptions.activePartyOption.minRandomBrightness, PartyOptions.activePartyOption.maxRandomBrightness);
             BasicLightController.SetBrightnessInCommonCommand(randomBrightness);
 
             return randomBrightness;

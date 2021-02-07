@@ -27,7 +27,9 @@ namespace LightParty.Party
         public static bool isListing = false; //Whether or not the audio graph is started.
         public static bool stopOnCreation = false; //Whether or not the audio graph should be deleted when the creation is done. Used to prevent errors.
         private static List<double> lastSoundLevels = new List<double>(); //Contains the last sound levels and is used to calculate the average.
+        private static ulong lastCompletedQuantumCount = 0; //Conatains the last CompletedQuantumCount of the graph. It's used to prevent errors.
 
+        private static bool isDisposed = true; //Whether or not the AudioGraph graph is disposed.
         private static AudioGraph graph; //The audio graph for the operations.
         private static AudioDeviceInputNode deviceInputNode; //The input node for the default microphone.
         private static AudioFrameOutputNode frameOutputNode; //The frame output node for the calculation of the sound level.
@@ -39,28 +41,68 @@ namespace LightParty.Party
         private static int audioFrameUpdateCount = 0; //Is increased every time, a new audio frame is recognized.
 
         /// <summary>
+        /// Starts the microphone input and trys not to crash the application.
+        /// </summary>
+        public async static Task StartMicrophoneInputSafely()
+        {
+            if (!isListing && !isCreating)
+            {
+                stopOnCreation = false;
+                await SoundInput.StartInput();
+            }
+        }
+
+        /// <summary>
+        /// Stops the microphone input and trys not to crash the application.
+        /// </summary>
+        public static void StopMicrophoneInputSafely()
+        {
+            if (isCreating)
+            {
+                stopOnCreation = true;
+            }
+
+            if (isListing && !isCreating)
+            {
+                _ = SoundInput.StopInput();
+            }
+        }
+
+        /// <summary>
+        /// Disposes the AudioGraph and resets the properties.
+        /// </summary>
+        public static void ResetMicrophoneInput()
+        {
+            graph.Dispose();
+            isDisposed = true;
+
+            isListing = false;
+            isCreating = false;
+            stopOnCreation = false;
+        }
+
+        /// <summary>
         /// Starts the microphone input.
         /// </summary>
         /// <returns>Whether or not the start was successful</returns>
-        public static async Task<bool> StartInput()
+        private static async Task<bool> StartInput()
         {
             isCreating = true;
 
             bool successAudioGraph = true;
             bool successOutgoingConnection = true;
 
-            if (graph == null)
-                successAudioGraph = await CreateAudioGraph();
-
-            if (deviceInputNode == null && frameOutputNode == null)
+            if (isDisposed)
             {
+                successAudioGraph = await CreateAudioGraph();
                 successOutgoingConnection = await CreateNodes();
-            }
+                isDisposed = false;
+            } 
             else
             {
                 deviceInputNode.Start();
                 frameOutputNode.Start();
-            }                          
+            }          
 
             if (successAudioGraph && successOutgoingConnection)
             {
@@ -87,11 +129,13 @@ namespace LightParty.Party
         /// <summary>
         /// Stops the mircrophone input by stopping the audio graph and resetting the nodes.
         /// </summary>
-        public static async Task StopInput()
+        private static async Task StopInput()
         {
-            //Is used to prevent errors.
-            if (graph.CompletedQuantumCount < 500)
+            //Caculates the CompletedQuantumCount of the current session and can delay the stop to prevent errors.
+            ulong completedQuantumCount = graph.CompletedQuantumCount - lastCompletedQuantumCount;
+            if (completedQuantumCount < 500)
                 await Task.Delay(100);
+            lastCompletedQuantumCount = graph.CompletedQuantumCount;
 
             //Runs the code in the UI thread. This is used to prevent error, too.
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

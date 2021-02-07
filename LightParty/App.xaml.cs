@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -25,6 +26,8 @@ namespace LightParty
     /// </summary>
     sealed partial class App : Application
     {
+        private bool startMicrophoneInputOnResume = false; //Whether or not the microphone should be started w
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -33,6 +36,7 @@ namespace LightParty
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += OnResuming;
 
             ThemeSetup();
         }
@@ -104,17 +108,34 @@ namespace LightParty
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
+        /// Invoked when application execution is being suspended. Stops the microphone input when it's used.
         /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
+        /// <param name="sender">The source of the suspend request</param>
+        /// <param name="e">Details about the suspend request</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+
+            Party.SoundInput.StopMicrophoneInputSafely();
+            startMicrophoneInputOnResume = true;
+
             deferral.Complete();
+        }
+
+        /// <summary>
+        /// Invoked when application execution is being resumed. Resets and starts the microphone input if it was used.
+        /// </summary>
+        /// <param name="sender">The source of the suspend request</param>
+        /// <param name="e">Details about the resume request</param>
+        private void OnResuming(object sender, object e)
+        {
+            Party.SoundInput.ResetMicrophoneInput();
+
+            if (startMicrophoneInputOnResume)
+            {
+                _ = Party.SoundInput.StartMicrophoneInputSafely();
+                startMicrophoneInputOnResume = false;
+            }
         }
     }
 }

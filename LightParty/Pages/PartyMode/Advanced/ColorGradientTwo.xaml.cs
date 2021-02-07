@@ -2,6 +2,7 @@
 using LightParty.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,25 +19,23 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ColorGradientThree : Page
+    public sealed partial class ColorGradientTwo : Page
     {
         private dynamic popupClass;
         private dynamic onColorClass;
 
         private Color rgbStartColor;
-        private Color rgbCenterColor;
         private Color rgbStopColor;
-        private int startColorTemperature = 154;
-        private int centerColorTemperature = 200;
-        private int stopColorTemperature = 500;
+        private int startColorTemperature;
+        private int stopColorTemperature;
         private bool? rgbMode = null;
 
-        public ColorGradientThree()
+        public ColorGradientTwo()
         {
             this.InitializeComponent();
         }
@@ -52,10 +51,8 @@ namespace LightParty.Pages.PartyMode
             onColorClass = newOnColorClass;
 
             rgbStartColor = colorGradientInformation.startColor;
-            rgbCenterColor = colorGradientInformation.centerColor;
             rgbStopColor = colorGradientInformation.endColor;
             startColorTemperature = colorGradientInformation.startColorTemperature;
-            centerColorTemperature = colorGradientInformation.centerColorTemperature;
             stopColorTemperature = colorGradientInformation.endColorTemperature;
         }
 
@@ -64,67 +61,53 @@ namespace LightParty.Pages.PartyMode
             if (LightInformation.IsInRGBMode() && rgbMode != true)
             {
                 SetColor(rgbStartColor, 0);
-                SetColor(rgbCenterColor, 1);
-                SetColor(rgbStopColor, 2);
+                SetColor(rgbStopColor, 1);
 
                 rgbMode = true;
-                onColorClass.ColorGradientThreeChanged(StartColor.Color, CenterColor.Color, StopColor.Color);
+                onColorClass.ColorGradientTwoChanged(StartColor.Color, StopColor.Color);
             }
             if (!LightInformation.IsInRGBMode() && rgbMode != false)
             {
                 SetColorTemperature(startColorTemperature, 0);
-                SetColorTemperature(centerColorTemperature, 1);
-                SetColorTemperature(stopColorTemperature, 2);
+                SetColorTemperature(stopColorTemperature, 1);
 
                 rgbMode = false;
-                onColorClass.ColorTemperatureGradientThreeChanged(Convert.ToInt32(StartColorButton.Content), Convert.ToInt32(CenterColorButton.Content), Convert.ToInt32(StopColorButton.Content));
+                onColorClass.ColorTemperatureGradientTwoChanged(Convert.ToInt32(StartColorButton.Content), Convert.ToInt32(StopColorButton.Content));
             }
         }
 
         private void StartColorButton_Click(object sender, RoutedEventArgs e)
         {
             if (LightInformation.IsInRGBMode())
-                popupClass.OpenColorRGBPickerPopup<ColorGradientThree>(StartColor.Color, this, 0);
+                popupClass.OpenColorRGBPickerPopup<ColorGradientTwo>(StartColor.Color, this, 0);
             else
-                popupClass.OpenTemperatureColorPickerPopup<ColorGradientThree>(Convert.ToInt32(StartColorButton.Content), this, 0);
-        }
-
-        private void CenterColorButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (LightInformation.IsInRGBMode())
-                popupClass.OpenColorRGBPickerPopup<ColorGradientThree>(CenterColor.Color, this, 1);
-            else
-                popupClass.OpenTemperatureColorPickerPopup<ColorGradientThree>(Convert.ToInt32(CenterColorButton.Content), this, 1);
+                popupClass.OpenTemperatureColorPickerPopup<ColorGradientTwo>(Convert.ToInt32(StartColorButton.Content), this, 0);
         }
 
         private void StopColorButton_Click(object sender, RoutedEventArgs e)
         {
             if (LightInformation.IsInRGBMode())
-                popupClass.OpenColorRGBPickerPopup<ColorGradientThree>(StopColor.Color, this, 2);
+                popupClass.OpenColorRGBPickerPopup<ColorGradientTwo>(StopColor.Color, this, 1);
             else
-                popupClass.OpenTemperatureColorPickerPopup<ColorGradientThree>(Convert.ToInt32(StopColorButton.Content), this, 2);
+                popupClass.OpenTemperatureColorPickerPopup<ColorGradientTwo>(Convert.ToInt32(StopColorButton.Content), this, 1);
         }
 
         public void SetColor(Color newColor, int id)
         {
-            switch (id)
+            switch(id)
             {
                 case 0:
                     StartColor.Color = newColor;
                     StartColorButton.Content = "#" + StartColor.Color.ToString().Substring(3);
                     break;
                 case 1:
-                    CenterColor.Color = newColor;
-                    CenterColorButton.Content = "#" + CenterColor.Color.ToString().Substring(3);
-                    break;
-                case 2:
                     StopColor.Color = newColor;
                     StopColorButton.Content = "#" + StopColor.Color.ToString().Substring(3);
                     break;
             }
 
             if (rgbMode == true)
-                onColorClass.ColorGradientThreeChanged(StartColor.Color, CenterColor.Color, StopColor.Color);
+                onColorClass.ColorGradientTwoChanged(StartColor.Color, StopColor.Color);
         }
 
         public void SetColorTemperature(int newColorTemperature, int id)
@@ -136,17 +119,13 @@ namespace LightParty.Pages.PartyMode
                     StartColorButton.Content = newColorTemperature.ToString();
                     break;
                 case 1:
-                    CenterColor.Color = ColorAssistant.ConvertColorTemperatureToColor(newColorTemperature);
-                    CenterColorButton.Content = newColorTemperature.ToString();
-                    break;
-                case 2:
                     StopColor.Color = ColorAssistant.ConvertColorTemperatureToColor(newColorTemperature);
                     StopColorButton.Content = newColorTemperature.ToString();
                     break;
             }
 
             if (rgbMode == false)
-                onColorClass.ColorTemperatureGradientThreeChanged(Convert.ToInt32(StartColorButton.Content), Convert.ToInt32(CenterColorButton.Content), Convert.ToInt32(StopColorButton.Content));
+                onColorClass.ColorTemperatureGradientTwoChanged(Convert.ToInt32(StartColorButton.Content), Convert.ToInt32(StopColorButton.Content));
         }
     }
 }

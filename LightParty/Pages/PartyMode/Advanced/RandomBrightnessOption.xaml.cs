@@ -17,7 +17,7 @@ using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace LightParty.Pages.PartyMode
+namespace LightParty.Pages.PartyMode.Advanced
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -29,16 +29,21 @@ namespace LightParty.Pages.PartyMode
             this.InitializeComponent();
         }
 
-        private void RandomInputRangeSelector_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            PartyOptions.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            UpdateControls();
         }
 
-        private void RandomInputRangeSelector_ThumbDragCompleted(object sender, DragCompletedEventArgs e)
+        private void UpdateControls()
         {
-            PartyOptions.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            RandomInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minRandomBrightness;
+            RandomInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxRandomBrightness;
+        }
+
+        private void RandomInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
+        {
+            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
+            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)
