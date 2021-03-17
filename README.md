@@ -21,7 +21,8 @@ You can always download the newest stable version of Light Party from the [Micro
 ### Roadmap
 - ~~Release of version 1.0.0~~
 - ~~More fluent design (e.g. in the navigation view and titel bar)!~~
-- [Redesign of the Party Mode](https://github.com/clemenskoprolin/light-party/issues/3)
+- ~~[Redesign of the Party Mode](https://github.com/clemenskoprolin/light-party/issues/3)~~
+- Native way to use the internal sound of the computer for the Party Mode
 - Many, many, many bug fixes
 - Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
 

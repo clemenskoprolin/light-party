@@ -12,9 +12,9 @@
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
             <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
-                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8"/>
+                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
             <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
-                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8"/>
+                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
         </Grid.Resources>
 
         <Grid.RowDefinitions>

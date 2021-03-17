@@ -30,6 +30,8 @@ namespace LightParty.Pages.LightControl
     public sealed partial class LightSelection : Page
     {
         dynamic uiParent;
+        private readonly float mainTargetOutlineThickness = 4f; //Border outline thickness of the main target
+        private readonly float otherTargetOutlineThickness = 3.4f; //Border outline thickness of other main targets
 
         public LightSelection()
         {
@@ -117,12 +119,12 @@ namespace LightParty.Pages.LightControl
                 LightGrid.Children.Add(newButton);
 
                 if (BridgeInformation.usedLights.Contains(light.Id.ToString()) && light.Id.ToString() != BridgeInformation.mainLightTarget.ToString())
-                    SetLightButtonOutline(newButton, true, 3);
+                    SetLightButtonOutline(newButton, true, otherTargetOutlineThickness);
 
                 if (BridgeInformation.mainLightTarget != null)
                 {
-                    if (light.Id.ToString() == BridgeInformation.mainLightTarget.ToString())
-                        SetLightButtonOutline(newButton, true, 4);
+                    if (light.Id.ToString() == BridgeInformation.mainLightTarget.Id.ToString())
+                        SetLightButtonOutline(newButton, true, mainTargetOutlineThickness);
                 }
 
                 currentColumn++;
@@ -146,19 +148,18 @@ namespace LightParty.Pages.LightControl
         private async void LightButtonClick(object sender, RoutedEventArgs e)
         {
             BasicLightController.canControl = false;
-            await BasicLightController.GetAllLights();
 
             int id = Convert.ToInt32(((Button)sender).Tag);
-
-            SetLightButtonOutline((Button)sender, BasicLightController.ChangeLightSelection(id.ToString()), 3);
-
+            SetLightButtonOutline((Button)sender, BasicLightController.ChangeLightSelection(id.ToString()), otherTargetOutlineThickness);
             SetAutoMainTarget();
+
+            await BasicLightController.GetAllLights();
             BasicLightController.canControl = true;
 
             uiParent.LightSelectionChanged();
         }
 
-        private void SetLightButtonOutline(Button button, bool set, int thickness)
+        private void SetLightButtonOutline(Button button, bool set, float thickness)
         {
             Border border = button.Content as Border;
 
@@ -179,8 +180,8 @@ namespace LightParty.Pages.LightControl
             if (BridgeInformation.usedLights.Count == 1)
             {
                 BridgeInformation.mainLightTarget = BridgeInformation.lights[Convert.ToInt32(BridgeInformation.usedLights[0]) - 1];
-                SetLightButtonOutline(LightGrid.Children[Convert.ToInt32(BridgeInformation.mainLightTarget.Id) - 1] as Button, false, 3);
-                SetLightButtonOutline(LightGrid.Children[Convert.ToInt32(BridgeInformation.mainLightTarget.Id) - 1] as Button, true, 4);
+                SetLightButtonOutline(LightGrid.Children[Convert.ToInt32(BridgeInformation.mainLightTarget.Id) - 1] as Button, false, otherTargetOutlineThickness);
+                SetLightButtonOutline(LightGrid.Children[Convert.ToInt32(BridgeInformation.mainLightTarget.Id) - 1] as Button, true, mainTargetOutlineThickness);
             }
         }
 
