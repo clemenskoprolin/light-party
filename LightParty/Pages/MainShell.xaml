@@ -12,7 +12,7 @@
     Loaded="Page_Loaded">
 
     <Grid x:Name="LayoutRoot">
-        <Grid x:Name="AppTitleBar" Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}" VerticalAlignment="Top"
+        <Grid x:Name="AppTitleBar" Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}" VerticalAlignment="Top"  Margin="48,0,0,0"
               IsHitTestVisible="True" Background="Transparent" Canvas.ZIndex="1">
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="TopPaddingRow" Height="15"/>
@@ -20,23 +20,19 @@
                 <RowDefinition x:Name="BottomPaddingRow" Height="15"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftPaddingColumn" Width="48"/>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition Width="235*"/>
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Height="18" Width="18"
+            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Height="18" Width="18"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Source="/Assets/Icons/LightParty_100x100.png">
-   
             </Image>
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="Light Party" Style="{StaticResource CaptionTextBlockStyle}" Grid.ColumnSpan="2"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="Light Party" Style="{StaticResource CaptionTextBlockStyle}" Grid.ColumnSpan="2"/>
         </Grid>
 
-        <Frame x:Name="FullScreenFrame" Visibility="Collapsed" Margin="0,48,0,0"/>
-
-        <muxc:NavigationView x:Name="MainNav" IsTitleBarAutoPaddingEnabled="False" Header="Bridge Connection" 
-                             IsBackButtonVisible="Visible" ItemInvoked="MainNav_ItemInvoked" Canvas.ZIndex="0">
+        <muxc:NavigationView x:Name="MainNav" Canvas.ZIndex="0" IsTitleBarAutoPaddingEnabled="False" Header="Bridge Connection" 
+                             IsBackButtonVisible="Visible" ItemInvoked="MainNav_ItemInvoked" BackRequested="OnBackRequested">
 
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
@@ -49,7 +45,7 @@
             </muxc:NavigationView.MenuItems>
 
             <Grid>
-                <Frame x:Name="MainFrame" Margin="56,16,30,0"/>
+                <Frame x:Name="MainFrame" Margin="56,16,30,0" Navigated="UpdateBackButton"/>
             </Grid>
         </muxc:NavigationView>
 
@@ -71,6 +67,8 @@
                 <muxc:SymbolIconSource Symbol="Play" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
+
+        <Frame x:Name="FullScreenFrame" Visibility="Collapsed" Margin="0,48,0,0" Navigated="UpdateBackButton" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
 
         <TextBlock x:Name="DebugLogNotice" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="Collapsed"
                    TextWrapping="Wrap" Text="DebugLog is activated. Path to file: " />

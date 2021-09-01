@@ -35,6 +35,7 @@ namespace LightParty.Pages
         private int navPageIndex = 0; //The index of the current Page selected in the MainNav.
         private Type[] navItemPages = { typeof(BridgeConfiguration.BridgeConfig), typeof(LightControl.BasicLightControl), typeof(PartyMode.PartyControl), typeof(Settings.MainSettings) };
         //Contains all types of the pages used by the MainNav.
+        private List<int> navViewPageHistroy = new List<int>(); //Contains the IDs of all visited NavView pages.
 
         private int f2KeyCount = 0; //Is increased by one when the user uses his F2 key. Used by DemoKeyPressed.
 
@@ -79,6 +80,7 @@ namespace LightParty.Pages
                 BridgeConfigurationFile.ResetBridgeConfigurationTemporarily();
                 ConfigurationFile.ResetConfigurationTemporarily();
                 userCanUseNav = false;
+                navViewPageHistroy.Clear();
 
                 Connection.BridgeInformation.isConnected = false;
                 Connection.BridgeInformation.demoMode = !Connection.BridgeInformation.demoMode;
@@ -86,6 +88,33 @@ namespace LightParty.Pages
                 await ConfigureApp();
 
                 NavigateToPageAndSelect(0);
+            }
+        }
+
+        /// <summary>
+        /// Trys to go back either in the FullScreenFrame or in the MainFrame, depending on the visibility of the FullScreenFrame.
+        /// </summary>
+        private void OnBackRequested(mUi.NavigationView sender, mUi.NavigationViewBackRequestedEventArgs args)
+        {
+            //FullScreenFrame
+            if (FullScreenFrame.Visibility == Visibility.Visible)
+            {
+                if (FullScreenFrame.CanGoBack)
+                    FullScreenFrame.GoBack();
+                return;
+            }
+
+            //Special case for BridgeConfiguration.RegisterApplication
+            if (MainFrame.Content.GetType() == typeof(BridgeConfiguration.RegisterApplication))
+            {
+                MainFrame.Navigate(typeof(BridgeConfiguration.FindBridge));
+                return;
+            }
+
+            //Navigation view
+            if (navViewPageHistroy.Count > 1)
+            {
+                NavigateToPageAndSelect(navViewPageHistroy[navViewPageHistroy.Count - 2]);
             }
         }
 
@@ -165,10 +194,10 @@ namespace LightParty.Pages
         /// </summary>
         public void ShowIntroduction()
         {
+            navViewPageHistroy.Clear();
+
             FullScreenFrame.Visibility = Visibility.Visible;
             FullScreenFrame.Navigate(typeof(Introduction.Explanations));
-
-            MainNav.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -177,8 +206,8 @@ namespace LightParty.Pages
         public void HideIntroduction()
         {
             FullScreenFrame.Visibility = Visibility.Collapsed;
-            MainNav.Visibility = Visibility.Visible;
             FullScreenFrame.Content = null;
+            FullScreenFrame.BackStack.Clear();
 
             NavigateToPageAndSelect(0, "noanimation");
         }
@@ -220,7 +249,10 @@ namespace LightParty.Pages
         /// <param name="animation">[Optional, default = 'default'] Name of the animation with which the page will be invoked</param>
         public void NavigateToPageAndSelect(int pageIndex, string animation = "default")
         {
-            MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as mUi.NavigationViewItem;
+            if (pageIndex < 3)
+                MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as mUi.NavigationViewItem;
+            else
+                MainNav.SelectedItem = MainNav.SettingsItem;
             NavigateToPage(pageIndex, animation);
         }
 
@@ -243,6 +275,8 @@ namespace LightParty.Pages
                 MainNav.Header = ((mUi.NavigationViewItem)MainNav.MenuItems[pageIndex]).Content;
             else
                 MainNav.Header = "Settings";
+
+            navViewPageHistroy.Add(pageIndex);
         }
 
 
@@ -265,6 +299,14 @@ namespace LightParty.Pages
                     MainFrame.Navigate(pageType, null, new SuppressNavigationTransitionInfo());
                     break;
             }
+        }
+
+        /// <summary>
+        /// Enables the back button when going back is possible.
+        /// </summary>
+        private void UpdateBackButton(object sender, NavigationEventArgs e)
+        {
+            MainNav.IsBackEnabled = (FullScreenFrame.Visibility == Visibility.Visible && FullScreenFrame.CanGoBack) || navViewPageHistroy.Count > 1 || MainFrame.Content.GetType() == typeof(BridgeConfiguration.RegisterApplication);
         }
 
         /// <summary>
