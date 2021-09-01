@@ -35,16 +35,16 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateControls()
         {
-            MicrophoneInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minSoundLevel;
-            MicrophoneInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxSoundLevel;
+            MicrophoneInputRangeSelector.RangeStart = PartyOptions.activePartyOption.minSoundLevel;
+            MicrophoneInputRangeSelector.RangeEnd = PartyOptions.activePartyOption.maxSoundLevel;
 
             ((CheckBox)StartWithZeroBrightnessInRangeCheckBox).IsChecked = PartyOptions.activePartyOption.startWithZeroInRange;
         }
 
         private void MicrophoneInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
         {
-            PartyOptions.activePartyOption.minSoundLevel = MicrophoneInputRangeSelector.RangeMin;
-            PartyOptions.activePartyOption.maxSoundLevel = MicrophoneInputRangeSelector.RangeMax;
+            PartyOptions.activePartyOption.minSoundLevel = MicrophoneInputRangeSelector.RangeStart;
+            PartyOptions.activePartyOption.maxSoundLevel = MicrophoneInputRangeSelector.RangeEnd;
         }
 
         private void StartWithZeroBrightnessInRangeCheckBox_Click(object sender, RoutedEventArgs e)

@@ -19,6 +19,7 @@ using Windows.System;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.ViewManagement;
 using Windows.UI;
+using mUi = Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.Core;
 using LightParty.Pages;
 using LightParty.Services;
@@ -190,11 +191,11 @@ namespace LightParty.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void MainNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void MainNav_ItemInvoked(mUi.NavigationView sender, mUi.NavigationViewItemInvokedEventArgs args)
         {
             int newPageIndex;
             if (!args.IsSettingsInvoked)
-                newPageIndex = Convert.ToInt32(((NavigationViewItem)args.InvokedItemContainer).Tag);
+                newPageIndex = Convert.ToInt32(((mUi.NavigationViewItem)args.InvokedItemContainer).Tag);
             else
                 newPageIndex = 3;
 
@@ -219,7 +220,7 @@ namespace LightParty.Pages
         /// <param name="animation">[Optional, default = 'default'] Name of the animation with which the page will be invoked</param>
         public void NavigateToPageAndSelect(int pageIndex, string animation = "default")
         {
-            MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as NavigationViewItem;
+            MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as mUi.NavigationViewItem;
             NavigateToPage(pageIndex, animation);
         }
 
@@ -230,11 +231,18 @@ namespace LightParty.Pages
         /// <param name="animation">[Optional, default = 'default'] Name of the animation with which the page will be invoked</param>
         private void NavigateToPage(int pageIndex, string animation = "default")
         {
+            DiscardTeachingTips();
+
             if (navPageIndex == 2)
                 ((PartyMode.PartyControl)MainFrame.Content).StopActiveProcesses();
 
             NavViewNavigateToPage(navItemPages[pageIndex], animation);
             navPageIndex = pageIndex;
+
+            if (pageIndex < 3)
+                MainNav.Header = ((mUi.NavigationViewItem)MainNav.MenuItems[pageIndex]).Content;
+            else
+                MainNav.Header = "Settings";
         }
 
 
@@ -260,33 +268,53 @@ namespace LightParty.Pages
         }
 
         /// <summary>
-        /// Draws the user the MainNavigationView to attention by open it or, depending if the MainNavigationView is already open, by show a black overlay animation.
+        /// Updates the header of the MainNav to a given the a given string.
         /// </summary>
-        public async Task DrawNavigationViewToAttention()
+        /// <param name="newHeader">The string to which the header will be updated.</param>
+        public void UpdateMainNavHeader(string newHeader)
         {
-            double closedWidth = ((NavigationViewItem)MainNav.MenuItems[0]).ActualWidth;
-            MainNav.IsPaneOpen = true;
-
-            await Task.Delay(80);
-            double openedWidth = ((NavigationViewItem)MainNav.MenuItems[0]).ActualWidth;
-
-            if (closedWidth == openedWidth)
-                _ = ShowBlackOverlayAnimation();
+            MainNav.Header = newHeader;
         }
 
         /// <summary>
-        /// Fade the BlackOverlay in, waits for 2.5 seconds and then fades it out.
+        /// Draws the user the MainNavigationView to attention by open it and showing the first teaching tip.
         /// </summary>
-        private async Task ShowBlackOverlayAnimation()
+        public void ShowNavigationViewTeachingTips()
         {
-            BlackOverlay.Visibility = Visibility.Visible;
-            BlackOverlay.Opacity = 1;
+            MainNav.IsPaneOpen = true;
+            NavigationViewTeachingTip1.IsOpen = true;
+        }
 
-            await Task.Delay(2500);
+        /// <summary>
+        /// Once the first teaching tip is closed, the second one will be displayed.
+        /// </summary>
+        private void NavigationViewTeachingTip1_Closed(mUi.TeachingTip sender, mUi.TeachingTipClosedEventArgs args)
+        {
+            _ = OpenNewTeachingTip();
+        }
 
-            BlackOverlay.Opacity = 0;
-            await Task.Delay((int)BlackOverlay.OpacityTransition.Duration.TotalMilliseconds);
-            BlackOverlay.Visibility = Visibility.Collapsed;
+        /// <summary>
+        /// Opens a new teaching tip after a delay if the others are closed.
+        /// </summary>
+        /// <returns></returns>
+        private async Task OpenNewTeachingTip()
+        {
+            await Task.Delay(3000);
+
+            if (!NavigationViewTeachingTip1.IsOpen)
+            {
+                MainNav.IsPaneOpen = true;
+                NavigationViewTeachingTip2.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Closes any open teaching tip.
+        /// </summary>
+        private void DiscardTeachingTips()
+        {
+            NavigationViewTeachingTip1.IsOpen = false;
+            NavigationViewTeachingTip2.IsOpen = false;
         }
 
         #endregion

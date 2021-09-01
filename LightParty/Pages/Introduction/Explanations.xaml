@@ -141,11 +141,11 @@
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="10,0,20,0" >
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Margin="10,0,20,0" >
                     <Image Source="/Assets/Screenshots/LightParty_BasicLightActions_single_light.jpg"/>
                 </Border>
 
-                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource SystemBaseHighColor}" Margin="10,0,20,0" CornerRadius="3">
+                <Border Grid.Column="0" BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Margin="10,0,20,0" CornerRadius="3">
                     <Image x:Name="LightActionsDarkImage" Opacity="0" Source="/Assets/Screenshots/LightParty_BasicLightActions_single_dark.jpg">
                         <Image.OpacityTransition>
                             <ScalarTransition Duration="0:0:0.8"/>

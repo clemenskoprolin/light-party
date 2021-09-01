@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
     <Grid>
@@ -17,11 +16,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}" Text="Settings"/>
-                <Grid Grid.Row="1" Margin="0,10,0,0">
+                <Grid Grid.Row="0" Margin="0,10,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -40,7 +37,7 @@
                     <HyperlinkButton Grid.Row="4" Foreground="{ThemeResource SystemBaseHighColor}" Content="Windows color settings" NavigateUri="ms-settings:personalization-colors"/>
                 </Grid>
 
-                <Grid Grid.Row="2" Margin="0,10,0,0" MaxWidth="600" HorizontalAlignment="Left">
+                <Grid Grid.Row="1" Margin="0,10,0,0" MaxWidth="600" HorizontalAlignment="Left">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -65,7 +62,7 @@
                     </ToggleSwitch>
                 </Grid>
 
-                <Grid Grid.Row="3" Margin="0,10,0,0">
+                <Grid Grid.Row="2" Margin="0,10,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -96,7 +93,7 @@
                     </TextBlock>
                 </Grid>
                 
-                <Grid Grid.Row="4" Margin="0,12,0,0">
+                <Grid Grid.Row="3" Margin="0,12,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -116,12 +113,12 @@
                         and <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party/graphs/contributors">Contributors</Hyperlink> 2021
                     </TextBlock>
 
-                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource SystemBaseHighColor}" Content="Offical website" NavigateUri="https://clemenskoprolin.com/lightparty/"/>
-                    <HyperlinkButton Grid.Row="4" Padding="0,3,0,0" Foreground="{ThemeResource SystemBaseHighColor}" Content="GitHub repository" NavigateUri="https://github.com/clemenskoprolin/light-party"/>
-                    <HyperlinkButton Grid.Row="5" Padding="0,3,0,0" Foreground="{ThemeResource SystemBaseHighColor}" Content="Privacy Policy" NavigateUri="https://clemenskoprolin.com/lightparty/legal/privacypolicy/"/>
-                    <HyperlinkButton Grid.Row="6" Padding="0,3,0,0" Foreground="{ThemeResource SystemBaseHighColor}" Content="License" NavigateUri="https://clemenskoprolin.com/lightparty/legal/license/license.txt"/>
+                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Offical website" NavigateUri="https://clemenskoprolin.com/lightparty/"/>
+                    <HyperlinkButton Grid.Row="4" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="GitHub repository" NavigateUri="https://github.com/clemenskoprolin/light-party"/>
+                    <HyperlinkButton Grid.Row="5" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Privacy Policy" NavigateUri="https://clemenskoprolin.com/lightparty/legal/privacypolicy/"/>
+                    <HyperlinkButton Grid.Row="6" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="License" NavigateUri="https://clemenskoprolin.com/lightparty/legal/license/license.txt"/>
 
-                    <TextBlock Grid.Row="7" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
+                    <TextBlock Grid.Row="7" Margin="0,10,0,10" TextWrapping="Wrap">
                         Did you find a bug or have a feature request? 
                         <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="mailto:lightparty@clemenskoprolin.com">Contact me!</Hyperlink>
                     </TextBlock>

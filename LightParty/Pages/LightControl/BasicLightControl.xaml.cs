@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using LightParty.LightController;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using mUi = Microsoft.UI.Xaml.Controls;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
 using LightParty.Connection;
@@ -32,7 +33,7 @@ namespace LightParty.Pages.LightControl
     /// </summary>
     public sealed partial class BasicLightControl : Page
     {
-        private NavigationViewItem rgbColorPickerNavItem;
+        private mUi.NavigationViewItem rgbColorPickerNavItem;
         private bool colorPickerNavInvokeItems = true;
 
         public BasicLightControl()
@@ -42,7 +43,7 @@ namespace LightParty.Pages.LightControl
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            rgbColorPickerNavItem = ColorPickerNav.MenuItems[0] as NavigationViewItem;
+            rgbColorPickerNavItem = ColorPickerNav.MenuItems[0] as mUi.NavigationViewItem;
 
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
@@ -158,7 +159,7 @@ namespace LightParty.Pages.LightControl
         private void SetColorPicker()
         {
             bool rgbColorPicker = SetRGBColorPickerVisibility();
-            NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+            mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
 
             if (rgbColorPicker)
             {
@@ -207,7 +208,7 @@ namespace LightParty.Pages.LightControl
                 if (!ColorPickerNav.MenuItems.Contains(rgbColorPickerNavItem))
                     ColorPickerNav.MenuItems.Insert(0, rgbColorPickerNavItem);
 
-                NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+                mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
                 if (currentItem == null)
                 {
                     colorPickerNavInvokeItems = false;
@@ -233,7 +234,7 @@ namespace LightParty.Pages.LightControl
         {
             dynamic navItemScript;
 
-            NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+            mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
             if (currentItem == null)
                 return;
             if (currentItem.Content.ToString() == rgbColorPickerNavItem.Content.ToString())
@@ -248,7 +249,7 @@ namespace LightParty.Pages.LightControl
             navItemScript.SetIsEnabled(LightToggleSwitch.IsOn);
         }
 
-        private void ColorPickerNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void ColorPickerNav_ItemInvoked(mUi.NavigationView sender, mUi.NavigationViewItemInvokedEventArgs args)
         {
             if (colorPickerNavInvokeItems)
             {
@@ -258,7 +259,7 @@ namespace LightParty.Pages.LightControl
 
         private void SelectMenuItem(string itemName)
         {
-            foreach(NavigationViewItem item in ColorPickerNav.MenuItems)
+            foreach(mUi.NavigationViewItem item in ColorPickerNav.MenuItems)
             {
                 if (item.Content.ToString() == itemName)
                 {
