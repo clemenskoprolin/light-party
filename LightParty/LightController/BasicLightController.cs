@@ -23,19 +23,29 @@ namespace LightParty.LightController
         #region light selection
 
         /// <summary>
-        /// Gets all lights and stores them in BridgeInformation.lights
+        /// Trys to get all lights and stores them in BridgeInformation.lights
         /// </summary>
-        public static async Task GetAllLights()
+        /// /// <returns>Whether or not the operation was successful.</returns>
+        public static async Task<bool> GetAllLights()
         {
             if (BridgeInformation.demoMode)
             {
                 if (BridgeInformation.lights.Length == 0)
                     DemoLightController.CreatesDemoLights();
-                return;
+                return true;
             }
 
-            var result = await BridgeInformation.client.GetBridgeAsync();
-            BridgeInformation.lights = result.Lights.ToArray();
+            try
+            {
+                var result = await BridgeInformation.client.GetBridgeAsync();
+                BridgeInformation.lights = result.Lights.ToArray();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void ClearAllLights()
@@ -49,13 +59,17 @@ namespace LightParty.LightController
         /// <returns>Whether the light is in the array of the used lights or not.</returns>
         public static bool ChangeLightSelection(string id)
         {
-            if (!BridgeInformation.usedLights.Contains(id.ToString()))
+            if (!BridgeInformation.usedLights.Contains(id))
             {
-                BridgeInformation.usedLights.Add(id.ToString());
+                BridgeInformation.usedLights.Add(id);
                 return true;
             }
             else
             {
+                if (BridgeInformation.mainLightTarget.Id == id)
+                {
+                    BridgeInformation.mainLightTarget = null;
+                }
                 BridgeInformation.usedLights.Remove(id.ToString());
                 return false;
             }

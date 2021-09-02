@@ -20,7 +20,7 @@
                 <RowDefinition x:Name="BottomPaddingRow" Height="15"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="8*"/>
                 <ColumnDefinition Width="235*"/>
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
             </Grid.ColumnDefinitions>
