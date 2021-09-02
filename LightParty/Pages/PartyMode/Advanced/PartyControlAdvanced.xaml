@@ -69,7 +69,11 @@
         <Border Grid.Row="10" Height="35" Width="35" HorizontalAlignment="Left" Margin="0,5,0,0" BorderThickness="1" CornerRadius="3" BorderBrush="{StaticResource SystemBaseHighColor}">
             <Rectangle>
                 <Rectangle.Fill>
-                    <SolidColorBrush x:Name="ColorOutput" Color="Blue"/>
+                    <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                        <GradientStop x:Name="ColorOutputLeftStart" Color="Blue" Offset="0"/>
+                        <GradientStop x:Name="ColorOutputLeftEnd" Color="Blue" Offset=".5"/>
+                        <GradientStop x:Name="ColorOutputRight" Color="#FFFFDA" Offset=".5"/>
+                    </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
         </Border>

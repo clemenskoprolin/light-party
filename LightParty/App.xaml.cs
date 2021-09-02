@@ -116,8 +116,11 @@ namespace LightParty
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            Party.SoundInput.StopMicrophoneInputSafely();
-            startMicrophoneInputOnResume = true;
+            if (Party.SoundInput.isCreating || Party.SoundInput.isListening)
+            {
+                Party.SoundInput.StopMicrophoneInputSafely();
+                startMicrophoneInputOnResume = true;
+            }
 
             deferral.Complete();
         }
@@ -129,7 +132,8 @@ namespace LightParty
         /// <param name="e">Details about the resume request</param>
         private void OnResuming(object sender, object e)
         {
-            Party.SoundInput.ResetMicrophoneInput();
+            if (Party.SoundInput.wasListening)
+                Party.SoundInput.ResetMicrophoneInput();
 
             if (startMicrophoneInputOnResume)
             {

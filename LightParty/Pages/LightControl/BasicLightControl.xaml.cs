@@ -130,7 +130,7 @@ namespace LightParty.Pages.LightControl
             SetIsEnabled();
 
             if (BasicLightController.canControl)
-                UserControlUsed();
+                _ = UserControlUsed();
         }
 
         //Brightness Slider
@@ -138,7 +138,6 @@ namespace LightParty.Pages.LightControl
         void SetBrightnessSlider()
         {
             int brightness = LightInformation.GetBrightnessInPercent(BridgeInformation.mainLightTarget);
-            Debug.WriteLine(brightness);
             BrightnessSlider.Value = brightness;
         }
 
@@ -158,7 +157,7 @@ namespace LightParty.Pages.LightControl
             BasicLightController.SetBrightness(brightness);
 
             if (BasicLightController.canControl)
-                UserControlUsed();
+                _ = UserControlUsed();
         }
 
         //Color Picker
@@ -342,7 +341,7 @@ namespace LightParty.Pages.LightControl
         {
             BasicLightController.SetRGBColor(new RGBColor(color.R, color.G, color.B));
             if (BasicLightController.canControl)
-                UserControlUsed();
+                _ = UserControlUsed();
         }
 
         //Temperture Color Picker
@@ -377,7 +376,7 @@ namespace LightParty.Pages.LightControl
         {
             BasicLightController.SetColorTemperature(colorTemperature);
             if (BasicLightController.canControl)
-                UserControlUsed();
+                _ = UserControlUsed();
         }
     }
 }

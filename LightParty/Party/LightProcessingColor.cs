@@ -104,39 +104,36 @@ namespace LightParty.Party
         }
 
         /// <summary>
-        /// Gets a completely random color.
+        /// Gets a completely random color in the RGB and color temperature spectrum.
         /// </summary>
         /// <returns>A color as a ColorInformation Type</returns>
         public static ColorInformation SetRandomColor()
         {
-            if (PartyOptions.useRGBColor)
-                return SetRandomRGBColor();
-            else
-                return SetRandomColorTemperature();
-        }
+            RGBColor? color = null;
+            int? temperature = null;
 
-        /// <summary>
-        /// Returns a random Color in the RGB color spectrum.
-        /// </summary>
-        /// <returns>A RGB color as a ColorInformation Type</returns>
-        private static ColorInformation SetRandomRGBColor()
-        {
-            RGBColor color = ColorAssistant.GetRandomRGBColor();
-            BasicLightController.SetRGBColorInCommonCommand(color);
+            if (PartyOptions.useMixedColorSpectrums)
+            {
+                color = ColorAssistant.GetRandomRGBColor();
+                temperature = ColorAssistant.GetRandomColorTemperature();
 
-            return new ColorInformation(color, null);
-        }
+                BasicLightController.SetRGBColorInCommonCommand((RGBColor)color);
+                BasicLightController.SetColorTemperatureInCommonCommand((int)temperature);
+            }
 
-        /// <summary>
-        /// Returns a random color temperature.
-        /// </summary>
-        /// <returns>A color temperature as a ColorInformation Type</returns>
-        private static ColorInformation SetRandomColorTemperature()
-        {
-            int temperature = ColorAssistant.GetRandomColorTemperature();
-            BasicLightController.SetColorTemperatureInCommonCommand(temperature);
+            if (!PartyOptions.useMixedColorSpectrums && PartyOptions.useRGBColor)
+            {
+                color = ColorAssistant.GetRandomRGBColor();
+                BasicLightController.SetRGBColorInCommonCommand((RGBColor)color);
+            }
 
-            return new ColorInformation(null, temperature);
+            if (!PartyOptions.useMixedColorSpectrums && !PartyOptions.useRGBColor)
+            {
+                temperature = ColorAssistant.GetRandomColorTemperature();
+                BasicLightController.SetColorTemperatureInCommonCommand((int)temperature);
+            }
+
+            return new ColorInformation(color, temperature);
         }
 
         #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI;
 using Q42.HueApi;
@@ -17,13 +18,16 @@ namespace LightParty.LightController
     /// </summary>
     class BasicLightController
     {
-        public static bool canControl = false; // Determines, whether  a command can be send or not.
-        private static LightCommand commonLightCommand = new LightCommand(); // Used to store a light command to which multiple attitudes will be added.
+        public static bool canControl = false; //Determines, whether  a command can be send or not.
+        private static LightCommand commonLightCommand = new LightCommand(); //Used to store a light command to which multiple attitudes will be added.
+        private static LightCommand commonLightCommandRGB = new LightCommand(); //In some cases having a separate light command for rgb lights is necessary.
+        private static LightCommand commonLightCommandTemperature = new LightCommand(); //In some cases having a separate light command for color temperature lights is necessary^.
+        private static readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(); //Is used to cancel GetAllLights after 3.5 seconds.
 
         #region light selection
 
         /// <summary>
-        /// Trys to get all lights and stores them in BridgeInformation.lights
+        /// Trys to get all lights and stores them in BridgeInformation.lights. Cancels the operation after 3.5 seconds.
         /// </summary>
         /// /// <returns>Whether or not the operation was successful.</returns>
         public static async Task<bool> GetAllLights()
@@ -37,6 +41,7 @@ namespace LightParty.LightController
 
             try
             {
+                cancellationTokenSource.CancelAfter(3500);
                 var result = await BridgeInformation.client.GetBridgeAsync();
                 BridgeInformation.lights = result.Lights.ToArray();
 
@@ -158,6 +163,8 @@ namespace LightParty.LightController
             //See above
             byte newBrightness = (byte)((float)newBrightnessPercent / 100 * 254);
             commonLightCommand.Brightness = newBrightness;
+            commonLightCommandRGB.Brightness = newBrightness;
+            commonLightCommandTemperature.Brightness = newBrightness;
         }
 
         #endregion
@@ -197,6 +204,7 @@ namespace LightParty.LightController
                 DemoLightController.commonRGBColor = rgbColor;
 
             commonLightCommand.SetColor(rgbColor);
+            commonLightCommandRGB.SetColor(rgbColor);
         }
 
         #endregion
@@ -233,15 +241,17 @@ namespace LightParty.LightController
                 return;
 
             commonLightCommand.SetColor(newColorTemperature);
+            commonLightCommandTemperature.SetColor(newColorTemperature);
         }
 
         #endregion
         #region common command
 
         /// <summary>
-        /// Sends the common command to the used lights.
+        /// Sends the common command to the used lights or separately the rgb and color temperature lights.
         /// </summary>
-        public static void SendCommonCommond()
+        /// <param name="splitSpectrums">If set to true, commonLightCommandRGB will be send to rgb lights and commonLightCommandTemperature will be send to color temperature lights</param>
+        public static void SendCommonCommond(bool splitSpectrums = false)
         {
             if (BridgeInformation.demoMode)
             {
@@ -249,7 +259,16 @@ namespace LightParty.LightController
                 return;
             }
 
-            BridgeInformation.client.SendCommandAsync(commonLightCommand, BridgeInformation.usedLights);
+            if (!splitSpectrums)
+            {
+                BridgeInformation.client.SendCommandAsync(commonLightCommand, BridgeInformation.usedLights);
+            }
+            else
+            {
+                List<string>[] splitUsedLights = LightInformation.GetUsedLightsSplitInSpectrums();
+                BridgeInformation.client.SendCommandAsync(commonLightCommandRGB, splitUsedLights[0]);
+                BridgeInformation.client.SendCommandAsync(commonLightCommandTemperature, splitUsedLights[1]);
+            }
         }
 
         #endregion

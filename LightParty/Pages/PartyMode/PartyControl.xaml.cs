@@ -73,12 +73,16 @@ namespace LightParty.Pages.PartyMode
         public void LightSelectionChanged()
         {
             PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
+            PartyOptions.useMixedColorSpectrums = LightInformation.IsInMixedColorSpectrumsMode();
+
             partyOptionsFrameContent.LightSelectionChanged();
 
             if (!LightInformation.CheckIfTurnedOn())
             {
                 BasicLightController.TurnOn();
             }
+
+            BasicLightController.canControl = true;
         }
 
         #region Party options navigation view

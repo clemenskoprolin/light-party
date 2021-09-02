@@ -66,6 +66,52 @@ namespace LightParty.LightController
         }
 
         /// <summary>
+        /// Checks if there are both lights which only support color temperature and lights which support the rgb color spectrum in usedLights.
+        /// </summary>
+        /// <returns>Whether or not there are both lights which only support color temperature and lights which support the rgb color spectrum in usedLights.</returns>
+        public static bool IsInMixedColorSpectrumsMode()
+        {
+            bool rgb = false;
+            bool temperature = false;
+
+            foreach (Light light in BridgeInformation.lights)
+            {
+                if (BridgeInformation.usedLights.Contains(light.Id))
+                {
+                    if (IsTemperatureType(light))
+                        temperature = true;
+                    else
+                        rgb = true;
+                }
+            }
+
+            return rgb && temperature;
+        }
+
+        /// <summary>
+        /// Gets an array of the used lights split in two lists, the first containing RGB lights and the second containing color temperature lights.
+        /// </summary>
+        /// <returns>An array of the used lights split in two lists, the first containing RGB lights and the second containing color temperature lights.</returns>
+        public static List<string>[] GetUsedLightsSplitInSpectrums()
+        {
+            List<string> usedRGBlights = new List<string>();
+            List<string> usedTermperatureLights = new List<string>();
+
+            foreach (Light light in BridgeInformation.lights)
+            {
+                if (BridgeInformation.usedLights.Contains(light.Id))
+                {
+                    if (IsTemperatureType(light))
+                        usedTermperatureLights.Add(light.Id);
+                    else
+                        usedRGBlights.Add(light.Id);
+                }
+            }
+
+            return new List<string>[] { usedRGBlights, usedTermperatureLights };
+        }
+
+        /// <summary>
         /// Gets the color of a light.
         /// </summary>
         /// <param name="light">The light with which the method works</param>

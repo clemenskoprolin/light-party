@@ -71,7 +71,12 @@ namespace LightParty.Party
             }
 
             if (BridgeInformation.usedLights.Count > 0)
-                BasicLightController.SendCommonCommond();
+            {
+                if (!PartyOptions.useMixedColorSpectrums)
+                    BasicLightController.SendCommonCommond();
+                else
+                    BasicLightController.SendCommonCommond(true);
+            }
 
             if (newBrightness != null || colorInformation.rgbColor != null || colorInformation.colorTemperature != null)
                 PartyUIUpdater.UpdateOutputDisplay(newBrightness, colorInformation.rgbColor, colorInformation.colorTemperature);

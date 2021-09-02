@@ -53,6 +53,7 @@ namespace LightParty.Pages.LightControl
             //Trys to get all lights from the bridge. If unsuccessful, wait 0.1 seconds and try again.
             bool success = await BasicLightController.GetAllLights(); ;
             while (!success) {
+                Debug.WriteLine("Error while getting lights. Trying again ...");
                 await Task.Delay(100);
                 success = await BasicLightController.GetAllLights();
             }
