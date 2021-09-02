@@ -49,6 +49,9 @@ namespace LightParty.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            SystemNavigationManager.GetForCurrentView().BackRequested += (x, y) => { OnBackRequested(); }; //Adds support for system back requests. E.g. Windows key + Backspace
+            Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += CoreDispatcherAcceleratorKeyActivated; //Adds support for accelerator keys.
+
             await ConfigureApp();
             NavigateToPageAndSelect(0);
         }
@@ -92,9 +95,31 @@ namespace LightParty.Pages
         }
 
         /// <summary>
+        /// Makes the back action available via accelerator keys.
+        /// </summary>
+        private void CoreDispatcherAcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
+        {
+            if (e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown && (e.VirtualKey == VirtualKey.Left || e.VirtualKey == VirtualKey.Right) && e.KeyStatus.IsMenuKeyDown == true)
+            {
+                if (e.VirtualKey == VirtualKey.Left)
+                {
+                    OnBackRequested();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called by MainNav, when the back button is pressed. Calls OnBackRequested.
+        /// </summary>
+        private void OnBackRequestedNavView(mUi.NavigationView sender, mUi.NavigationViewBackRequestedEventArgs args)
+        {
+            OnBackRequested();
+        }
+
+        /// <summary>
         /// Trys to go back either in the FullScreenFrame or in the MainFrame, depending on the visibility of the FullScreenFrame.
         /// </summary>
-        private void OnBackRequested(mUi.NavigationView sender, mUi.NavigationViewBackRequestedEventArgs args)
+        private void OnBackRequested()
         {
             //FullScreenFrame
             if (FullScreenFrame.Visibility == Visibility.Visible)

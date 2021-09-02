@@ -32,7 +32,7 @@
         </Grid>
 
         <muxc:NavigationView x:Name="MainNav" Canvas.ZIndex="0" IsTitleBarAutoPaddingEnabled="False" Header="Bridge Connection" 
-                             IsBackButtonVisible="Visible" ItemInvoked="MainNav_ItemInvoked" BackRequested="OnBackRequested">
+                             IsBackButtonVisible="Visible" ItemInvoked="MainNav_ItemInvoked" BackRequested="OnBackRequestedNavView">
 
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
