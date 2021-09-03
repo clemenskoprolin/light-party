@@ -47,7 +47,9 @@ namespace LightParty.Party
             while (isUpdating)
             {
                 await Task.Delay(updateInterval);
-                UpdateLights();
+
+                if (isUpdating)
+                    UpdateLights();
             }
         }
 

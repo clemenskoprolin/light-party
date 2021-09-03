@@ -77,12 +77,12 @@ namespace LightParty.Pages.PartyMode
 
             partyOptionsFrameContent.LightSelectionChanged();
 
+            BasicLightController.canControl = true;
+
             if (!LightInformation.CheckIfTurnedOn())
             {
                 BasicLightController.TurnOn();
             }
-
-            BasicLightController.canControl = true;
         }
 
         #region Party options navigation view
