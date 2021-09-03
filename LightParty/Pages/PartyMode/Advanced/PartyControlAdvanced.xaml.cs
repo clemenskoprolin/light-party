@@ -210,13 +210,21 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         //Output Display
 
-        public void UpdateOutputDisplay(int? brightness, Color? color)
+        public void UpdateOutputDisplay(int? brightness, Color? colorLeft, Color? colorRight)
         {
             if (brightness != null)
                 BrightnessOutput.Value = Convert.ToDouble(brightness);
 
-            if (color != null)
-                ColorOutput.Color = (Color)color;
+            if (colorLeft != null)
+            {
+                ColorOutputLeftStart.Color = (Color)colorLeft;
+                ColorOutputLeftEnd.Color = (Color)colorLeft;
+            }
+
+            if(colorRight != null)
+            {
+                ColorOutputRight.Color = (Color)colorRight;
+            }
         }
     }
 }

@@ -215,14 +215,17 @@ namespace LightParty.Party
             {
                 if (partyControlAdvanced != null)
                 {
-                    if (rgbColor == null && colorTemperature == null)
-                        partyControlAdvanced.UpdateOutputDisplay(brightness, null);
+                    if (rgbColor == null && colorTemperature == null && colorTemperature == null)
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, null, null);
 
                     if (rgbColor != null && colorTemperature == null)
-                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor));
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor), ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor));
 
                     if (rgbColor == null && colorTemperature != null)
-                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature));
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature), ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature));
+                    
+                    if (rgbColor != null && colorTemperature != null)
+                        partyControlAdvanced.UpdateOutputDisplay(brightness, ColorAssistant.ConvertRGBColorToColor((RGBColor)rgbColor), ColorAssistant.ConvertColorTemperatureToColor((int)colorTemperature));
                 }
             });
         }

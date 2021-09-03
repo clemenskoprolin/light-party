@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -14,17 +13,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <muxc:ProgressBar Grid.Row="0" IsIndeterminate="True"/>
 
-        <TextBlock Margin="0,5,0,0" Grid.Row="1" Style="{StaticResource MainHeading}" 
-                   Text="Searching for your Philips Hue Bridge..."/>
-
-        <Grid Grid.Row="2" Height="40">
+        <Grid Grid.Row="1" Height="40" Margin="0,12,0,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -34,12 +28,12 @@
                     Text="Please make sure that your Bridge is in the same network as your computer. Once you see the IP address of your Bridge, just click on it!"/>
         </Grid>
 
-        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="AvailableBridgeButtonsGrid">
             </Grid>
         </ScrollViewer>
 
-        <Grid Grid.Row="4">
+        <!--<Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*" MaxWidth="500"/>
@@ -61,6 +55,6 @@
                     Click="ManualIPInputAcceptButton_Click" Background="#00FFFFFF">
                 <SymbolIcon Symbol="Accept"/>
             </Button>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>

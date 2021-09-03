@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -14,16 +13,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <muxc:ProgressBar Grid.Row="0" IsIndeterminate="True"/>
 
-        <TextBlock Grid.Row="1" Style="{StaticResource MainHeading}" 
-            Text="Register Application"/>
-        
-        <Grid Grid.Row="2" Height="100">
+        <Grid Grid.Row="1" Height="100" Margin="0,12,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -41,12 +35,12 @@
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix=".79865 0 0 .79871 95.217 94.973"/>
                             </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="34.97" Stroke="{StaticResource SystemBaseHighColor}" Data="m658.01 982.52h-466.82c-96.235 0-173.71-77.475-173.71-173.71v-617.61c0-96.235 77.475-173.71 173.71-173.71h617.61c96.235 0 173.71 77.475 173.71 173.71v472.13"/>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="35" Stroke="{StaticResource SystemBaseHighColor}" Data="m684.44 500c0 43.747-15.231 83.937-40.679 115.56m-79.237 57.283c-20.083 7.5008-41.825 11.601-64.524 11.601-101.86 0-184.44-82.577-184.44-184.44s82.577-184.44 184.44-184.44 184.44 82.577 184.44 184.44"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="34.97" Stroke="{StaticResource ApplicationForegroundThemeBrush}" Data="m658.01 982.52h-466.82c-96.235 0-173.71-77.475-173.71-173.71v-617.61c0-96.235 77.475-173.71 173.71-173.71h617.61c96.235 0 173.71 77.475 173.71 173.71v472.13"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="35" Stroke="{StaticResource ApplicationForegroundThemeBrush}" Data="m684.44 500c0 43.747-15.231 83.937-40.679 115.56m-79.237 57.283c-20.083 7.5008-41.825 11.601-64.524 11.601-101.86 0-184.44-82.577-184.44-184.44s82.577-184.44 184.44-184.44 184.44 82.577 184.44 184.44"/>
                             <Canvas>
-                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="482.5" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
-                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="652" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
-                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="313" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
+                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="482.5" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
+                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="652" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
+                                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="313" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
                             </Canvas>
                         </Canvas>
                         <Canvas>
@@ -71,17 +65,17 @@
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix=".79865 0 0 .79871 95.217 94.973"/>
                             </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="34.97" Stroke="{StaticResource SystemBaseHighColor}" Data="m713.86 982.52h-522.67c-96.235 0-173.71-77.475-173.71-173.71v-617.61c0-96.235 77.475-173.71 173.71-173.71h617.61c96.235 0 173.71 77.475 173.71 173.71v476.86"/>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="35" Stroke="{StaticResource SystemBaseHighColor}" Data="m684.44 500c0 54.668-23.784 103.78-61.568 137.55m-79.604 41.782c-13.878 3.3361-28.366 5.1033-43.268 5.1033-101.86 0-184.44-82.577-184.44-184.44s82.577-184.44 184.44-184.44 184.44 82.577 184.44 184.44"/>
-                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="482.5" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
-                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="652" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
-                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="313" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource SystemBaseHighColor}"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="34.97" Stroke="{StaticResource ApplicationForegroundThemeBrush}" Data="m713.86 982.52h-522.67c-96.235 0-173.71-77.475-173.71-173.71v-617.61c0-96.235 77.475-173.71 173.71-173.71h617.61c96.235 0 173.71 77.475 173.71 173.71v476.86"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeThickness="35" Stroke="{StaticResource ApplicationForegroundThemeBrush}" Data="m684.44 500c0 54.668-23.784 103.78-61.568 137.55m-79.604 41.782c-13.878 3.3361-28.366 5.1033-43.268 5.1033-101.86 0-184.44-82.577-184.44-184.44s82.577-184.44 184.44-184.44 184.44 82.577 184.44 184.44"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="482.5" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="652" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
+                            <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="313" Canvas.Top="152" Width="35" Height="35" Fill="{StaticResource ApplicationForegroundThemeBrush}"/>
                         </Canvas>
                         <Canvas>
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix="4.9262 -.21636 .21636 4.9262 474.52 455.26"/>
                             </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{StaticResource SystemBaseHighColor}" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="m60.47 19.472-0.60769 0.34742c-1.3394 0.76572-2.4437 1.7876-3.2854 2.9684-3.1949-3.5519-8.5479-4.5321-12.859-2.0675l-0.60905 0.3482c-1.5369 0.87866-2.7627 2.0929-3.6404 3.4986-3.2157-2.4625-7.7292-2.9103-11.461-0.77672l-0.60905 0.3482c-1.2603 0.72054-2.3133 1.6678-3.1332 2.7603l-7.3674-12.887c-2.8385-4.965-9.1851-6.6934-14.15-3.8549l-0.60905 0.3482c-4.9637 2.8377-6.6934 9.1851-3.8556 14.149l18.898 33.056-2.3176 5.4487c-1.8465 4.3405-1.8539 9.1247-0.02351 13.471 1.8312 4.3478 5.2594 7.6849 9.6564 9.3961l21.809 8.4921 3.5894 6.2785c2.1741 3.8028 7.0382 5.1295 10.841 2.9554l31.898-18.236c3.8028-2.1741 5.1295-7.0382 2.9546-10.842l-3.4066-5.9618c1.1486-7.465-0.25208-15.111-3.9942-21.656l-13.566-23.73c-2.8405-4.9621-9.1865-6.6926-14.152-3.8541zm22.264 30.7c3.1953 5.5891 4.2864 12.171 3.0763 18.533-0.14177 0.73549-0.01287 1.4953 0.35863 2.1452l3.968 6.9407c0.45647 0.79844 0.1781 1.8199-0.62033 2.2764l-31.897 18.235c-0.79708 0.45569-1.8186 0.17733-2.275-0.62111l-4.1409-7.2432c-0.35676-0.62404-0.91654-1.1067-1.5863-1.3674l-22.844-8.8948c-2.7996-1.0896-4.9834-3.2145-6.1487-5.9833-1.1659-2.7666-1.1601-5.8143 0.01523-8.5779l0.45258-1.0614 4.2804 7.4871c0.85997 1.5042 2.7787 2.0271 4.283 1.1671 1.5042-0.85997 2.0271-2.7787 1.1671-4.283l-7.4048-12.952c-0.011-0.01905-0.02025-0.03544-0.03116-0.05451l-19.655-34.381c-1.1201-1.9593-0.43795-4.4627 1.5214-5.5829l0.60905-0.34819c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l12.097 21.16 7.78e-4 0.0014 7.79e-4 0.0014 10.075 17.592c0.86133 1.5035 2.7772 2.0244 4.2814 1.1644l0.0014-7.78e-4c1.5035-0.86133 2.0257-2.778 1.1629-4.2841l-10.073-17.59c-1.1201-1.9593-0.43795-4.4627 1.52-5.5821l0.60905-0.34819c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l2.5472 4.4555 7.79e-4 0.0014 7.78e-4 0.0014 7.5269 13.137c0.86133 1.5034 2.7772 2.0244 4.2814 1.1644 0.0014-7.79e-4 0.0014-7.79e-4 0.0028-0.0015 1.5035-0.86133 2.025-2.7793 1.1629-4.2841l-7.5261-13.136c-1.1201-1.9593-0.43795-4.4627 1.52-5.5821l0.60905-0.3482c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l3.1844 5.57c0.04324 0.0946 0.07402 0.19271 0.1262 0.28399l4.1935 7.3035c0.8627 1.5027 2.777 2.0209 4.2799 1.1617 0.0014-7.79e-4 0.0028-0.0015 0.0054-0.0032 1.5027-0.8627 2.022-2.7813 1.1586-4.2853l-3.7918-6.604c-0.04012-0.08915-0.06836-0.17967-0.11744-0.2655-1.1201-1.9593-0.43659-4.4635 1.5214-5.5829l0.60769-0.34741c1.9593-1.1201 4.4635-0.43659 5.5828 1.5214l13.566 23.73z"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{StaticResource ApplicationForegroundThemeBrush}" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="m60.47 19.472-0.60769 0.34742c-1.3394 0.76572-2.4437 1.7876-3.2854 2.9684-3.1949-3.5519-8.5479-4.5321-12.859-2.0675l-0.60905 0.3482c-1.5369 0.87866-2.7627 2.0929-3.6404 3.4986-3.2157-2.4625-7.7292-2.9103-11.461-0.77672l-0.60905 0.3482c-1.2603 0.72054-2.3133 1.6678-3.1332 2.7603l-7.3674-12.887c-2.8385-4.965-9.1851-6.6934-14.15-3.8549l-0.60905 0.3482c-4.9637 2.8377-6.6934 9.1851-3.8556 14.149l18.898 33.056-2.3176 5.4487c-1.8465 4.3405-1.8539 9.1247-0.02351 13.471 1.8312 4.3478 5.2594 7.6849 9.6564 9.3961l21.809 8.4921 3.5894 6.2785c2.1741 3.8028 7.0382 5.1295 10.841 2.9554l31.898-18.236c3.8028-2.1741 5.1295-7.0382 2.9546-10.842l-3.4066-5.9618c1.1486-7.465-0.25208-15.111-3.9942-21.656l-13.566-23.73c-2.8405-4.9621-9.1865-6.6926-14.152-3.8541zm22.264 30.7c3.1953 5.5891 4.2864 12.171 3.0763 18.533-0.14177 0.73549-0.01287 1.4953 0.35863 2.1452l3.968 6.9407c0.45647 0.79844 0.1781 1.8199-0.62033 2.2764l-31.897 18.235c-0.79708 0.45569-1.8186 0.17733-2.275-0.62111l-4.1409-7.2432c-0.35676-0.62404-0.91654-1.1067-1.5863-1.3674l-22.844-8.8948c-2.7996-1.0896-4.9834-3.2145-6.1487-5.9833-1.1659-2.7666-1.1601-5.8143 0.01523-8.5779l0.45258-1.0614 4.2804 7.4871c0.85997 1.5042 2.7787 2.0271 4.283 1.1671 1.5042-0.85997 2.0271-2.7787 1.1671-4.283l-7.4048-12.952c-0.011-0.01905-0.02025-0.03544-0.03116-0.05451l-19.655-34.381c-1.1201-1.9593-0.43795-4.4627 1.5214-5.5829l0.60905-0.34819c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l12.097 21.16 7.78e-4 0.0014 7.79e-4 0.0014 10.075 17.592c0.86133 1.5035 2.7772 2.0244 4.2814 1.1644l0.0014-7.78e-4c1.5035-0.86133 2.0257-2.778 1.1629-4.2841l-10.073-17.59c-1.1201-1.9593-0.43795-4.4627 1.52-5.5821l0.60905-0.34819c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l2.5472 4.4555 7.79e-4 0.0014 7.78e-4 0.0014 7.5269 13.137c0.86133 1.5034 2.7772 2.0244 4.2814 1.1644 0.0014-7.79e-4 0.0014-7.79e-4 0.0028-0.0015 1.5035-0.86133 2.025-2.7793 1.1629-4.2841l-7.5261-13.136c-1.1201-1.9593-0.43795-4.4627 1.52-5.5821l0.60905-0.3482c1.9593-1.1201 4.4635-0.43659 5.5829 1.5214l3.1844 5.57c0.04324 0.0946 0.07402 0.19271 0.1262 0.28399l4.1935 7.3035c0.8627 1.5027 2.777 2.0209 4.2799 1.1617 0.0014-7.79e-4 0.0028-0.0015 0.0054-0.0032 1.5027-0.8627 2.022-2.7813 1.1586-4.2853l-3.7918-6.604c-0.04012-0.08915-0.06836-0.17967-0.11744-0.2655-1.1201-1.9593-0.43659-4.4635 1.5214-5.5829l0.60769-0.34741c1.9593-1.1201 4.4635-0.43659 5.5828 1.5214l13.566 23.73z"/>
                         </Canvas>
                     </Canvas>
                 </Canvas>

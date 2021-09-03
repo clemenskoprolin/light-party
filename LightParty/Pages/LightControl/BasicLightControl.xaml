@@ -5,8 +5,8 @@
     xmlns:local="using:LightParty.Pages.LightControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
     
     <Grid x:Name="ElementGrid">
@@ -14,26 +14,32 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
-                   Text="Basic Light Actions"/>
+        <Frame x:Name="LightSelectionFrame" Grid.Row="0" Margin="0,10,0,0" Height="60"/>
 
-        <Frame x:Name="LightSelectionFrame" Grid.Row="1" Margin="0,10,0,0" Height="60"/>
-
-        <Grid x:Name="InformationGird" Grid.Row="2" Margin="0,10,0,0" Opacity="1">
+        <Grid x:Name="InformationGird" Grid.Row="1" Margin="0,10,0,0" Opacity="1">
             <Grid.OpacityTransition>
                 <ScalarTransition/>
             </Grid.OpacityTransition>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Style="{StaticResource MediumInformation}" Text="Click on the lights above in order to control them."/>
+            <muxc:InfoBar x:Name="InfoMessage" Grid.Row="1" Margin="0,12,0,0" IsOpen="True" Severity="Informational" CloseButtonClick="InfoMessage_CloseButtonClick"
+                          Title="Welcome to Light Party!"
+                          Message="Thank you for using Light Party!">
+                <muxc:InfoBar.ActionButton>
+                    <HyperlinkButton Content="Please rate this app to support me!" NavigateUri="ms-windows-store://pdp/?ProductId=9n5kgbnczrj4" />
+                </muxc:InfoBar.ActionButton>
+
+            </muxc:InfoBar>
+
         </Grid>
 
-        <Grid x:Name="UserControlGrid" Grid.Row="2" Margin="0,10,0,0" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="UserControlGrid" Grid.Row="1" Margin="0,10,0,0" Visibility="Collapsed" Opacity="0">
             <Grid.OpacityTransition>
                 <ScalarTransition/>
             </Grid.OpacityTransition>
@@ -52,20 +58,21 @@
                 <ToggleSwitch x:Name="LightToggleSwitch" Grid.Column="0" Margin="0,0,5,0" Toggled="LightToggleSwitch_Toggled"/>
 
                 <Slider x:Name="BrightnessSlider" Minimum="1" Maximum="100" Width="250" Grid.Column="1" Margin="0, 0, 7.5, 0" IsEnabled="False"
-                ManipulationStarting="BrightnessSlider_ManipulationStarting" ManipulationCompleted="BrightnessSlider_ManipulationCompleted" ManipulationMode="All"/>
+                        ManipulationStarting="BrightnessSlider_ManipulationStarting" ManipulationCompleted="BrightnessSlider_ManipulationCompleted" ManipulationMode="All"/>
                 <TextBlock Grid.Column="2" Style="{StaticResource Information}"
                            Padding="5.5" Text="Brightness"/>
             </Grid>
 
-            <NavigationView Grid.Row="1" x:Name="ColorPickerNav" Margin="0,10,0,0"
-                            PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" ItemInvoked="ColorPickerNav_ItemInvoked" Grid.ColumnSpan="2">
-                <NavigationView.MenuItems>
-                    <NavigationViewItem x:Name="RGBMenuItem" Content="RGB"/>
-                    <NavigationViewItem x:Name="TemperatureMenuItem" Content="Temperature"/>
-                </NavigationView.MenuItems>
+            <muxc:NavigationView Grid.Row="1" x:Name="ColorPickerNav" Margin="0,10,0,0"
+                                 PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
+                                 ItemInvoked="ColorPickerNav_ItemInvoked" Grid.ColumnSpan="2"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem x:Name="RGBMenuItem" Content="RGB"/>
+                    <muxc:NavigationViewItem x:Name="TemperatureMenuItem" Content="Temperature"/>
+                </muxc:NavigationView.MenuItems>
 
                 <Frame x:Name="ColorPickerFrame" Margin="10,5,0,0"/>
-            </NavigationView>
+            </muxc:NavigationView>
         </Grid>
     </Grid>
 </Page>

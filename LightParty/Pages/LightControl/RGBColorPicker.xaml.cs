@@ -63,10 +63,13 @@ namespace LightParty.Pages.LightControl
         private async Task RGBColorPickerSetChange()
         {
             Color savedColor = RGBColorRingPicker.Color;
-            await Task.Delay(350);
+            if (BasicLightController.canControl)
+            {
+                await Task.Delay(350);
 
-            if (RGBColorRingPicker.Color == savedColor)
-                SetColorRGB();
+                if (RGBColorRingPicker.Color == savedColor)
+                    SetColorRGB();
+            }
         }
 
         private void RGBColorPickerHex_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)

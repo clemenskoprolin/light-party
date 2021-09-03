@@ -23,8 +23,9 @@ namespace LightParty.Party
     /// </summary>
     class SoundInput
     {
+        public static bool wasListening = false; //Whether or not the audio graph was ever created.
         public static bool isCreating = false; //Whether or not the audio graph is currently being created.
-        public static bool isListing = false; //Whether or not the audio graph is started.
+        public static bool isListening = false; //Whether or not the audio graph is started.
         public static bool stopOnCreation = false; //Whether or not the audio graph should be deleted when the creation is done. Used to prevent errors.
         private static List<double> lastSoundLevels = new List<double>(); //Contains the last sound levels and is used to calculate the average.
         private static ulong lastCompletedQuantumCount = 0; //Conatains the last CompletedQuantumCount of the graph. It's used to prevent errors.
@@ -45,7 +46,7 @@ namespace LightParty.Party
         /// </summary>
         public async static Task StartMicrophoneInputSafely()
         {
-            if (!isListing && !isCreating)
+            if (!isListening && !isCreating)
             {
                 stopOnCreation = false;
                 await SoundInput.StartInput();
@@ -62,7 +63,7 @@ namespace LightParty.Party
                 stopOnCreation = true;
             }
 
-            if (isListing && !isCreating)
+            if (isListening && !isCreating)
             {
                 _ = SoundInput.StopInput();
             }
@@ -76,7 +77,7 @@ namespace LightParty.Party
             graph.Dispose();
             isDisposed = true;
 
-            isListing = false;
+            isListening = false;
             isCreating = false;
             stopOnCreation = false;
         }
@@ -87,6 +88,7 @@ namespace LightParty.Party
         /// <returns>Whether or not the start was successful</returns>
         private static async Task<bool> StartInput()
         {
+            wasListening = true;
             isCreating = true;
 
             bool successAudioGraph = true;
@@ -108,7 +110,7 @@ namespace LightParty.Party
             {
                 graph.Start();
 
-                isListing = true;
+                isListening = true;
                 isCreating = false;
 
                 if (stopOnCreation)
@@ -121,7 +123,7 @@ namespace LightParty.Party
             else
             {
                 isCreating = false;
-                isListing = false;
+                isListening = false;
                 return false;
             }
         }
@@ -145,7 +147,7 @@ namespace LightParty.Party
                 frameOutputNode.Stop();
                 graph.Stop();
 
-                isListing = false;
+                isListening = false;
             });
         }
 

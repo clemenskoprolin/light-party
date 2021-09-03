@@ -24,6 +24,7 @@ namespace LightParty.Pages.BridgeConfiguration
     /// </summary>
     public sealed partial class RegisterApplication : Page
     {
+        MainShell mainShell;
         int visableImage = 0; //Contains 0 when BridgeClickIcon1 is visable and 1 when BridgeClickIcon2 is visible.
 
         public RegisterApplication()
@@ -33,6 +34,11 @@ namespace LightParty.Pages.BridgeConfiguration
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Frame mainShellFrame = Window.Current.Content as Frame;
+            mainShell = mainShellFrame.Content as MainShell;
+
+            mainShell.UpdateMainNavHeader("Register Application");
+
             _ = UpdateBridgeClickIcon();
             _ = UpdateAvailableBridges();
         }

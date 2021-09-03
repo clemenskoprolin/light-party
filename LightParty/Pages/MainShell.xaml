@@ -5,62 +5,72 @@
     xmlns:local="using:LightParty.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="Page_Loaded">
 
     <Grid x:Name="LayoutRoot">
-        <Grid.Resources>
-            <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
-                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
-            <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
-                  BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeMediumColor}"/>
-        </Grid.Resources>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid x:Name="AppTitleBar" Grid.Row="0">
-            <Grid.Background>
-                <AcrylicBrush BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.95"/>
-            </Grid.Background>
+        <Grid x:Name="AppTitleBar" Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}" VerticalAlignment="Top"  Margin="48,0,0,0"
+              IsHitTestVisible="True" Background="Transparent" Canvas.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="TopPaddingRow" Height="15"/>
+                <RowDefinition/>
+                <RowDefinition x:Name="BottomPaddingRow" Height="15"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="235*"/>
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" Text="Light Party" Style="{StaticResource CaptionTextBlockStyle}" Margin="14,8,0,0"/>
+
+            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Height="18" Width="18"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Source="/Assets/Icons/LightParty_100x100.png">
+            </Image>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="Light Party" Style="{StaticResource CaptionTextBlockStyle}" Grid.ColumnSpan="2"/>
         </Grid>
 
-        <Frame x:Name="FullScreenFrame" Grid.Row="1" Visibility="Collapsed"/>
+        <muxc:NavigationView x:Name="MainNav" Canvas.ZIndex="0" IsTitleBarAutoPaddingEnabled="False" Header="Bridge Connection" 
+                             IsBackButtonVisible="Visible" ItemInvoked="MainNav_ItemInvoked" BackRequested="OnBackRequestedNavView">
 
-        <NavigationView x:Name="MainNav" Grid.Row="1" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed"
-                        ItemInvoked="MainNav_ItemInvoked">
-
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
-                <NavigationViewItem x:Name="BasicLightActionMenuItem" Content="Basic Light Actions" Tag="1">
-                    <NavigationViewItem.Icon>
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Name="BridgeConfigurationMenuItem" Content="Bridge Connection" Icon="Sync" Tag="0"/>
+                <muxc:NavigationViewItem x:Name="BasicLightActionMenuItem" Content="Basic Light Actions" Tag="1">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA80;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="PartyModeMenuItem" Content="Party Mode" Icon="Play" Tag="2"/>
-            </NavigationView.MenuItems>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem x:Name="PartyModeMenuItem" Content="Party Mode" Icon="Play" Tag="2"/>
+            </muxc:NavigationView.MenuItems>
 
             <Grid>
-                <Frame x:Name="MainFrame" Margin="20,10,0,0"/>
-
-                <Rectangle x:Name="BlackOverlay" Fill="#4C000000" Visibility="Collapsed" Opacity="0">
-                    <Rectangle.OpacityTransition>
-                        <ScalarTransition />
-                    </Rectangle.OpacityTransition>
-                </Rectangle>
+                <Frame x:Name="MainFrame" Margin="56,16,30,0" Navigated="UpdateBackButton"/>
             </Grid>
-        </NavigationView>
+        </muxc:NavigationView>
+
+        <muxc:TeachingTip x:Name="NavigationViewTeachingTip1"
+	        Target="{x:Bind BasicLightActionMenuItem}"
+	        Title="Let's start with basic light controls!"
+	        Subtitle="Change the color and the brightness of your lights here!"
+            Closed="NavigationViewTeachingTip1_Closed">
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEA80;"/>
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="NavigationViewTeachingTip2"
+	        Target="{x:Bind PartyModeMenuItem}"
+	        Title="It's time for a party!"
+	        Subtitle="Do you want to change the color and brightness according to your music? Or randomly? You can do it here!">
+            <muxc:TeachingTip.IconSource>
+                <muxc:SymbolIconSource Symbol="Play" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
+
+        <Frame x:Name="FullScreenFrame" Visibility="Collapsed" Margin="0,48,0,0" Navigated="UpdateBackButton" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
 
         <TextBlock x:Name="DebugLogNotice" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="Collapsed"
                    TextWrapping="Wrap" Text="DebugLog is activated. Path to file: " />
-    </Grid> 
+    </Grid>
 </Page>

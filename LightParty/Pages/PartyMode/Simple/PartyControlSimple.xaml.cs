@@ -46,7 +46,7 @@ namespace LightParty.Pages.PartyMode.Simple
 
         public void LightSelectionChanged()
         {
-            //PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
+
         }
 
         private void SelectLastSaveButton()
@@ -95,6 +95,7 @@ namespace LightParty.Pages.PartyMode.Simple
                     break;
             }
             PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
+            PartyOptions.useMixedColorSpectrums = LightInformation.IsInMixedColorSpectrumsMode();
         }
 
         private async void SaveZeroActivated()

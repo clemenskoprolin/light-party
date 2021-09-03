@@ -45,12 +45,18 @@ namespace LightParty.Pages.LightControl
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            CreateLightButtons();
+            _ = CreateLightButtons();
         }
 
-        async void CreateLightButtons()
+        private async Task CreateLightButtons()
         {
-            await BasicLightController.GetAllLights();
+            //Trys to get all lights from the bridge. If unsuccessful, wait 0.1 seconds and try again.
+            bool success = await BasicLightController.GetAllLights(); ;
+            while (!success) {
+                Debug.WriteLine("Error while getting lights. Trying again ...");
+                await Task.Delay(100);
+                success = await BasicLightController.GetAllLights();
+            }
 
             int currentColumn = 0;
             foreach (Light light in BridgeInformation.lights)
@@ -153,9 +159,7 @@ namespace LightParty.Pages.LightControl
             SetLightButtonOutline((Button)sender, BasicLightController.ChangeLightSelection(id.ToString()), otherTargetOutlineThickness);
             SetAutoMainTarget();
 
-            await BasicLightController.GetAllLights();
-            BasicLightController.canControl = true;
-
+            await UpdateLightButtons();
             uiParent.LightSelectionChanged();
         }
 
@@ -187,7 +191,6 @@ namespace LightParty.Pages.LightControl
 
         public async Task UpdateLightButtons()
         {
-            await Task.Delay(10);
             await BasicLightController.GetAllLights();
 
             foreach (Button lightButton in LightGrid.Children)

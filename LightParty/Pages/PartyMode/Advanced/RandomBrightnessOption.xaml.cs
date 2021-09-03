@@ -36,14 +36,14 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateControls()
         {
-            RandomInputRangeSelector.RangeMin = PartyOptions.activePartyOption.minRandomBrightness;
-            RandomInputRangeSelector.RangeMax = PartyOptions.activePartyOption.maxRandomBrightness;
+            RandomInputRangeSelector.RangeStart = PartyOptions.activePartyOption.minRandomBrightness;
+            RandomInputRangeSelector.RangeEnd = PartyOptions.activePartyOption.maxRandomBrightness;
         }
 
         private void RandomInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
         {
-            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMin);
-            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeMax);
+            PartyOptions.activePartyOption.minRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeStart);
+            PartyOptions.activePartyOption.maxRandomBrightness = Convert.ToInt32(RandomInputRangeSelector.RangeEnd);
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)

@@ -41,6 +41,7 @@ namespace LightParty.Pages.BridgeConfiguration
             Frame mainShellFrame = Window.Current.Content as Frame;
             mainShell = mainShellFrame.Content as MainShell;
 
+            mainShell.UpdateMainNavHeader("Bridge Connection");
             PassOn();
         }
 
@@ -128,36 +129,31 @@ namespace LightParty.Pages.BridgeConfiguration
             APIVersion.Text = configuration.ApiVersion;
         }
 
-        private void ShowAPIKeyButton_Click(object sender, RoutedEventArgs e)
+        private async void ShowAPIKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            if (APIKeyPopup.Visibility != Visibility.Visible) 
+            ContentDialog apiKeyPopup = new ContentDialog()
             {
-                APIKeyPopup.Visibility = Visibility.Visible;
-                APIKeyPopup.Scale = new Vector3(1, 1, 1);
+                Title = "API key",
+                Content = "Do you really want to show your API key? Don't share the key with others.",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No",
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            ContentDialogResult result = await apiKeyPopup.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                ShowAPIKeyButton.Visibility = Visibility.Collapsed;
+
+                APIKey.Text = ConnectToBridge.GetAppKey();
+                APIKey.Visibility = Visibility.Visible;
             }
-        }
-
-        private async void YesAPIPopup_Click(object sender, RoutedEventArgs e)
-        {
-            APIKeyPopup.Scale = new Vector3(0, 0, 0);
-            await Task.Delay((int)APIKeyPopup.ScaleTransition.Duration.TotalMilliseconds);
-            APIKeyPopup.Visibility = Visibility.Collapsed;
-            ShowAPIKeyButton.Visibility = Visibility.Collapsed;
-
-            APIKey.Text = ConnectToBridge.GetAppKey();
-            APIKey.Visibility = Visibility.Visible;
-        }
-
-        private async void NoAPIPopup_Click(object sender, RoutedEventArgs e)
-        {
-            APIKeyPopup.Scale = new Vector3(0, 0, 0);
-            await Task.Delay((int)APIKeyPopup.ScaleTransition.Duration.TotalMilliseconds);
-            APIKeyPopup.Visibility = Visibility.Collapsed;
         }
 
         private void OpenNavigationView_Click(object sender, RoutedEventArgs e)
         {
-            _ = mainShell.DrawNavigationViewToAttention();
+            mainShell.ShowNavigationViewTeachingTips();
         }
     }
 }

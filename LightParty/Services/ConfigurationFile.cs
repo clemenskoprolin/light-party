@@ -66,7 +66,13 @@ namespace LightParty.Services
             else
                 jsonObject["useTelemetry"] = JsonValue.CreateNullValue();
 
+            if (configurationData.popupClosedVersion != "")
+                jsonObject["popupClosedVersion"] = JsonValue.CreateStringValue(configurationData.popupClosedVersion);
+            else
+                jsonObject["popupClosedVersion"] = JsonValue.CreateNullValue();
+
             string jsonString = jsonObject.Stringify();
+            Debug.WriteLine(jsonString);
 
             //Encodes the string to UTF8.
             System.Text.UnicodeEncoding encoding = new System.Text.UnicodeEncoding();
@@ -117,10 +123,10 @@ namespace LightParty.Services
                 try
                 {
                     configurationData.useTelemetry = jsonObject.GetNamedBoolean("useTelemetry");
+                    configurationData.popupClosedVersion = jsonObject.GetNamedString("popupClosedVersion");
                 }
                 catch
                 {
-                    configurationData.useTelemetry = null;
                     completelySuccessful = false;
                 }
             }
@@ -145,4 +151,5 @@ namespace LightParty.Services
 public class ConfigurationData
 {
     public bool? useTelemetry = null;
+    public string popupClosedVersion = "";
 }

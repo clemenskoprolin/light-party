@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
     <Grid>
@@ -15,60 +15,20 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource MainHeading}"
-                   Text="Party Mode"/>
+            <Frame x:Name="LightSelectionFrame" Grid.Row="0" Margin="0,10,0,0" Height="60"/>
 
-            <Frame x:Name="LightSelectionFrame" Grid.Row="1" Margin="0,10,0,0" Height="60"/>
-
-            <NavigationView Grid.Row="2" x:Name="PartyOptionsNav" Margin="0,10,0,0"
-                            PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" ItemInvoked="PartyOptionsNav_ItemInvoked" Grid.ColumnSpan="2">
-                <NavigationView.MenuItems>
-                    <NavigationViewItem x:Name="SimpleMenuItem" Content="Simple"/>
-                    <NavigationViewItem x:Name="AdvancedMenuItem" Content="Advanced"/>
-                </NavigationView.MenuItems>
+            <muxc:NavigationView Grid.Row="1" x:Name="PartyOptionsNav" Margin="0,10,0,0"
+                            PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed"
+                            ItemInvoked="PartyOptionsNav_ItemInvoked" Grid.ColumnSpan="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem x:Name="SimpleMenuItem" Content="Simple"/>
+                    <muxc:NavigationViewItem x:Name="AdvancedMenuItem" Content="Advanced"/>
+                </muxc:NavigationView.MenuItems>
 
                 <Frame x:Name="PartyOptionsFrame" Margin="0,10,0,0"/>
-            </NavigationView>
-        </Grid>
-        
-        <Grid x:Name="PopupGrid">
-            <Grid x:Name="ColorPickerPopup" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Scale="0,0,0">
-                <Grid.ScaleTransition>
-                    <Vector3Transition />
-                </Grid.ScaleTransition>
-
-                <controls:DropShadowPanel BlurRadius="8.0" ShadowOpacity="0.3" Color="Black" OffsetX="0" OffsetY="4">
-                    <Border BorderThickness="1" CornerRadius="3" BorderBrush="{StaticResource SystemBaseHighColor}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" >
-
-                        <Grid Padding="30,10,30,15">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Grid.Row="0" Margin="10,10,10,0" Style="{StaticResource BigInformation}" HorizontalAlignment="Center"
-                               Text="Color Picker"/>
-
-                            <Frame x:Name="ColorPickerFrame" Grid.Row="1" Width="240" Margin="0,10,0,0"/>
-
-                            <Grid Grid.Row="2" Margin="0,10,0,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Content="Cancel" Margin="0,0,10,0"
-                                Click="CancelColorPickerPopup_Click" HorizontalAlignment="Right"/>
-                                <Button Grid.Column="1" Content="Apply" Margin="10,0,0,0"
-                                Click="ApplyColorPickerPopup_Click" HorizontalAlignment="Left"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </controls:DropShadowPanel>
-            </Grid>
+            </muxc:NavigationView>
         </Grid>
     </Grid>
 </Page>

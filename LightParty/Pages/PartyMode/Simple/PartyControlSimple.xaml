@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
     <Page.Resources>
@@ -30,7 +29,7 @@
                 <ColumnDefinition Width="290"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" Padding="0" Tag="0" Click="SaveButtonClick" Background="{ThemeResource SystemChromeMediumColor}"
+            <Button Grid.Row="0" Grid.Column="0" Padding="0" Tag="0" Click="SaveButtonClick"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <Button.Content>
                     <Border Padding="13.5" BorderThickness="0" BorderBrush="{ThemeResource SystemAccentColor}" CornerRadius="2">
@@ -78,7 +77,7 @@
                 </Button.Content>
             </Button>
 
-            <Button Grid.Row="0" Grid.Column="1" Margin="30,0,0,0" Padding="0" Tag="1" Click="SaveButtonClick" Background="{ThemeResource SystemChromeMediumColor}"
+            <Button Grid.Row="0" Grid.Column="1" Margin="30,0,0,0" Padding="0" Tag="1" Click="SaveButtonClick"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <Button.Content>
                     <Border Padding="13.5" BorderThickness="0" BorderBrush="{ThemeResource SystemAccentColor}" CornerRadius="2">

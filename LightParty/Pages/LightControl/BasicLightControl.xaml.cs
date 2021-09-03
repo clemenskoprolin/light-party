@@ -18,10 +18,12 @@ using Windows.UI.Xaml.Navigation;
 using LightParty.LightController;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.ApplicationModel;
+using mUi = Microsoft.UI.Xaml.Controls;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
 using LightParty.Connection;
-using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,8 +34,14 @@ namespace LightParty.Pages.LightControl
     /// </summary>
     public sealed partial class BasicLightControl : Page
     {
-        private NavigationViewItem rgbColorPickerNavItem;
+        private mUi.NavigationViewItem rgbColorPickerNavItem;
         private bool colorPickerNavInvokeItems = true;
+
+        //The following titel and body will be displayed in InfoMessage.
+        private readonly string infoMessageTitel = "Welcome to version 2.0! ✨";
+        private readonly string infoMessageBody = "As you may see, this release contains a number of new features. " +
+            "A complete redesign for Windows 11 and support for lights with different color spectrums while having 'Completely random' (default) selected in Party Mode.\n" +
+            "Moreover, the Party Mode keeps working, even as the app is minimized. And many, many, many bug fixes.\nThank you for using Light Party! 💡";
 
         public BasicLightControl()
         {
@@ -42,10 +50,42 @@ namespace LightParty.Pages.LightControl
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            rgbColorPickerNavItem = ColorPickerNav.MenuItems[0] as NavigationViewItem;
+            ShowInfoMessage();
+
+            rgbColorPickerNavItem = ColorPickerNav.MenuItems[0] as mUi.NavigationViewItem;
 
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
+        }
+
+        /// <summary>
+        /// Shows InfoMessage with titel and body, if the user didn't already click close in this application version.
+        /// </summary>
+        private void ShowInfoMessage()
+        {
+            PackageVersion version = Package.Current.Id.Version;
+            string currentVersion = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+
+            if (ConfigurationFile.configurationData.popupClosedVersion != currentVersion)
+            {
+                InfoMessage.Title = infoMessageTitel;
+                InfoMessage.Message = infoMessageBody;
+                InfoMessage.IsOpen = true;
+            }
+            else
+            {
+                InfoMessage.IsOpen = false;
+            }
+        }
+
+        /// <summary>
+        /// Saves the current application version so that the popup will not be shown anymore.
+        /// </summary>
+        private void InfoMessage_CloseButtonClick(mUi.InfoBar sender, object args)
+        {
+            PackageVersion version = Package.Current.Id.Version;
+            ConfigurationFile.configurationData.popupClosedVersion = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+            _ = ConfigurationFile.UpdateConfigurationFile();
         }
 
         public async Task LightSelectionChanged()
@@ -59,7 +99,6 @@ namespace LightParty.Pages.LightControl
                 UserControlGrid.Visibility = Visibility.Visible;
                 UserControlGrid.Opacity = 1;
 
-                BasicLightController.canControl = true;
                 UpdateUserControls();
             }
             else
@@ -73,19 +112,23 @@ namespace LightParty.Pages.LightControl
 
                 BasicLightController.canControl = false;
             }
-
-            _ = ((LightSelection)LightSelectionFrame.Content).UpdateLightButtons();
         }
 
         private void UpdateUserControls()
         {
-            SetLightToggleSwitch();
-            SetBrightnessSlider();
-            SetColorPicker();
+            if (BridgeInformation.usedLights.Count > 0)
+            {
+                SetLightToggleSwitch();
+                SetBrightnessSlider();
+                SetColorPicker();
+
+                BasicLightController.canControl = true;
+            }
         }
 
-        public void UserControlUsed()
+        public async Task UserControlUsed()
         {
+            await Task.Delay(10);
             _ = ((LightSelection)LightSelectionFrame.Content).UpdateLightButtons();
         }
 
@@ -124,7 +167,9 @@ namespace LightParty.Pages.LightControl
             }
 
             SetIsEnabled();
-            UserControlUsed();
+
+            if (BasicLightController.canControl)
+                _ = UserControlUsed();
         }
 
         //Brightness Slider
@@ -150,7 +195,8 @@ namespace LightParty.Pages.LightControl
             int brightness = Convert.ToInt32(BrightnessSlider.Value);
             BasicLightController.SetBrightness(brightness);
 
-            UserControlUsed();
+            if (BasicLightController.canControl)
+                _ = UserControlUsed();
         }
 
         //Color Picker
@@ -158,7 +204,7 @@ namespace LightParty.Pages.LightControl
         private void SetColorPicker()
         {
             bool rgbColorPicker = SetRGBColorPickerVisibility();
-            NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+            mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
 
             if (rgbColorPicker)
             {
@@ -207,7 +253,7 @@ namespace LightParty.Pages.LightControl
                 if (!ColorPickerNav.MenuItems.Contains(rgbColorPickerNavItem))
                     ColorPickerNav.MenuItems.Insert(0, rgbColorPickerNavItem);
 
-                NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+                mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
                 if (currentItem == null)
                 {
                     colorPickerNavInvokeItems = false;
@@ -233,7 +279,7 @@ namespace LightParty.Pages.LightControl
         {
             dynamic navItemScript;
 
-            NavigationViewItem currentItem = ColorPickerNav.SelectedItem as NavigationViewItem;
+            mUi.NavigationViewItem currentItem = ColorPickerNav.SelectedItem as mUi.NavigationViewItem;
             if (currentItem == null)
                 return;
             if (currentItem.Content.ToString() == rgbColorPickerNavItem.Content.ToString())
@@ -248,7 +294,7 @@ namespace LightParty.Pages.LightControl
             navItemScript.SetIsEnabled(LightToggleSwitch.IsOn);
         }
 
-        private void ColorPickerNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void ColorPickerNav_ItemInvoked(mUi.NavigationView sender, mUi.NavigationViewItemInvokedEventArgs args)
         {
             if (colorPickerNavInvokeItems)
             {
@@ -258,7 +304,7 @@ namespace LightParty.Pages.LightControl
 
         private void SelectMenuItem(string itemName)
         {
-            foreach(NavigationViewItem item in ColorPickerNav.MenuItems)
+            foreach(mUi.NavigationViewItem item in ColorPickerNav.MenuItems)
             {
                 if (item.Content.ToString() == itemName)
                 {
@@ -333,7 +379,8 @@ namespace LightParty.Pages.LightControl
         public void SetRGBColor(Color color)
         {
             BasicLightController.SetRGBColor(new RGBColor(color.R, color.G, color.B));
-            UserControlUsed();
+            if (BasicLightController.canControl)
+                _ = UserControlUsed();
         }
 
         //Temperture Color Picker
@@ -367,7 +414,8 @@ namespace LightParty.Pages.LightControl
         public void SetColorTemperature(int colorTemperature)
         {
             BasicLightController.SetColorTemperature(colorTemperature);
-            UserControlUsed();
+            if (BasicLightController.canControl)
+                _ = UserControlUsed();
         }
     }
 }

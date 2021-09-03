@@ -26,8 +26,6 @@ namespace LightParty
     /// </summary>
     sealed partial class App : Application
     {
-        private bool startMicrophoneInputOnResume = false; //Whether or not the microphone should be started w
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -108,34 +106,27 @@ namespace LightParty
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended. Stops the microphone input when it's used.
+        /// Invoked when application execution is being suspended. Stops the microphone input when it's used, when no extended execution session is running.
         /// </summary>
         /// <param name="sender">The source of the suspend request</param>
         /// <param name="e">Details about the suspend request</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-
-            Party.SoundInput.StopMicrophoneInputSafely();
-            startMicrophoneInputOnResume = true;
-
+            if (!Services.LifecyleAssistant.IsExtendedExecutionSessionRunning)
+                Services.LifecyleAssistant.SuspendApp();
             deferral.Complete();
         }
 
         /// <summary>
-        /// Invoked when application execution is being resumed. Resets and starts the microphone input if it was used.
+        /// Invoked when application execution is being resumed. Resets and starts the microphone input if it was used, when no extended execution session is running.
         /// </summary>
         /// <param name="sender">The source of the suspend request</param>
         /// <param name="e">Details about the resume request</param>
         private void OnResuming(object sender, object e)
         {
-            Party.SoundInput.ResetMicrophoneInput();
-
-            if (startMicrophoneInputOnResume)
-            {
-                _ = Party.SoundInput.StartMicrophoneInputSafely();
-                startMicrophoneInputOnResume = false;
-            }
+            if (!Services.LifecyleAssistant.IsExtendedExecutionSessionRunning)
+                Services.LifecyleAssistant.ResumeApp();
         }
     }
 }

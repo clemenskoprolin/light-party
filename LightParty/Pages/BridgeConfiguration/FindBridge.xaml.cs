@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LightParty.Connection;
+using Windows.System;
 
 namespace LightParty.Pages.BridgeConfiguration
 {
@@ -24,7 +25,11 @@ namespace LightParty.Pages.BridgeConfiguration
     /// </summary>
     public sealed partial class FindBridge : Page
     {
-        string manualIPInput = "";
+        MainShell mainShell;
+
+        TextBox manualIPInputTextBox;
+        string manualIPInput = "192.168.000.00";
+        bool canUpdate = true; //Determines, whether or not the bridge buttons will be updated.Is set to false when manualIPInputTextBox is in focus.
 
         public FindBridge()
         {
@@ -33,6 +38,10 @@ namespace LightParty.Pages.BridgeConfiguration
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Frame mainShellFrame = Window.Current.Content as Frame;
+            mainShell = mainShellFrame.Content as MainShell;
+
+            mainShell.UpdateMainNavHeader("Searching for your Philips Hue Bridge...");
             _ = UpdateAvailableBridges();
         }
 
@@ -45,10 +54,14 @@ namespace LightParty.Pages.BridgeConfiguration
 
             while(true)
             {
-                bridges = await ConnectToBridge.LocateAllBridges();
+                //Does not update the bridge buttons if the user focues the manualIPInputTextBox.
+                if (canUpdate)
+                {
+                    bridges = await ConnectToBridge.LocateAllBridges();
 
-                HideAllAvailableBridges();
-                ShowAvailableBridges(bridges);
+                    HideAllAvailableBridges();
+                    ShowAvailableBridges(bridges);
+                }
 
                 await Task.Delay(5000);
             }
@@ -69,7 +82,7 @@ namespace LightParty.Pages.BridgeConfiguration
         /// <param name="bridges">An array of the available Bridges. </param>
         private void ShowAvailableBridges(Q42.HueApi.Models.Bridge.LocatedBridge[] bridges)
         {
-            int currentRow = 0;
+            int currentRow = 1;
             foreach (Q42.HueApi.Models.Bridge.LocatedBridge bridge in bridges)
             {
                 Grid buttonGrid = new Grid()
@@ -107,15 +120,70 @@ namespace LightParty.Pages.BridgeConfiguration
                     Background = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255))
                 };
 
-                AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60, GridUnitType.Auto) });
+                AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(8, GridUnitType.Pixel) }); //Margin between buttons
+                AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60, GridUnitType.Pixel) });
                 Grid.SetRow(newButton, currentRow);
                 AvailableBridgeButtonsGrid.Children.Add(newButton);
 
                 newButton.Content = buttonGrid;
                 newButton.Click += BridgeButton_Click;
 
-                currentRow++;
+                currentRow +=2;
             }
+
+            CreateManualIPInput(currentRow);
+        }
+
+        /// <summary>
+        /// Creates the CreateManualIPInputButton after all other buttons of the found bridges are created.
+        /// </summary>
+        /// <param name="currentRow">Current row in the AvailableBridgeButtonsGrid</param>
+        void CreateManualIPInput(int currentRow)
+        {
+            Grid buttonGrid = new Grid()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(GridLength.Auto.Value, GridLength.Auto.GridUnitType) });
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(GridLength.Auto.Value, GridLength.Auto.GridUnitType) });
+            buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            SymbolIcon symbolIcon = new SymbolIcon { Symbol = Symbol.Edit };
+            Grid.SetColumn(symbolIcon, 0);
+            buttonGrid.Children.Add(symbolIcon);
+
+            manualIPInputTextBox = new TextBox()
+            {
+                Margin = new Thickness(5, 0, -5, 0),
+                Text = manualIPInput,
+                Style = (Style)Application.Current.Resources["BigInformationBox"],
+                CornerRadius = new CornerRadius(3)
+            };
+            manualIPInputTextBox.TextChanged += ManualIPInput_TextChanged;
+            manualIPInputTextBox.KeyDown += ManualIPInput_KeyDown;
+            manualIPInputTextBox.GotFocus += ManualIPInput_GotFocus;
+            manualIPInputTextBox.LostFocus += ManualIPInput_LostFocus;
+
+            Grid.SetColumn(manualIPInputTextBox, 1);
+            buttonGrid.Children.Add(manualIPInputTextBox);
+
+            Button newButton = new Button()
+            {
+                Name = "ManualIPInputButton",
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Background = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255)),
+            };
+
+            AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(8, GridUnitType.Pixel) }); //Margin before button
+            AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60, GridUnitType.Pixel) });
+            AvailableBridgeButtonsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(8, GridUnitType.Pixel) }); //Margin after the button
+            Grid.SetRow(newButton, currentRow);
+            AvailableBridgeButtonsGrid.Children.Add(newButton);
+
+            newButton.Content = buttonGrid;
+            newButton.Click += ManualIPInputButton_Click;
         }
 
         private void BridgeButton_Click(object sender, RoutedEventArgs e)
@@ -126,12 +194,29 @@ namespace LightParty.Pages.BridgeConfiguration
 
         private void ManualIPInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            manualIPInput = ManualIPInput.Text;
+            manualIPInput = manualIPInputTextBox.Text;
         }
 
-        private void ManualIPInputAcceptButton_Click(object sender, RoutedEventArgs e)
+        private void ManualIPInput_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+                ConfigureIPAddress(manualIPInput);
+        }
+
+        private void ManualIPInputButton_Click(object sender, RoutedEventArgs e)
         {
             ConfigureIPAddress(manualIPInput);
+        }
+
+        private void ManualIPInput_GotFocus(object sender, RoutedEventArgs e)
+        {
+            canUpdate = false;
+        }
+
+        private void ManualIPInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ConfigureIPAddress(manualIPInput);
+            canUpdate = true;
         }
 
         /// <summary>

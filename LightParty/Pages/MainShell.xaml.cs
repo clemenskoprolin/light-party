@@ -19,6 +19,7 @@ using Windows.System;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.ViewManagement;
 using Windows.UI;
+using mUi = Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.Core;
 using LightParty.Pages;
 using LightParty.Services;
@@ -34,6 +35,7 @@ namespace LightParty.Pages
         private int navPageIndex = 0; //The index of the current Page selected in the MainNav.
         private Type[] navItemPages = { typeof(BridgeConfiguration.BridgeConfig), typeof(LightControl.BasicLightControl), typeof(PartyMode.PartyControl), typeof(Settings.MainSettings) };
         //Contains all types of the pages used by the MainNav.
+        private List<int> navViewPageHistroy = new List<int>(); //Contains the IDs of all visited NavView pages.
 
         private int f2KeyCount = 0; //Is increased by one when the user uses his F2 key. Used by DemoKeyPressed.
 
@@ -47,6 +49,9 @@ namespace LightParty.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            SystemNavigationManager.GetForCurrentView().BackRequested += (x, y) => { OnBackRequested(); }; //Adds support for system back requests. E.g. Windows key + Backspace
+            Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += CoreDispatcherAcceleratorKeyActivated; //Adds support for accelerator keys.
+
             await ConfigureApp();
             NavigateToPageAndSelect(0);
         }
@@ -78,6 +83,7 @@ namespace LightParty.Pages
                 BridgeConfigurationFile.ResetBridgeConfigurationTemporarily();
                 ConfigurationFile.ResetConfigurationTemporarily();
                 userCanUseNav = false;
+                navViewPageHistroy.Clear();
 
                 Connection.BridgeInformation.isConnected = false;
                 Connection.BridgeInformation.demoMode = !Connection.BridgeInformation.demoMode;
@@ -85,6 +91,55 @@ namespace LightParty.Pages
                 await ConfigureApp();
 
                 NavigateToPageAndSelect(0);
+            }
+        }
+
+        /// <summary>
+        /// Makes the back action available via accelerator keys.
+        /// </summary>
+        private void CoreDispatcherAcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
+        {
+            if (e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown && (e.VirtualKey == VirtualKey.Left || e.VirtualKey == VirtualKey.Right) && e.KeyStatus.IsMenuKeyDown == true)
+            {
+                if (e.VirtualKey == VirtualKey.Left)
+                {
+                    OnBackRequested();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called by MainNav, when the back button is pressed. Calls OnBackRequested.
+        /// </summary>
+        private void OnBackRequestedNavView(mUi.NavigationView sender, mUi.NavigationViewBackRequestedEventArgs args)
+        {
+            OnBackRequested();
+        }
+
+        /// <summary>
+        /// Trys to go back either in the FullScreenFrame or in the MainFrame, depending on the visibility of the FullScreenFrame.
+        /// </summary>
+        private void OnBackRequested()
+        {
+            //FullScreenFrame
+            if (FullScreenFrame.Visibility == Visibility.Visible)
+            {
+                if (FullScreenFrame.CanGoBack)
+                    FullScreenFrame.GoBack();
+                return;
+            }
+
+            //Special case for BridgeConfiguration.RegisterApplication
+            if (MainFrame.Content.GetType() == typeof(BridgeConfiguration.RegisterApplication))
+            {
+                MainFrame.Navigate(typeof(BridgeConfiguration.FindBridge));
+                return;
+            }
+
+            //Navigation view
+            if (navViewPageHistroy.Count > 1)
+            {
+                NavigateToPageAndSelect(navViewPageHistroy[navViewPageHistroy.Count - 2]);
             }
         }
 
@@ -164,10 +219,10 @@ namespace LightParty.Pages
         /// </summary>
         public void ShowIntroduction()
         {
+            navViewPageHistroy.Clear();
+
             FullScreenFrame.Visibility = Visibility.Visible;
             FullScreenFrame.Navigate(typeof(Introduction.Explanations));
-
-            MainNav.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -176,8 +231,8 @@ namespace LightParty.Pages
         public void HideIntroduction()
         {
             FullScreenFrame.Visibility = Visibility.Collapsed;
-            MainNav.Visibility = Visibility.Visible;
             FullScreenFrame.Content = null;
+            FullScreenFrame.BackStack.Clear();
 
             NavigateToPageAndSelect(0, "noanimation");
         }
@@ -190,11 +245,11 @@ namespace LightParty.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void MainNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void MainNav_ItemInvoked(mUi.NavigationView sender, mUi.NavigationViewItemInvokedEventArgs args)
         {
             int newPageIndex;
             if (!args.IsSettingsInvoked)
-                newPageIndex = Convert.ToInt32(((NavigationViewItem)args.InvokedItemContainer).Tag);
+                newPageIndex = Convert.ToInt32(((mUi.NavigationViewItem)args.InvokedItemContainer).Tag);
             else
                 newPageIndex = 3;
 
@@ -219,7 +274,10 @@ namespace LightParty.Pages
         /// <param name="animation">[Optional, default = 'default'] Name of the animation with which the page will be invoked</param>
         public void NavigateToPageAndSelect(int pageIndex, string animation = "default")
         {
-            MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as NavigationViewItem;
+            if (pageIndex < 3)
+                MainNav.SelectedItem = MainNav.MenuItems[pageIndex] as mUi.NavigationViewItem;
+            else
+                MainNav.SelectedItem = MainNav.SettingsItem;
             NavigateToPage(pageIndex, animation);
         }
 
@@ -230,11 +288,20 @@ namespace LightParty.Pages
         /// <param name="animation">[Optional, default = 'default'] Name of the animation with which the page will be invoked</param>
         private void NavigateToPage(int pageIndex, string animation = "default")
         {
+            DiscardTeachingTips();
+
             if (navPageIndex == 2)
                 ((PartyMode.PartyControl)MainFrame.Content).StopActiveProcesses();
 
             NavViewNavigateToPage(navItemPages[pageIndex], animation);
             navPageIndex = pageIndex;
+
+            if (pageIndex < 3)
+                MainNav.Header = ((mUi.NavigationViewItem)MainNav.MenuItems[pageIndex]).Content;
+            else
+                MainNav.Header = "Settings";
+
+            navViewPageHistroy.Add(pageIndex);
         }
 
 
@@ -260,33 +327,61 @@ namespace LightParty.Pages
         }
 
         /// <summary>
-        /// Draws the user the MainNavigationView to attention by open it or, depending if the MainNavigationView is already open, by show a black overlay animation.
+        /// Enables the back button when going back is possible.
         /// </summary>
-        public async Task DrawNavigationViewToAttention()
+        private void UpdateBackButton(object sender, NavigationEventArgs e)
         {
-            double closedWidth = ((NavigationViewItem)MainNav.MenuItems[0]).ActualWidth;
-            MainNav.IsPaneOpen = true;
-
-            await Task.Delay(80);
-            double openedWidth = ((NavigationViewItem)MainNav.MenuItems[0]).ActualWidth;
-
-            if (closedWidth == openedWidth)
-                _ = ShowBlackOverlayAnimation();
+            MainNav.IsBackEnabled = (FullScreenFrame.Visibility == Visibility.Visible && FullScreenFrame.CanGoBack) || navViewPageHistroy.Count > 1 || MainFrame.Content.GetType() == typeof(BridgeConfiguration.RegisterApplication);
         }
 
         /// <summary>
-        /// Fade the BlackOverlay in, waits for 2.5 seconds and then fades it out.
+        /// Updates the header of the MainNav to a given the a given string.
         /// </summary>
-        private async Task ShowBlackOverlayAnimation()
+        /// <param name="newHeader">The string to which the header will be updated.</param>
+        public void UpdateMainNavHeader(string newHeader)
         {
-            BlackOverlay.Visibility = Visibility.Visible;
-            BlackOverlay.Opacity = 1;
+            MainNav.Header = newHeader;
+        }
 
-            await Task.Delay(2500);
+        /// <summary>
+        /// Draws the user the MainNavigationView to attention by open it and showing the first teaching tip.
+        /// </summary>
+        public void ShowNavigationViewTeachingTips()
+        {
+            MainNav.IsPaneOpen = true;
+            NavigationViewTeachingTip1.IsOpen = true;
+        }
 
-            BlackOverlay.Opacity = 0;
-            await Task.Delay((int)BlackOverlay.OpacityTransition.Duration.TotalMilliseconds);
-            BlackOverlay.Visibility = Visibility.Collapsed;
+        /// <summary>
+        /// Once the first teaching tip is closed, the second one will be displayed.
+        /// </summary>
+        private void NavigationViewTeachingTip1_Closed(mUi.TeachingTip sender, mUi.TeachingTipClosedEventArgs args)
+        {
+            _ = OpenNewTeachingTip();
+        }
+
+        /// <summary>
+        /// Opens a new teaching tip after a delay if the others are closed.
+        /// </summary>
+        /// <returns></returns>
+        private async Task OpenNewTeachingTip()
+        {
+            await Task.Delay(3000);
+
+            if (!NavigationViewTeachingTip1.IsOpen)
+            {
+                MainNav.IsPaneOpen = true;
+                NavigationViewTeachingTip2.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Closes any open teaching tip.
+        /// </summary>
+        private void DiscardTeachingTips()
+        {
+            NavigationViewTeachingTip1.IsOpen = false;
+            NavigationViewTeachingTip2.IsOpen = false;
         }
 
         #endregion

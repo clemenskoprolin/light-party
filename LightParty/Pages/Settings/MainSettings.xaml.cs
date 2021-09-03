@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -87,7 +88,7 @@ namespace LightParty.Pages.Settings
         /// <summary>
         /// Sets the application to a given theme. In order to take effect application-wide, the applciationo restarts.
         /// </summary>
-        /// <param name="theme">The given theme in the Windows.UI.Xaml.ElementTheme ´ype</param>
+        /// <param name="theme">The given theme in the Windows.UI.Xaml.ElementTheme Type</param>
         private async Task SetApplicationTheme(int theme)
         {
             FrameworkElement frameworkElement = Window.Current.Content as FrameworkElement;

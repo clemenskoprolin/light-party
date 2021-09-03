@@ -14,7 +14,8 @@ namespace LightParty.Party
     /// </summary>
     class PartyOptions
     {
-        public static bool useRGBColor = true; //Whether or not the RGB color spectrum should be used. If deactived, only color temperatures are allowed.
+        public static bool useRGBColor = true; //Whether or not the RGB color spectrum should be used. If deactived, in the most cases only color temperatures are allowed.
+        public static bool useMixedColorSpectrums = false; //Whether or not both RGB colors and color temperatures can be used on some operations.
         public static PartyOption activePartyOption; //The actively used instance of PartyOptions. All changes that the user makes are saved here.
         private static readonly List<PartyOption> partyOptionSaves = new List<PartyOption>() //This list contains the saves (templates) of PartyOption. They can be selected by the user in PartyControlSimple.
         {

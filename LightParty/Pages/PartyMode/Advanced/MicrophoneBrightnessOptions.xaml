@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
     <Grid>
@@ -22,7 +21,7 @@
                    Text="Select the range of the microphone input"/>
 
         <Slider x:Name="MicrophoneInputSlider" Grid.Row="1" Width="300" Minimum="0" Maximum="100" IsEnabled="False" HorizontalAlignment="Left"/>
-        <controls:RangeSelector x:Name="MicrophoneInputRangeSelector" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeMin="45" RangeMax="85"
+        <controls:RangeSelector x:Name="MicrophoneInputRangeSelector" Grid.Row="1" Width="300" Minimum="0" Maximum="100" RangeStart="45" RangeEnd="85"
                                 HorizontalAlignment="Left" VerticalAlignment="Center"
                                 ValueChanged="MicrophoneInputRangeSelector_ValueChanged"/>
 

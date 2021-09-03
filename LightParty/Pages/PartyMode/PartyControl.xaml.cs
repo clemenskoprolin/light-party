@@ -24,7 +24,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-
+using Windows.ApplicationModel.ExtendedExecution;
+using mUi = Microsoft.UI.Xaml.Controls;
 namespace LightParty.Pages.PartyMode
 {
     /// <summary>
@@ -33,8 +34,8 @@ namespace LightParty.Pages.PartyMode
 
     public sealed partial class PartyControl : Page
     {
-        private SoundInput soundInput = new SoundInput();
-        private LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
+        private readonly ExtendedExecutionReason extendedExecutionReason = ExtendedExecutionReason.Unspecified;
+        private readonly string extendedExecutiondescription = "The Party Mode changes brightness and color randomly or according to music. For convenience for the user, this should work when the application is minimized, too. Exiting the Party Mode is always possible.";
 
         private dynamic partyOptionsFrameContent;
 
@@ -67,12 +68,27 @@ namespace LightParty.Pages.PartyMode
                 SelectMenuItem("Advanced");
                 NavigateToItem("Advanced");
             }
+
+            RequestExtendedExecutionSession();
+        }
+
+        /// <summary>
+        /// Requests an extended execution session for the party Mode and adds itself as an event handler, which called, when the application is being resumed.
+        /// </summary>
+        public void RequestExtendedExecutionSession(object sender = null, EventArgs e = null)
+        {
+            LifecyleAssistant.CallOnResume(RequestExtendedExecutionSession);
+            _ = LifecyleAssistant.RequestExtendedExecutionSession(extendedExecutionReason, extendedExecutiondescription);
         }
 
         public void LightSelectionChanged()
         {
             PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
+            PartyOptions.useMixedColorSpectrums = LightInformation.IsInMixedColorSpectrumsMode();
+
             partyOptionsFrameContent.LightSelectionChanged();
+
+            BasicLightController.canControl = true;
 
             if (!LightInformation.CheckIfTurnedOn())
             {
@@ -82,14 +98,14 @@ namespace LightParty.Pages.PartyMode
 
         #region Party options navigation view
 
-        private void PartyOptionsNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void PartyOptionsNav_ItemInvoked(mUi.NavigationView sender, mUi.NavigationViewItemInvokedEventArgs args)
         {
              NavigateToItem(args.InvokedItem.ToString());
         }
 
         public void SelectMenuItem(string itemName)
         {
-            foreach (NavigationViewItem item in PartyOptionsNav.MenuItems)
+            foreach (mUi.NavigationViewItem item in PartyOptionsNav.MenuItems)
             {
                 if (item.Content.ToString() == itemName)
                 {
@@ -136,38 +152,56 @@ namespace LightParty.Pages.PartyMode
         #endregion
         #region Color picker popup
 
-        public void OpenColorRGBPickerPopup<T>(Color defaultColor, T source, int idOnReturn)
+        public async void OpenColorRGBPickerPopup<T>(Color defaultColor, T source, int idOnReturn)
         {
-            ColorPickerFrame.Width = 235;
+            Frame colorPickerFrame = new Frame();
+            ContentDialog colorPickerPopup = new ContentDialog()
+            {
+                Title = "Color picker",
+                Content = colorPickerFrame,
+                PrimaryButtonText = "Apply",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary
+            };
 
-            ColorPickerFrame.Navigate(typeof(RGBColorPicker), null, new SuppressNavigationTransitionInfo());
-            ((RGBColorPicker)ColorPickerFrame.Content).GiveVariables<PartyControl>(this);
-            ((RGBColorPicker)ColorPickerFrame.Content).SetRGBColorPickerColor(defaultColor);
-            ((RGBColorPicker)ColorPickerFrame.Content).SetIsEnabled(true);
+            colorPickerFrame.Width = 235;
+
+            colorPickerFrame.Navigate(typeof(RGBColorPicker), null, new SuppressNavigationTransitionInfo());
+            ((RGBColorPicker)colorPickerFrame.Content).GiveVariables<PartyControl>(this);
+            ((RGBColorPicker)colorPickerFrame.Content).SetRGBColorPickerColor(defaultColor);
+            ((RGBColorPicker)colorPickerFrame.Content).SetIsEnabled(true);
 
             colorPickerSource = source;
             colorPickerSourceId = idOnReturn;
             isRGB = true;
 
-            ColorPickerPopup.Visibility = Visibility.Visible;
-            ColorPickerPopup.Scale = new Vector3(1, 1, 1);
+            await ApplyColorPickerPopup(colorPickerPopup);
         }
 
-        public void OpenTemperatureColorPickerPopup<T>(int defaultTemperature, T source, int idOnReturn)
+        public async void OpenTemperatureColorPickerPopup<T>(int defaultTemperature, T source, int idOnReturn)
         {
-            ColorPickerFrame.Width = 240;
+            Frame colorPickerFrame = new Frame();
+            ContentDialog colorPickerPopup = new ContentDialog()
+            {
+                Title = "Color picker",
+                Content = colorPickerFrame,
+                PrimaryButtonText = "Apply",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary
+            };
 
-            ColorPickerFrame.Navigate(typeof(TemperatureColorPicker), null, new SuppressNavigationTransitionInfo());
-            ((TemperatureColorPicker)ColorPickerFrame.Content).GiveVariables<PartyControl>(this);
-            ((TemperatureColorPicker)ColorPickerFrame.Content).SetColorTemperatureSliderPosition(defaultTemperature);
-            ((TemperatureColorPicker)ColorPickerFrame.Content).SetIsEnabled(true);
+            colorPickerFrame.Width = 240;
+
+            colorPickerFrame.Navigate(typeof(TemperatureColorPicker), null, new SuppressNavigationTransitionInfo());
+            ((TemperatureColorPicker)colorPickerFrame.Content).GiveVariables<PartyControl>(this);
+            ((TemperatureColorPicker)colorPickerFrame.Content).SetColorTemperatureSliderPosition(defaultTemperature);
+            ((TemperatureColorPicker)colorPickerFrame.Content).SetIsEnabled(true);
 
             colorPickerSource = source;
             colorPickerSourceId = idOnReturn;
             isRGB = false;
 
-            ColorPickerPopup.Visibility = Visibility.Visible;
-            ColorPickerPopup.Scale = new Vector3(1, 1, 1);
+            await ApplyColorPickerPopup(colorPickerPopup);
         }
 
         public void SetRGBColor(Color color)
@@ -180,29 +214,23 @@ namespace LightParty.Pages.PartyMode
             currentColorTemperature = colorTemperature;
         }
 
-        private async void ApplyColorPickerPopup_Click(object sender, RoutedEventArgs e)
+        private async Task ApplyColorPickerPopup(ContentDialog colorPickerPopup)
         {
-            if (isRGB)
-                colorPickerSource.SetColor(currentColor, colorPickerSourceId);
-            else
-                colorPickerSource.SetColorTemperature(currentColorTemperature, colorPickerSourceId);
-
-            ColorPickerPopup.Scale = new Vector3(0, 0, 0);
-            await Task.Delay((int)ColorPickerPopup.ScaleTransition.Duration.TotalMilliseconds);
-            ColorPickerPopup.Visibility = Visibility.Collapsed;
-        }
-
-        private async void CancelColorPickerPopup_Click(object sender, RoutedEventArgs e)
-        {
-            ColorPickerPopup.Scale = new Vector3(0, 0, 0);
-            await Task.Delay((int)ColorPickerPopup.ScaleTransition.Duration.TotalMilliseconds);
-            ColorPickerPopup.Visibility = Visibility.Collapsed;
+            ContentDialogResult result = await colorPickerPopup.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                if (isRGB)
+                    colorPickerSource.SetColor(currentColor, colorPickerSourceId);
+                else
+                    colorPickerSource.SetColorTemperature(currentColorTemperature, colorPickerSourceId);
+            }
         }
 
         #endregion
 
         public void StopActiveProcesses()
         {
+            LifecyleAssistant.ClearSession();
             partyOptionsFrameContent.StopActiveProcesses();
         }
     }

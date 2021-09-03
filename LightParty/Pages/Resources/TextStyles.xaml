@@ -22,6 +22,9 @@
     <Style TargetType="TextBlock" x:Key="BigInformation">
         <Setter Property="TextBlock.FontSize" Value="26" />
     </Style>
+    <Style TargetType="TextBox" x:Key="BigInformationBox">
+        <Setter Property="TextBox.FontSize" Value="26" />
+    </Style>
     <Style TargetType="TextBlock" x:Key="Paragraph">
         <Setter Property="TextBlock.FontSize" Value="15" />
         <Setter Property="Margin" Value="0,10,0,0" />
