@@ -15,7 +15,7 @@ namespace LightParty.Services
     class LifecyleAssistant
     {
         private static bool startMicrophoneInputOnResume = false; //Whether or not the microphone should be started when the application is being resumed.
-        private static EventHandler onResume;
+        private static EventHandler onResume; //Event handler which can be called, when the application is being resumed.
 
         private static ExtendedExecutionSession session; //The extended execution session which allows the application to keep running while it's minimized.
         /// <summary>

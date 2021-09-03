@@ -18,11 +18,12 @@ using Windows.UI.Xaml.Navigation;
 using LightParty.LightController;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.ApplicationModel;
 using mUi = Microsoft.UI.Xaml.Controls;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
 using LightParty.Connection;
-using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,6 +37,12 @@ namespace LightParty.Pages.LightControl
         private mUi.NavigationViewItem rgbColorPickerNavItem;
         private bool colorPickerNavInvokeItems = true;
 
+        //The following titel and body will be displayed in InfoMessage.
+        private readonly string infoMessageTitel = "Welcome to version 2.0! ✨";
+        private readonly string infoMessageBody = "As you may see, this release contains a number of new features. " +
+            "A complete redesign for Windows 11 and support for lights with different color spectrums while having 'Completely random' (default) selected in Party Mode.\n" +
+            "Moreover, the Party Mode keeps working, even as the app is minimized. And many, many, many bug fixes.\nThank you for using Light Party! 💡";
+
         public BasicLightControl()
         {
             this.InitializeComponent();
@@ -43,10 +50,42 @@ namespace LightParty.Pages.LightControl
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            ShowInfoMessage();
+
             rgbColorPickerNavItem = ColorPickerNav.MenuItems[0] as mUi.NavigationViewItem;
 
             LightSelectionFrame.Navigate(typeof(LightSelection));
             ((LightSelection)LightSelectionFrame.Content).GiveVariables(this);
+        }
+
+        /// <summary>
+        /// Shows InfoMessage with titel and body, if the user didn't already click close in this application version.
+        /// </summary>
+        private void ShowInfoMessage()
+        {
+            PackageVersion version = Package.Current.Id.Version;
+            string currentVersion = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+
+            if (ConfigurationFile.configurationData.popupClosedVersion != currentVersion)
+            {
+                InfoMessage.Title = infoMessageTitel;
+                InfoMessage.Message = infoMessageBody;
+                InfoMessage.IsOpen = true;
+            }
+            else
+            {
+                InfoMessage.IsOpen = false;
+            }
+        }
+
+        /// <summary>
+        /// Saves the current application version so that the popup will not be shown anymore.
+        /// </summary>
+        private void InfoMessage_CloseButtonClick(mUi.InfoBar sender, object args)
+        {
+            PackageVersion version = Package.Current.Id.Version;
+            ConfigurationFile.configurationData.popupClosedVersion = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+            _ = ConfigurationFile.UpdateConfigurationFile();
         }
 
         public async Task LightSelectionChanged()
