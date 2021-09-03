@@ -1,5 +1,5 @@
 # Light Party
-Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source.
+Light Party is a controller for Philips Hue lights available for Windows 10 and 11. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source.
 
 [<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png" alt="Control muliply light at once with just a few clicks!">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png)
 [<img width="49%" src="https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png" alt="Full dark mode support!">](https://clemenskoprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png)
@@ -22,6 +22,7 @@ You can always download the newest stable version of Light Party from the [Micro
 - ~~Release of version 1.0.0~~
 - ~~More fluent design (e.g. in the navigation view and titel bar)!~~
 - ~~[Redesign of the Party Mode](https://github.com/clemenskoprolin/light-party/issues/3)~~
+- ~~[Redesign for Windows 11](https://github.com/clemenskoprolin/light-party/issues/6)~~
 - Native way to use the internal sound of the computer for the Party Mode
 - Many, many, many bug fixes
 - Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
