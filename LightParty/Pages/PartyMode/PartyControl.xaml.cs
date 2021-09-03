@@ -24,8 +24,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.ApplicationModel.ExtendedExecution;
 using mUi = Microsoft.UI.Xaml.Controls;
-
 namespace LightParty.Pages.PartyMode
 {
     /// <summary>
@@ -34,8 +34,8 @@ namespace LightParty.Pages.PartyMode
 
     public sealed partial class PartyControl : Page
     {
-        private SoundInput soundInput = new SoundInput();
-        private LightProcessingSoundInput lightProcessing = new LightProcessingSoundInput();
+        private readonly ExtendedExecutionReason extendedExecutionReason = ExtendedExecutionReason.Unspecified;
+        private readonly string extendedExecutiondescription = "The Party Mode changes brightness and color randomly or according to music. For convenience for the user, this should work when the application is minimized, too. Exiting the Party Mode is always possible.";
 
         private dynamic partyOptionsFrameContent;
 
@@ -68,6 +68,17 @@ namespace LightParty.Pages.PartyMode
                 SelectMenuItem("Advanced");
                 NavigateToItem("Advanced");
             }
+
+            RequestExtendedExecutionSession();
+        }
+
+        /// <summary>
+        /// Requests an extended execution session for the party Mode and adds itself as an event handler, which called, when the application is being resumed.
+        /// </summary>
+        public void RequestExtendedExecutionSession(object sender = null, EventArgs e = null)
+        {
+            LifecyleAssistant.CallOnResume(RequestExtendedExecutionSession);
+            _ = LifecyleAssistant.RequestExtendedExecutionSession(extendedExecutionReason, extendedExecutiondescription);
         }
 
         public void LightSelectionChanged()
@@ -219,6 +230,7 @@ namespace LightParty.Pages.PartyMode
 
         public void StopActiveProcesses()
         {
+            LifecyleAssistant.ClearSession();
             partyOptionsFrameContent.StopActiveProcesses();
         }
     }
