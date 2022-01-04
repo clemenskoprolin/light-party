@@ -121,6 +121,7 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.19041.8" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LightPartyBackgroundProcess\LightPartyBackgroundProcess.csproj" />
     <ProjectReference Include="..\LightParty\LightParty.csproj" />
   </ItemGroup>
 </Project>
