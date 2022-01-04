@@ -221,6 +221,7 @@
     <Compile Include="Services\CryptographyAssistant.cs" />
     <Compile Include="Services\DebugLog.cs" />
     <Compile Include="Services\InternetRequests.cs" />
+    <Compile Include="Services\LifecyleAssistant.cs" />
     <Compile Include="Services\Permissons.cs" />
     <Compile Include="Services\TelemetryService.cs" />
   </ItemGroup>
