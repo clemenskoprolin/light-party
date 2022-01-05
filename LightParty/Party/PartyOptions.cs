@@ -21,9 +21,9 @@ namespace LightParty.Party
         {
             new PartyOption
             {
-                ignoreOnReplace = new string[] { "randomInterval"},
+                ignoreOnReplace = new string[] { "randomInterval", "audioSource" },
                 randomInterval = 3,
-                audioSource = 1,
+                audioSource = 0,
 
                 brightnessOptionIndex = 0,
                 minSoundLevel = 45,
@@ -51,7 +51,7 @@ namespace LightParty.Party
             {
                 ignoreOnReplace = new string[] { "randomInterval", "audioSource" },
                 randomInterval = 3,
-                audioSource = 1,
+                audioSource = 0,
 
                 brightnessOptionIndex = 1,
                 minSoundLevel = 45,
@@ -136,7 +136,7 @@ namespace LightParty.Party
         #region General
         public string[] ignoreOnReplace; //Variables of the activePartyOption with their names in this array will not be replaced when the save is activated.
         public float? randomInterval; //Interval in seconds, in which the random color and/or the random brightness of the selected lights is changed.
-        public int audioSource; //Determines the audio source that is used for further processing.
+        public int? audioSource; //Determines the audio source that is used for further processing.
         //0 = Windows default microphone, 1 = loopback audio (system audio)
         #endregion
         #region Brigthness

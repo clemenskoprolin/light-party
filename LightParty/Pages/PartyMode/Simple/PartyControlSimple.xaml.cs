@@ -37,6 +37,7 @@ namespace LightParty.Pages.PartyMode.Simple
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SelectLastSaveButton();
+            AudioSourceComboBox.SelectedIndex = (int)PartyOptions.activePartyOption.audioSource;
         }
 
         public void GiveVariables(PartyControl newPartyControl)
@@ -126,6 +127,12 @@ namespace LightParty.Pages.PartyMode.Simple
         public void SetMicrophoneInputSlider(double newValue)
         {
             MicrophoneInputSlider.Value = newValue;
+        }
+
+        private void AudioSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PartyOptions.activePartyOption.audioSource = AudioSourceComboBox.SelectedIndex;
+            _ = AudioInput.UpdateAudioInputMethod();
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)

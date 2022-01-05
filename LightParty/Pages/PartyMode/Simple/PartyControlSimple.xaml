@@ -39,6 +39,8 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
@@ -53,11 +55,19 @@
                             </Grid>
 
                             <TextBlock Grid.Row="1" Style="{StaticResource Information}" TextWrapping="Wrap"
-                                       Padding="0,5.5,0,5.5" Text="Changes the color and the brightness based on your microphone input."/>
+                                       Padding="0,5.5,0,5.5" Text="Changes the color and the brightness based on your audio input."/>
 
-                            <Slider x:Name="MicrophoneInputSlider" Grid.Row="2" Style="{StaticResource OutputStyle}" IsEnabled="False" />
+                            <TextBlock Grid.Row="2" Style="{StaticResource Information}"
+                                Text="Audio source"/>
+                            <ComboBox x:Name="AudioSourceComboBox" Grid.Row="3" Margin="0,5,0,0" SelectedIndex="0"
+                                        SelectionChanged="AudioSourceComboBox_SelectionChanged">
+                                <x:String>Default microphone</x:String>
+                                <x:String>Desktop audio</x:String>
+                            </ComboBox>
 
-                            <Button Grid.Row="3" Margin="0,10,0,0" Click="MoreOptionsButton_Click">
+                            <Slider x:Name="MicrophoneInputSlider" Grid.Row="4" Style="{StaticResource OutputStyle}" IsEnabled="False" />
+
+                            <Button Grid.Row="5" Margin="0,10,0,0" Click="MoreOptionsButton_Click">
                                 <Button.Content>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

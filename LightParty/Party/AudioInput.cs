@@ -50,6 +50,25 @@ namespace LightParty.Party
         }
 
         /// <summary>
+        /// Starts and stops the microphone input and background service as given perPartyOptions.activePartyOption.audioSource.
+        /// </summary>
+        public static async Task UpdateAudioInputMethod()
+        {
+            if (PartyOptions.activePartyOption.audioSource == 0)
+            {
+                await Connection.BackgroundService.StopBackgroundService();
+                await Task.Delay(100);
+                await MicrophoneInput.StartMicrophoneInputSafely();
+            }
+            if (PartyOptions.activePartyOption.audioSource == 1)
+            {
+                MicrophoneInput.StopMicrophoneInputSafely();
+                await Task.Delay(100);
+                Connection.BackgroundService.InitializeBackgroundService("loopbackAudio");
+            }
+        }
+
+        /// <summary>
         /// Converts the raw audio level to a audio level from 0 to 100 and calls the necessary following methods. Is either called by an audio frame update or by BackgroundService.
         /// </summary>
         /// <param name="rawLevel"></param>

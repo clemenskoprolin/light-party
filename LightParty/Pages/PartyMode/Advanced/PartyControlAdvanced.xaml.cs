@@ -40,7 +40,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            AudioSourceComboBox.SelectedIndex = PartyOptions.activePartyOption.audioSource;
+            AudioSourceComboBox.SelectedIndex = (int)PartyOptions.activePartyOption.audioSource;
             BrightnessOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.brightnessOptionIndex;
             ColorOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
             NavigateToBrighnessOption(PartyOptions.activePartyOption.brightnessOptionIndex);
@@ -64,8 +64,11 @@ namespace LightParty.Pages.PartyMode.Advanced
         //General
         private void AudioSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (canSelect)
-                NavigateToBrighnessOption(BrightnessOptionComboBox.SelectedIndex);
+            if (!canSelect)
+                return;
+
+            PartyOptions.activePartyOption.audioSource = AudioSourceComboBox.SelectedIndex;
+            _ = AudioInput.UpdateAudioInputMethod();
         }
 
         //Brightness
