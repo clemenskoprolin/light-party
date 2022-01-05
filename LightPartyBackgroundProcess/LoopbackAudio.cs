@@ -19,7 +19,6 @@ namespace LightPartyBackgroundProcess
             capture.RecordingStopped += (sender, eventArgs) =>
             {
                 capture.Dispose();
-                Console.WriteLine("Recording stopped");
             };
 
             capture.StartRecording();

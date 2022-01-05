@@ -11,7 +11,6 @@ namespace LightPartyBackgroundProcess
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             StartAppServiceConnection();
             Console.ReadLine();
         }
@@ -24,14 +23,12 @@ namespace LightPartyBackgroundProcess
             connection.RequestReceived += RequestReceived;
             connection.ServiceClosed += ServiceClosed;
 
-            Console.WriteLine("Starting AppServiceConnection...");
             AppServiceConnectionStatus status = await connection.OpenAsync();
             if (status != AppServiceConnectionStatus.Success)
             {
                 Console.WriteLine("An error occurred while trying to establish the app service connection: " + status.ToString());
             }
 
-            Console.WriteLine("Sucess!");
         }
 
         static async void RequestReceived(AppServiceConnection connection, AppServiceRequestReceivedEventArgs args)

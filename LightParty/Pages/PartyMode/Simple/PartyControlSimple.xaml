@@ -51,10 +51,10 @@
 
                                 <SymbolIcon Grid.Column="0" Margin="0,0,0,1.5" Symbol="Microphone"/>
                                 <TextBlock Grid.Column="1" Padding="5.5,0,0,5.5"
-                                           Style="{StaticResource BigInformation}" Text="Microphone"/>
+                                           Style="{StaticResource BigInformation}" Text="Audio input"/>
                             </Grid>
 
-                            <TextBlock Grid.Row="1" Style="{StaticResource Information}" TextWrapping="Wrap"
+                            <TextBlock Grid.Row="1" Margin="0,5,0,0" Style="{StaticResource Information}"  TextWrapping="Wrap"
                                        Padding="0,5.5,0,5.5" Text="Changes the color and the brightness based on your audio input."/>
 
                             <TextBlock Grid.Row="2" Style="{StaticResource Information}"
