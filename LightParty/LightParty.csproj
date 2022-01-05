@@ -137,6 +137,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Connection\BackgroundService.cs" />
     <Compile Include="Connection\BridgeInformation.cs" />
     <Compile Include="Connection\ConnectToBridge.cs" />
     <Compile Include="LightController\BasicLightController.cs" />
@@ -208,12 +209,13 @@
     <Compile Include="Pages\Settings\MainSettings.xaml.cs">
       <DependentUpon>MainSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Party\AudioInput.cs" />
     <Compile Include="Party\LightProcessingColor.cs" />
     <Compile Include="Party\LightProcessingRandom.cs" />
     <Compile Include="Party\LightProcessingSoundInput.cs" />
     <Compile Include="Party\PartyUIUpdater.cs" />
     <Compile Include="Party\PartyOptions.cs" />
-    <Compile Include="Party\SoundInput.cs" />
+    <Compile Include="Party\MicrophoneInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BridgeConfigurationFile.cs" />
     <Compile Include="Services\ColorAssistant.cs" />

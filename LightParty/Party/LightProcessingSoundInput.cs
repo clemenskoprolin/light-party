@@ -18,7 +18,8 @@ namespace LightParty.Party
     class LightProcessingSoundInput
     {
         private static int callCount = 0; //Is increased every time NewSoundLevel is called;
-        private static int callCountMin = 8; //Every callCountMin times the methode NewSoundLevel is called, the new sound level will be processed.
+        private static int callCountMinMicrophone = 8; //Every callCountMin times the methode NewSoundLevel is called, the new sound level will be processed. THis only applys to an microphone input.
+        private static int callCountMinLoopback = 1; //Every callCountMin times the methode NewSoundLevel is called, the new sound level will be processed. THis only applys to an Loopback input.
         private static double savedSoundLevel = 0; //Sound level of the last process. Is used to calculate the input difference.
 
         /// <summary>
@@ -27,10 +28,12 @@ namespace LightParty.Party
         /// <param name="soundLevel">The newly calculated sound level</param>
         public static void NewSoundLevel(double soundLevel)
         {
-            //Sets callCountMin based on the number of used lights. E.g. 1 used light --> 8; 2 used lights --> 16; ...
-            callCountMin = BridgeInformation.usedLights.Count < 1 ? 8 : BridgeInformation.usedLights.Count * 8;
+            //Sets callCountMinMicrophone based on the number of used lights. E.g. 1 used light --> 8; 2 used lights --> 16; ...
+            callCountMinMicrophone = BridgeInformation.usedLights.Count < 1 ? 8 : BridgeInformation.usedLights.Count * 8;
+            //Sets callCountMinLoopback based on the number of used lights. E.g. 1 used light --> 1; 2 used lights --> 1; 3 used lights --> 1; 4 used lights --> 2; ...
+            callCountMinLoopback = BridgeInformation.usedLights.Count < 1 ? 1 : (int)(BridgeInformation.usedLights.Count * 1.25f);
 
-            if (callCount > callCountMin)
+            if ((PartyOptions.activePartyOption.audioSource == 0 && callCount > callCountMinMicrophone) || (PartyOptions.activePartyOption.audioSource == 1 && callCount > callCountMinLoopback))
             {
                 int? newBrightness = null;
                 ColorInformation colorInformation = new ColorInformation();

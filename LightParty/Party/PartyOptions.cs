@@ -21,8 +21,9 @@ namespace LightParty.Party
         {
             new PartyOption
             {
-                ignoreOnReplace = new string[] { "randomInterval" },
+                ignoreOnReplace = new string[] { "randomInterval"},
                 randomInterval = 3,
+                audioSource = 1,
 
                 brightnessOptionIndex = 0,
                 minSoundLevel = 45,
@@ -48,8 +49,9 @@ namespace LightParty.Party
             },
             new PartyOption
             {
-                ignoreOnReplace = new string[] { "randomInterval" },
+                ignoreOnReplace = new string[] { "randomInterval", "audioSource" },
                 randomInterval = 3,
+                audioSource = 1,
 
                 brightnessOptionIndex = 1,
                 minSoundLevel = 45,
@@ -134,6 +136,8 @@ namespace LightParty.Party
         #region General
         public string[] ignoreOnReplace; //Variables of the activePartyOption with their names in this array will not be replaced when the save is activated.
         public float? randomInterval; //Interval in seconds, in which the random color and/or the random brightness of the selected lights is changed.
+        public int audioSource; //Determines the audio source that is used for further processing.
+        //0 = Windows default microphone, 1 = loopback audio (system audio)
         #endregion
         #region Brigthness
 
@@ -194,7 +198,7 @@ namespace LightParty.Party
         #endregion
 
         /// <summary>
-        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval.
+        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval and audioSource.
         /// </summary>
         /// <param name="a">The first PartyOption</param>
         /// <param name="b">The second PartyOption</param>
@@ -206,7 +210,7 @@ namespace LightParty.Party
 
             for (int i = 0; i < aFields.Length; i++)
             {
-                if (aFields[i].Name != "randomInterval" && aFields[i].Name != "ignoreOnReplace")
+                if (aFields[i].Name != "randomInterval" && aFields[i].Name != "ignoreOnReplace" && aFields[i].Name != "audioSource")
                 {
                     if (!aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
                     {
@@ -218,7 +222,7 @@ namespace LightParty.Party
         }
 
         /// <summary>
-        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval.
+        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval and audioSource.
         /// </summary>
         /// <param name="a">The first PartyOption</param>
         /// <param name="b">The second PartyOption</param>
@@ -229,7 +233,7 @@ namespace LightParty.Party
 
             for (int i = 0; i < fields.Length; i++)
             {
-                if (fields[i].Name != "randomInterval")
+                if (fields[i].Name != "randomInterval" && fields[i].Name != "audioSource")
                 {
                     if (fields[i].GetValue(a).Equals(fields[i].GetValue(b)))
                     {

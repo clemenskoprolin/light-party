@@ -44,6 +44,9 @@
           xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
           Category="windows.fullTrustProcess"
           Executable="LightPartyBackgroundProcess\LightPartyBackgroundProcess.exe" />
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="LightPartyBackgroundAppService" />
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

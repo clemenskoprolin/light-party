@@ -58,6 +58,8 @@ namespace LightParty.Pages.PartyMode
             if (PartyOptions.activePartyOption.Equals(default(PartyOption)))
                 PartyOptions.SetPartyOption(0);
 
+            Debug.WriteLine("AudioSource:" + PartyOptions.activePartyOption.audioSource);
+
             int id = PartyOptions.CompareCurrentWithSaves();
             if (id != -1)
             {

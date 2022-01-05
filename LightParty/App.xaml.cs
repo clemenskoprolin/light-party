@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -127,6 +128,27 @@ namespace LightParty
         {
             if (!Services.LifecyleAssistant.IsExtendedExecutionSessionRunning)
                 Services.LifecyleAssistant.ResumeApp();
+        }
+
+        /// <summary>
+        /// Invoked when the application is activated in the background. Checks if the invocation is caused by an AppServiceTrigger, validates it and calls Connection.BackgroundService.AppServiceTriggerEvent.
+        /// </summary>
+        /// <param name="args">Data about the background activation</param>
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails triggerDetails)
+            {
+                if (triggerDetails.CallerPackageFamilyName == Package.Current.Id.FamilyName)
+                {
+                    Connection.BackgroundService.appServiceDeferral = args.TaskInstance.GetDeferral();
+                    args.TaskInstance.Canceled += Connection.BackgroundService.OnTaskCanceled;
+
+                    AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                    Connection.BackgroundService.connection = details.AppServiceConnection;
+
+                    Connection.BackgroundService.AppServiceTriggerEvent();
+                }
+            }
         }
     }
 }

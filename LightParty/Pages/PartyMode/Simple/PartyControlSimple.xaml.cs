@@ -101,12 +101,12 @@ namespace LightParty.Pages.PartyMode.Simple
         private async void SaveZeroActivated()
         {
             PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
-            await SoundInput.StartMicrophoneInputSafely();
+            await AudioInput.StartAudioInputSafely();
         }
 
-        private void SaveZeroDeactivated()
+        private async void SaveZeroDeactivated()
         {
-            SoundInput.StopMicrophoneInputSafely();
+            await AudioInput.StopAudioInputSafely();
             PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(null, null);
         }
 
@@ -150,9 +150,9 @@ namespace LightParty.Pages.PartyMode.Simple
             partyControl.NavigateToItem("Advanced");
         }
 
-        public void StopActiveProcesses()
+        public async void StopActiveProcesses()
         {
-            SoundInput.StopMicrophoneInputSafely();
+            await AudioInput.StopAudioInputSafely();
             LightProcessingRandom.StopUpdates();
         }
     }

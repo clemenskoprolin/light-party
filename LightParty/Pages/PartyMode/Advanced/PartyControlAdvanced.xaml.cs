@@ -40,6 +40,7 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            AudioSourceComboBox.SelectedIndex = PartyOptions.activePartyOption.audioSource;
             BrightnessOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.brightnessOptionIndex;
             ColorOptionComboBox.SelectedIndex = PartyOptions.activePartyOption.colorOptionIndex;
             NavigateToBrighnessOption(PartyOptions.activePartyOption.brightnessOptionIndex);
@@ -58,6 +59,13 @@ namespace LightParty.Pages.PartyMode.Advanced
         {
             if (colorOption != null)
                 colorOption.LightSelectionChanged();
+        }
+
+        //General
+        private void AudioSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (canSelect)
+                NavigateToBrighnessOption(BrightnessOptionComboBox.SelectedIndex);
         }
 
         //Brightness
@@ -88,9 +96,9 @@ namespace LightParty.Pages.PartyMode.Advanced
             }
 
             if (CheckIfSoundInputIsUsed())
-                SelectedMicrophoneInput();
+                SelectedAudioInput();
             else
-                UnselectedMircrophoneInput();
+                UnselectedAudioInput();
 
             if (CheckIfRandomIsUsed())
                 SelectedRandom();
@@ -135,9 +143,9 @@ namespace LightParty.Pages.PartyMode.Advanced
             }
 
             if (CheckIfSoundInputIsUsed())
-                SelectedMicrophoneInput();
+                SelectedAudioInput();
             else
-                UnselectedMircrophoneInput();
+                UnselectedAudioInput();
 
             if (CheckIfRandomIsUsed())
                 SelectedRandom();
@@ -148,31 +156,31 @@ namespace LightParty.Pages.PartyMode.Advanced
                 colorOption = Convert.ChangeType(ColorOptionFrame.Content, ColorOptionFrame.CurrentSourcePageType);
         }
 
-        public void StopActiveProcesses()
+        public async void StopActiveProcesses()
         {
-            SoundInput.StopMicrophoneInputSafely();
+            await AudioInput.StopAudioInputSafely();
             UnselectedRandom();
         }
 
         //Microphone input
 
-        private async void SelectedMicrophoneInput()
+        private async void SelectedAudioInput()
         {
-            GiveMicrophoneInputSlidersVariables();
-            await SoundInput.StartMicrophoneInputSafely();
+            GiveAudioInputSlidersVariables();
+            await AudioInput.StartAudioInputSafely();
         }
 
-        private void UnselectedMircrophoneInput()
+        private async void UnselectedAudioInput()
         {
             if (!CheckIfSoundInputIsUsed())
             {
-                SoundInput.StopMicrophoneInputSafely();
+                await AudioInput.StopAudioInputSafely();
             }
 
-            GiveMicrophoneInputSlidersVariables();
+            GiveAudioInputSlidersVariables();
         }
 
-        private void GiveMicrophoneInputSlidersVariables()
+        private void GiveAudioInputSlidersVariables()
         {
             MicrophoneBrightnessOptions brightnessOption = BrightnessOptionFrame.Content as MicrophoneBrightnessOptions;
             MicrophoneColorOption colorOption = ColorOptionFrame.Content as MicrophoneColorOption;

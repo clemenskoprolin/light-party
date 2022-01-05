@@ -19,9 +19,6 @@ using Windows.System;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.ViewManagement;
 using Windows.UI;
-using Windows.ApplicationModel;
-using Windows.Foundation.Metadata;
-
 using mUi = Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.Core;
 using LightParty.Pages;
@@ -51,12 +48,6 @@ namespace LightParty.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.FullTrustAppContract", 1, 0))
-            {
-                Debug.WriteLine("Starting...");
-                await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
-            }
-
             SystemNavigationManager.GetForCurrentView().BackRequested += (x, y) => { OnBackRequested(); }; //Adds support for system back requests. E.g. Windows key + Backspace
             Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += CoreDispatcherAcceleratorKeyActivated; //Adds support for accelerator keys.
 
