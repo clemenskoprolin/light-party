@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
@@ -15,7 +16,7 @@ namespace LightPartyBackgroundProcess
         static void Main(string[] args)
         {
             StartAppServiceConnection();
-            Console.ReadLine();
+            Process.GetCurrentProcess().WaitForExit();
         }
 
         /// <summary>

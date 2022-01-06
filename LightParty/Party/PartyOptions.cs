@@ -21,7 +21,7 @@ namespace LightParty.Party
         {
             new PartyOption
             {
-                ignoreOnReplace = new string[] { "randomInterval", "audioSource" },
+                ignoreOnReplace = new string[] { "randomInterval", "audioSource", "minSoundLevel", "maxSoundLevel" },
                 randomInterval = 3,
                 audioSource = 0,
 
@@ -201,7 +201,7 @@ namespace LightParty.Party
         #endregion
 
         /// <summary>
-        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval and audioSource.
+        /// Compares all fields (variables) in a PartyOption to another except the value of selected variables.
         /// </summary>
         /// <param name="a">The first PartyOption</param>
         /// <param name="b">The second PartyOption</param>
@@ -213,7 +213,7 @@ namespace LightParty.Party
 
             for (int i = 0; i < aFields.Length; i++)
             {
-                if (aFields[i].Name != "randomInterval" && aFields[i].Name != "ignoreOnReplace" && aFields[i].Name != "audioSource")
+                if (aFields[i].Name != "randomInterval" && aFields[i].Name != "ignoreOnReplace" && aFields[i].Name != "audioSource" && aFields[i].Name != "minSoundLevel" && aFields[i].Name != "maxSoundLevel")
                 {
                     if (!aFields[i].GetValue(a).Equals(bFields[i].GetValue(b)))
                     {
@@ -225,7 +225,7 @@ namespace LightParty.Party
         }
 
         /// <summary>
-        /// Compares all fields (variables) in a PartyOption to another except the value of randomInterval and audioSource.
+        /// Compares all fields (variables) in a PartyOption to another except the value of selected variables.
         /// </summary>
         /// <param name="a">The first PartyOption</param>
         /// <param name="b">The second PartyOption</param>
@@ -236,7 +236,7 @@ namespace LightParty.Party
 
             for (int i = 0; i < fields.Length; i++)
             {
-                if (fields[i].Name != "randomInterval" && fields[i].Name != "audioSource")
+                if (fields[i].Name != "randomInterval" && fields[i].Name != "audioSource" && fields[i].Name != "minSoundLevel" && fields[i].Name != "maxSoundLevel")
                 {
                     if (fields[i].GetValue(a).Equals(fields[i].GetValue(b)))
                     {

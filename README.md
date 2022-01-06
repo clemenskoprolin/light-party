@@ -10,9 +10,10 @@ Light Party is a controller for Philips Hue lights available for Windows 10 and 
 [<img width="180" src="https://clemenskoprolin.com/lightparty/images/logos/GetItFromMicrosoftStore/GetItFromMircosoftStore_eng.svg" alt="Get this app from Microsoft Store">](https://www.microsoft.com/en-us/p/light-party/9n5kgbnczrj4)
 
 The application is written with the Universal Windows Platform in C# and with the help of some amazing tools:
-- [Q42.HueApi](https://github.com/Q42/Q42.HueApi) by Q42 - Copyright (C) 2013 Q42 - [MIT License](https://github.com/Q42/Q42.HueApi/blob/master/LICENSE.txt)
-- [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit) by .NET Foundation - Copyright (c) .NET Foundation and Contributors - [MIT License](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/master/license.md)
-- [Windows UI Library](https://github.com/microsoft/microsoft-ui-xaml) by Microsoft Corporation - Copyright (c) Microsoft Corporation - [MIT License](https://github.com/microsoft/microsoft-ui-xaml/blob/master/LICENSE)
+- [Q42.HueApi](https://github.com/Q42/Q42.HueApi) by Q42 - Copyright © 2013 Q42 - [MIT License](https://github.com/Q42/Q42.HueApi/blob/master/LICENSE.txt)
+- [Naudio](https://github.com/naudio/NAudio) by Mark Heath - Copyright © 2020 Mark Heath - [MIT License](https://github.com/naudio/NAudio/blob/master/license.txt)
+- [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit) by .NET Foundation - Copyright © .NET Foundation and Contributors - [MIT License](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/master/license.md)
+- [Windows UI Library](https://github.com/microsoft/microsoft-ui-xaml) by Microsoft Corporation - Copyright © Microsoft Corporation - [MIT License](https://github.com/microsoft/microsoft-ui-xaml/blob/master/LICENSE)
 - [Click Icon, Symbol by Iconpacks](https://www.iconpacks.net/free-icon/click-2384.html) - Copyright © 2020 IconPacks - [Terms](https://www.iconpacks.net/terms/)
 
 ### Download
@@ -23,7 +24,7 @@ You can always download the newest stable version of Light Party from the [Micro
 - ~~More fluent design (e.g. in the navigation view and titel bar)!~~
 - ~~[Redesign of the Party Mode](https://github.com/clemenskoprolin/light-party/issues/3)~~
 - ~~[Redesign for Windows 11](https://github.com/clemenskoprolin/light-party/issues/6)~~
-- Native way to use the internal sound of the computer for the Party Mode
+- [Native way to use the desktop audio of the computer for the Party Mode](https://github.com/clemenskoprolin/light-party/issues/8)
 - Many, many, many bug fixes
 - Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
 

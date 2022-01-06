@@ -125,6 +125,7 @@ namespace LightParty.Party
         private static int ProcessSoundLevelBrightness(double soundLevel)
         {
             double brightnessDouble = 0;
+            int brightness = 0;
 
             if (!(soundLevel < PartyOptions.activePartyOption.minSoundLevel && PartyOptions.activePartyOption.startWithZeroInRange))
             {
@@ -135,8 +136,15 @@ namespace LightParty.Party
                     brightnessDouble = brightnessDouble < PartyOptions.activePartyOption.minSoundLevel ? PartyOptions.activePartyOption.minSoundLevel : brightnessDouble;
             }
 
-            int brightness = Convert.ToInt32(brightnessDouble);
-            BasicLightController.SetBrightnessInCommonCommand(brightness);
+            try
+            {
+                brightness = Convert.ToInt32(brightnessDouble);
+                BasicLightController.SetBrightnessInCommonCommand(brightness);
+            }
+            catch
+            {
+                brightness = 0;
+            }
 
             return brightness;
         }

@@ -38,10 +38,10 @@ namespace LightParty.Pages.LightControl
         private bool colorPickerNavInvokeItems = true;
 
         //The following titel and body will be displayed in InfoMessage.
-        private readonly string infoMessageTitel = "Welcome to version 2.0! ✨";
-        private readonly string infoMessageBody = "As you may see, this release contains a number of new features. " +
-            "A complete redesign for Windows 11 and support for lights with different color spectrums while having 'Completely random' (default) selected in Party Mode.\n" +
-            "Moreover, the Party Mode keeps working, even as the app is minimized. And many, many, many bug fixes.\nThank you for using Light Party! 💡";
+        private readonly string infoMessageTitel = "Welcome to version 2.1! ✨";
+        private readonly string infoMessageBody = "This update mainly affects the Party Mode. " +
+            "It officially supports desktop audio! Try it by changing the audio source to “Desktop audio”. But keep in mind that it might be a little buggy right now.\n" +
+            "Moreover, there is a new option: “Set audio range automatically”. It’s activated by default in the “Audio input” profile. And, as always, many bug fixes and smaller tweaks.\nThank you for using Light Party! 💡";
 
         public BasicLightControl()
         {

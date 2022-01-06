@@ -57,13 +57,13 @@ namespace LightParty.Party
             if (PartyOptions.activePartyOption.audioSource == 0)
             {
                 await Connection.BackgroundService.StopBackgroundService();
-                await Task.Delay(100);
+                await Task.Delay(200);
                 await MicrophoneInput.StartMicrophoneInputSafely();
             }
             if (PartyOptions.activePartyOption.audioSource == 1)
             {
                 MicrophoneInput.StopMicrophoneInputSafely();
-                await Task.Delay(100);
+                await Task.Delay(200);
                 Connection.BackgroundService.InitializeBackgroundService("loopbackAudio");
             }
         }
