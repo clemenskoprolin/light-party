@@ -41,7 +41,7 @@ namespace LightParty.Pages.LightControl
         private readonly string infoMessageTitel = "Welcome to version 2.1! ✨";
         private readonly string infoMessageBody = "This update mainly affects the Party Mode. " +
             "It officially supports desktop audio! Try it by changing the audio source to “Desktop audio”. But keep in mind that it might be a little buggy right now.\n" +
-            "Moreover, there is a new option: “Set audio range automatically”. It’s activated by default in the “Audio input” profile. And, as always, many bug fixes and smaller tweaks.\nThank you for using Light Party! 💡";
+            "Moreover, there is a new option: “Set audio range automatically”. It’s activated by default in the “Audio input” profile. And, as always, this release includes many bug fixes and smaller tweaks.\nThank you for using Light Party! 💡";
 
         public BasicLightControl()
         {
