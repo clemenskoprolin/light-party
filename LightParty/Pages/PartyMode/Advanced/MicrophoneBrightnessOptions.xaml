@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Style="{StaticResource Information}"
@@ -29,5 +30,7 @@
                    Text="The gray thumb is the current input."/>
         <CheckBox Grid.Row="3" x:Name="StartWithZeroBrightnessInRangeCheckBox" Margin="0,10,0,0"
                   Content="Start with zero brightness in range" IsChecked="True" Click="StartWithZeroBrightnessInRangeCheckBox_Click"/>
+        <CheckBox Grid.Row="4" x:Name="AutomaticRangeSelectionCheckBox"
+                  Content="Set audio input range automatically" IsChecked="True" Click="AutomaticRangeSelectionCheckBox_Click"/>
     </Grid>
 </Page>

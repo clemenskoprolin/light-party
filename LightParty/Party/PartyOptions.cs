@@ -29,6 +29,7 @@ namespace LightParty.Party
                 minSoundLevel = 45,
                 maxSoundLevel = 85,
                 startWithZeroInRange = true,
+                automaticRangeSelection = true,
 
                 minRandomBrightness = 35,
                 maxRandomBrightness = 100,
@@ -44,7 +45,7 @@ namespace LightParty.Party
                 centerColorTemperature = 200,
                 endColorTemperature = 500,
 
-                colorDifferencePercent = 2.5f,
+                colorDifferencePercent = 1.5f,
                 changeColorCompletelyRandom = true,
             },
             new PartyOption
@@ -57,6 +58,7 @@ namespace LightParty.Party
                 minSoundLevel = 45,
                 maxSoundLevel = 85,
                 startWithZeroInRange = true,
+                automaticRangeSelection = true,
 
                 minRandomBrightness = 35,
                 maxRandomBrightness = 100,
@@ -72,7 +74,7 @@ namespace LightParty.Party
                 centerColorTemperature = 200,
                 endColorTemperature = 500,
 
-                colorDifferencePercent = 2.5f,
+                colorDifferencePercent = 1.5f,
                 changeColorCompletelyRandom = true,
             },
         };
@@ -149,6 +151,7 @@ namespace LightParty.Party
         public double minSoundLevel; //The minimum soundlevel, from which the brightness is changend.
         public double maxSoundLevel; //The maximum soundlevel, from which the brightness is changend.
         public bool startWithZeroInRange; //Whether or not the brightness starts with zero at the minimum sound level. If deactivated, it will start at the minimum itself.
+        public bool automaticRangeSelection; //Automatically sets minSoundLevel and maxSoundLevel based on the last audio levels.
 
         //Random
         public int minRandomBrightness; //Minimum of the random brightness.

@@ -188,7 +188,7 @@ namespace LightParty.Pages.PartyMode.Advanced
             MicrophoneBrightnessOptions brightnessOption = BrightnessOptionFrame.Content as MicrophoneBrightnessOptions;
             MicrophoneColorOption colorOption = ColorOptionFrame.Content as MicrophoneColorOption;
 
-            PartyUIUpdater.GiveVariablesSlider<MicrophoneBrightnessOptions, MicrophoneColorOption>(brightnessOption, colorOption);
+            PartyUIUpdater.GiveVariablesSlider<MicrophoneColorOption, MicrophoneBrightnessOptions> (colorOption, brightnessOption);
         }
 
         private bool CheckIfSoundInputIsUsed()
