@@ -14,7 +14,7 @@ namespace LightParty.Services
     /// </summary>
     class LifecyleAssistant
     {
-        private static bool startMicrophoneInputOnResume = false; //Whether or not the microphone should be started when the application is being resumed.
+        private static bool startAudioInputOnResume = false; //Whether or not the microphone should be started when the application is being resumed.
         private static EventHandler onResume; //Event handler which can be called, when the application is being resumed.
 
         private static ExtendedExecutionSession session; //The extended execution session which allows the application to keep running while it's minimized.
@@ -29,12 +29,12 @@ namespace LightParty.Services
         /// <summary>
         /// Is called when application execution is being suspended. Stops the microphone input when it's used.
         /// </summary>
-        public static void SuspendApp()
+        public static async void SuspendApp()
         {
-            if (Party.SoundInput.isCreating || Party.SoundInput.isListening)
+            if (Party.AudioInput.isListening)
             {
-                Party.SoundInput.StopMicrophoneInputSafely();
-                startMicrophoneInputOnResume = true;
+                await Party.AudioInput.StopAudioInputSafely();
+                startAudioInputOnResume = true;
             }
         }
 
@@ -52,13 +52,13 @@ namespace LightParty.Services
         /// </summary>
         public static void ResumeApp()
         {
-            if (Party.SoundInput.wasListening)
-                Party.SoundInput.ResetMicrophoneInput();
+            if (Party.MicrophoneInput.wasListening)
+                Party.MicrophoneInput.ResetMicrophoneInput();
 
-            if (startMicrophoneInputOnResume)
+            if (startAudioInputOnResume)
             {
-                _ = Party.SoundInput.StartMicrophoneInputSafely();
-                startMicrophoneInputOnResume = false;
+                _ = Party.AudioInput.StartAudioInputSafely();
+                startAudioInputOnResume = false;
             }
 
             if (onResume != null)

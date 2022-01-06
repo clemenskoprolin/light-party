@@ -19,15 +19,14 @@ using Windows.UI.Core;
 namespace LightParty.Party
 {
     /// <summary>
-    /// This class handles the audio input and calculates the current audio level.
+    /// This class handles the microphone input with Windows AudioGraph.
     /// </summary>
-    class SoundInput
+    class MicrophoneInput
     {
         public static bool wasListening = false; //Whether or not the audio graph was ever created.
         public static bool isCreating = false; //Whether or not the audio graph is currently being created.
         public static bool isListening = false; //Whether or not the audio graph is started.
         public static bool stopOnCreation = false; //Whether or not the audio graph should be deleted when the creation is done. Used to prevent errors.
-        private static List<double> lastSoundLevels = new List<double>(); //Contains the last sound levels and is used to calculate the average.
         private static ulong lastCompletedQuantumCount = 0; //Conatains the last CompletedQuantumCount of the graph. It's used to prevent errors.
 
         private static bool isDisposed = true; //Whether or not the AudioGraph graph is disposed.
@@ -49,7 +48,7 @@ namespace LightParty.Party
             if (!isListening && !isCreating)
             {
                 stopOnCreation = false;
-                await SoundInput.StartInput();
+                await MicrophoneInput.StartInput();
             }
         }
 
@@ -65,7 +64,7 @@ namespace LightParty.Party
 
             if (isListening && !isCreating)
             {
-                _ = SoundInput.StopInput();
+                _ = MicrophoneInput.StopInput();
             }
         }
 
@@ -241,50 +240,9 @@ namespace LightParty.Party
                 }
                 soundLevel = Math.Log10(soundLevel / floatData.Length) * 20;
 
-                NewRawSoundLevel(soundLevel);
+                AudioInput.NewRawSoundLevel(soundLevel);
 
                 audioFrameUpdateCount = 0;
-            }
-        }
-
-        /// <summary>
-        /// Converts the raw audio level to a audio level from 0 to 100 and calls the necessary following methods.
-        /// </summary>
-        /// <param name="rawLevel"></param>
-        private static void NewRawSoundLevel(double rawLevel)
-        {
-            rawLevel += 100;
-            rawLevel = rawLevel < 0 ? 0 : rawLevel;
-            rawLevel = rawLevel > 100 ? 100 : rawLevel;
-
-            if (!Double.IsNaN(rawLevel))
-            {
-                double soundLevel = CalculateAverage(rawLevel);
-
-                LightProcessingSoundInput.NewSoundLevel(soundLevel);
-                PartyUIUpdater.NewSoundLevel(soundLevel);
-            }
-        }
-
-        /// <summary>
-        /// Calculates the average of the last 8 sound levels.
-        /// </summary>
-        /// <param name="newSoundLevel">The new sound level</param>
-        /// <returns>The average of the last 8 sound levels</returns>
-        private static double CalculateAverage(double newSoundLevel)
-        {
-            lastSoundLevels.Add(newSoundLevel);
-
-            if (lastSoundLevels.Count < 8)
-            {
-                return newSoundLevel;
-            }
-            else
-            {
-                double average = lastSoundLevels.Average();
-
-                lastSoundLevels.RemoveAt(0);
-                return average;
             }
         }
     }

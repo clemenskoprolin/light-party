@@ -23,7 +23,6 @@ using mUi = Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.Core;
 using LightParty.Pages;
 using LightParty.Services;
-
 namespace LightParty.Pages
 {
     /// <summary>

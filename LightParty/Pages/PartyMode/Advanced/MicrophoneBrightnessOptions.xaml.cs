@@ -35,10 +35,11 @@ namespace LightParty.Pages.PartyMode.Advanced
 
         private void UpdateControls()
         {
-            MicrophoneInputRangeSelector.RangeStart = PartyOptions.activePartyOption.minSoundLevel;
-            MicrophoneInputRangeSelector.RangeEnd = PartyOptions.activePartyOption.maxSoundLevel;
-
+            SetMicrophoneInputRangeSelector(PartyOptions.activePartyOption.minSoundLevel, PartyOptions.activePartyOption.maxSoundLevel);
             ((CheckBox)StartWithZeroBrightnessInRangeCheckBox).IsChecked = PartyOptions.activePartyOption.startWithZeroInRange;
+
+            AutomaticRangeSelectionCheckBox.IsChecked = PartyOptions.activePartyOption.automaticRangeSelection;
+            MicrophoneInputRangeSelector.IsEnabled = !PartyOptions.activePartyOption.automaticRangeSelection;
         }
 
         private void MicrophoneInputRangeSelector_ValueChanged(object sender, Microsoft.Toolkit.Uwp.UI.Controls.RangeChangedEventArgs e)
@@ -55,6 +56,18 @@ namespace LightParty.Pages.PartyMode.Advanced
         public void SetMicrophoneInputSlider(double newValue)
         {
             MicrophoneInputSlider.Value = newValue;
+        }
+
+        public void SetMicrophoneInputRangeSelector(double min, double max)
+        {
+            MicrophoneInputRangeSelector.RangeStart = min;
+            MicrophoneInputRangeSelector.RangeEnd = max;
+        }
+
+        private void AutomaticRangeSelectionCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            PartyOptions.activePartyOption.automaticRangeSelection = (bool)((CheckBox)sender).IsChecked;
+            MicrophoneInputRangeSelector.IsEnabled = !(bool)((CheckBox)sender).IsChecked;
         }
     }
 }

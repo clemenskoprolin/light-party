@@ -16,66 +16,79 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Visibility="Visible">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <ScrollViewer>
+            <Grid Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Style="{StaticResource MediumInformation}"
+                <TextBlock Grid.Row="0" Style="{StaticResource MediumInformation}"
+                   Text="Audio source"/>
+                <ComboBox x:Name="AudioSourceComboBox" Grid.Row="1" Margin="0,5,0,0" SelectedIndex="0" Width="240"
+                      SelectionChanged="AudioSourceComboBox_SelectionChanged">
+                    <x:String>Default microphone</x:String>
+                    <x:String>Desktop audio</x:String>
+                </ComboBox>
+
+                <TextBlock Grid.Row="2" Style="{StaticResource MediumInformation}" Margin="0,20,0,0"
                    Text="Brightness"/>
 
-        <ComboBox x:Name="BrightnessOptionComboBox" Grid.Row="1" Margin="0,5,0,0" SelectedIndex="0" Width="240"
+                <ComboBox x:Name="BrightnessOptionComboBox" Grid.Row="3" Margin="0,5,0,0" SelectedIndex="0" Width="240"
                       SelectionChanged="BrightnessOptionComboBox_SelectionChanged">
-            <x:String>Change with microphone input</x:String>
-            <x:String>Change randomly</x:String>
-            <x:String>Do not change</x:String>
-        </ComboBox>
-        <Frame x:Name="BrightnessOptionFrame" Grid.Row="2" Margin="0,5,0,0"/>
+                    <x:String>Change with audio input</x:String>
+                    <x:String>Change randomly</x:String>
+                    <x:String>Do not change</x:String>
+                </ComboBox>
+                <Frame x:Name="BrightnessOptionFrame" Grid.Row="4" Margin="0,5,0,0"/>
 
 
-        <TextBlock Grid.Row="3" Style="{StaticResource MediumInformation}" Margin="0,20,0,0"
+                <TextBlock Grid.Row="5" Style="{StaticResource MediumInformation}" Margin="0,20,0,0"
                    Text="Color"/>
 
-        <ComboBox x:Name="ColorOptionComboBox" Grid.Row="4" Margin="0,5,0,0" SelectedIndex="0" Width="240"
+                <ComboBox x:Name="ColorOptionComboBox" Grid.Row="6" Margin="0,5,0,0" SelectedIndex="0" Width="240"
                       SelectionChanged="ColorOptionComboBox_SelectionChanged">
-            <x:String>Change with microphone input</x:String>
-            <x:String>Change on input difference</x:String>
-            <x:String>Change randomly</x:String>
-            <x:String>Do not change</x:String>
-        </ComboBox>
-        <Frame x:Name="ColorOptionFrame" Grid.Row="5" Margin="0,5,0,0"/>
+                    <x:String>Change with audio input</x:String>
+                    <x:String>Change on input difference</x:String>
+                    <x:String>Change randomly</x:String>
+                    <x:String>Do not change</x:String>
+                </ComboBox>
+                <Frame x:Name="ColorOptionFrame" Grid.Row="7" Margin="0,5,0,0"/>
 
 
-        <TextBlock Grid.Row="6" Style="{StaticResource MediumInformation}" Margin="0,20,0,0"
+                <TextBlock Grid.Row="8" Style="{StaticResource MediumInformation}" Margin="0,20,0,0"
                    Text="Output"/>
 
-        <TextBlock Grid.Row="7" Style="{StaticResource Information}" Margin="0,0,0,0"
+                <TextBlock Grid.Row="9" Style="{StaticResource Information}" Margin="0,0,0,0"
                    Text="Brightness Output"/>
-        <Slider Style="{StaticResource OutputStyle}" x:Name="BrightnessOutput" Grid.Row="8" Width="300" HorizontalAlignment="Left" IsEnabled="False"/>
+                <Slider Style="{StaticResource OutputStyle}" x:Name="BrightnessOutput" Grid.Row="10" Width="300" HorizontalAlignment="Left" IsEnabled="False"/>
 
-        <TextBlock Grid.Row="9" Style="{StaticResource Information}" Margin="0,15,0,0"
+                <TextBlock Grid.Row="11" Style="{StaticResource Information}" Margin="0,15,0,0"
                    Text="Color Output"/>
 
-        <Border Grid.Row="10" Height="35" Width="35" HorizontalAlignment="Left" Margin="0,5,0,0" BorderThickness="1" CornerRadius="3" BorderBrush="{StaticResource SystemBaseHighColor}">
-            <Rectangle>
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
-                        <GradientStop x:Name="ColorOutputLeftStart" Color="Blue" Offset="0"/>
-                        <GradientStop x:Name="ColorOutputLeftEnd" Color="Blue" Offset=".5"/>
-                        <GradientStop x:Name="ColorOutputRight" Color="#FFFFDA" Offset=".5"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        </Border>
+                <Border Grid.Row="12" Height="35" Width="35" HorizontalAlignment="Left" Margin="0,5,0,0" BorderThickness="1" CornerRadius="3" BorderBrush="{StaticResource SystemBaseHighColor}">
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                                <GradientStop x:Name="ColorOutputLeftStart" Color="Blue" Offset="0"/>
+                                <GradientStop x:Name="ColorOutputLeftEnd" Color="Blue" Offset=".5"/>
+                                <GradientStop x:Name="ColorOutputRight" Color="#FFFFDA" Offset=".5"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

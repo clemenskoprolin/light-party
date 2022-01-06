@@ -59,6 +59,7 @@ namespace LightParty.Pages.PartyMode
                 PartyOptions.SetPartyOption(0);
 
             int id = PartyOptions.CompareCurrentWithSaves();
+            Debug.WriteLine("AudioSource:" + PartyOptions.activePartyOption.audioSource);
             if (id != -1)
             {
                 SelectMenuItem("Simple");

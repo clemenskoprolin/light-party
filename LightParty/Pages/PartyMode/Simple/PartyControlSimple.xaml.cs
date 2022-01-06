@@ -37,6 +37,7 @@ namespace LightParty.Pages.PartyMode.Simple
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SelectLastSaveButton();
+            AudioSourceComboBox.SelectedIndex = (int)PartyOptions.activePartyOption.audioSource;
         }
 
         public void GiveVariables(PartyControl newPartyControl)
@@ -101,12 +102,12 @@ namespace LightParty.Pages.PartyMode.Simple
         private async void SaveZeroActivated()
         {
             PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
-            await SoundInput.StartMicrophoneInputSafely();
+            await AudioInput.StartAudioInputSafely();
         }
 
-        private void SaveZeroDeactivated()
+        private async void SaveZeroDeactivated()
         {
-            SoundInput.StopMicrophoneInputSafely();
+            await AudioInput.StopAudioInputSafely();
             PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(null, null);
         }
 
@@ -126,6 +127,12 @@ namespace LightParty.Pages.PartyMode.Simple
         public void SetMicrophoneInputSlider(double newValue)
         {
             MicrophoneInputSlider.Value = newValue;
+        }
+
+        private void AudioSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PartyOptions.activePartyOption.audioSource = AudioSourceComboBox.SelectedIndex;
+            _ = AudioInput.UpdateAudioInputMethod();
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)
@@ -150,9 +157,9 @@ namespace LightParty.Pages.PartyMode.Simple
             partyControl.NavigateToItem("Advanced");
         }
 
-        public void StopActiveProcesses()
+        public async void StopActiveProcesses()
         {
-            SoundInput.StopMicrophoneInputSafely();
+            await AudioInput.StopAudioInputSafely();
             LightProcessingRandom.StopUpdates();
         }
     }

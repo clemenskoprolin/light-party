@@ -96,6 +96,33 @@ namespace LightParty.Party
             });
         }
 
+        /// <summary>
+        /// Is called when the audio input range was changed.
+        /// </summary>
+        /// <param name="min">The new minimum</param>
+        /// <param name="max">The new maximum</param>
+        public static void NewAudioInputRange(double min, double max)
+        {
+            if (sliderUpdateCount == 0)
+            {
+                SetMicrophoneInputRangeSelectors(Math.Round(min), Math.Round(max));
+            }
+        }
+
+        /// <summary>
+        /// Sets, if visable, the microphone input range selectors to the given values.
+        /// </summary>
+        private static async void SetMicrophoneInputRangeSelectors(double min, double max)
+        {
+            //Runs the code in the UI thread.
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                if (useSliderPageTwo)
+                    sliderPageTwo.SetMicrophoneInputRangeSelector(min, max);
+            });
+        }
+
         #endregion
         #region Input difference text
 
