@@ -5,6 +5,9 @@ using Windows.Foundation.Collections;
 
 namespace LightPartyBackgroundProcess
 {
+    /// <summary>
+    /// This class handels the conncetion to the UWP application.
+    /// </summary>
     class Program
     {
         public static AppServiceConnection connection = null;
@@ -15,6 +18,9 @@ namespace LightPartyBackgroundProcess
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Starts the app service connection.
+        /// </summary>
         static async void StartAppServiceConnection()
         {
             connection = new AppServiceConnection();
@@ -31,6 +37,9 @@ namespace LightPartyBackgroundProcess
 
         }
 
+        /// <summary>
+        /// Is callend, when this process receives a request from the UWP application. Passes the data on and sends a validation response back.
+        /// </summary>
         static async void RequestReceived(AppServiceConnection connection, AppServiceRequestReceivedEventArgs args)
         {
             ValueSet checkSet = new ValueSet();
@@ -83,6 +92,9 @@ namespace LightPartyBackgroundProcess
             }
         }
 
+        /// <summary>
+        /// Is called when the connection to the UWP application is lost. Stops this process
+        /// </summary>
         static void ServiceClosed(AppServiceConnection connection, AppServiceClosedEventArgs args)
         {
             Environment.Exit(0);
