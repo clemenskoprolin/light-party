@@ -75,7 +75,7 @@ namespace LightParty.Pages.Introduction
             {
                 if ((bool)AgreeCheckbox.IsChecked)
                 {
-                    //This sends a one time request to clemenskoprolin.com. More information can be found in the class TelemetryService.
+                    //This sends a one time request to koprolin.com. More information can be found in the class TelemetryService.
                     _ = TelemetryService.SendFirstStartTelemetry();
                     move = true;
                 }

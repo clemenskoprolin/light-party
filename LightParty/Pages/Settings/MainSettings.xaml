@@ -48,7 +48,7 @@
                     <TextBlock Grid.Row="1" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
                         You have the choice to enable or disable telemetry. When telemetry is enabled, Light Party collects information like the 
                         name of your country and state and stores it anoymized. You can find out more in
-                        "<Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com/lightparty/docs/shouldienabletelemetry/">Should I enable telemetry?</Hyperlink>".
+                        "<Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://koprolin.com/lightparty/docs/shouldienabletelemetry/">Should I enable telemetry?</Hyperlink>".
                     </TextBlock>
 
                     <ToggleSwitch Grid.Row="2" x:Name="TelemetryToggleSwitch" IsOn="False" Margin="0,5,0,0"
@@ -114,18 +114,18 @@
                     <TextBlock x:Name="ApplicationInformationText" Grid.Row="1" Style="{StaticResource Information}" Margin="0,10,0,0"
                                Text="Light Party 0.0.0"/>
                     <TextBlock Grid.Row="2" Style="{StaticResource Information}">
-                        Copyright © <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://clemenskoprolin.com">Clemens Koprolin</Hyperlink> 
+                        Copyright © <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://koprolin.com">Clemens Koprolin</Hyperlink> 
                         and <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party/graphs/contributors">Contributors</Hyperlink> 2022
                     </TextBlock>
 
-                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Offical website" NavigateUri="https://clemenskoprolin.com/lightparty/"/>
+                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Offical website" NavigateUri="https://koprolin.com/lightparty/"/>
                     <HyperlinkButton Grid.Row="4" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="GitHub repository" NavigateUri="https://github.com/clemenskoprolin/light-party"/>
-                    <HyperlinkButton Grid.Row="5" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Privacy Policy" NavigateUri="https://clemenskoprolin.com/lightparty/legal/privacypolicy/"/>
-                    <HyperlinkButton Grid.Row="6" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="License" NavigateUri="https://clemenskoprolin.com/lightparty/legal/license/license.txt"/>
+                    <HyperlinkButton Grid.Row="5" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Privacy Policy" NavigateUri="https://koprolin.com/lightparty/legal/privacypolicy/"/>
+                    <HyperlinkButton Grid.Row="6" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="License" NavigateUri="https://koprolin.com/lightparty/legal/license/license.txt"/>
 
                     <TextBlock Grid.Row="7" Margin="0,10,0,10" TextWrapping="Wrap">
                         Did you find a bug or have a feature request? 
-                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="mailto:lightparty@clemenskoprolin.com">Contact me!</Hyperlink>
+                        <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="mailto:contact@koprolin.com">Contact me!</Hyperlink>
                     </TextBlock>
                 </Grid>
             </Grid>
