@@ -115,7 +115,7 @@
                                Text="Light Party 0.0.0"/>
                     <TextBlock Grid.Row="2" Style="{StaticResource Information}">
                         Copyright © <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://koprolin.com">Clemens Koprolin</Hyperlink> 
-                        and <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party/graphs/contributors">Contributors</Hyperlink> 2022
+                        and <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party/graphs/contributors">Contributors</Hyperlink> 2026
                     </TextBlock>
 
                     <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Offical website" NavigateUri="https://koprolin.com/lightparty/"/>

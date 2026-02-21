@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 using NAudio.Wave;
@@ -13,21 +14,41 @@ namespace LightPartyBackgroundProcess
     class LoopbackAudio
     {
         static WasapiLoopbackCapture capture; //Contains the WasapiLoopbackCapture by Naudio.
+        static Thread captureThread; //Dedicated thread for loopback capture to keep COM objects alive.
 
         /// <summary>
-        /// Starts WasapiLoopbackCapture via Naudio.
+        /// Starts WasapiLoopbackCapture via Naudio on a dedicated STA thread.
         /// </summary>
         public static void StartLoopbackCapture()
         {
-            capture = new WasapiLoopbackCapture();
-            capture.DataAvailable += DataAvailable;
-
-            capture.RecordingStopped += (sender, eventArgs) =>
+            captureThread = new Thread(() =>
             {
-                capture.Dispose();
-            };
+                try
+                {
+                    capture = new WasapiLoopbackCapture();
+                    capture.DataAvailable += DataAvailable;
 
-            capture.StartRecording();
+                    capture.RecordingStopped += (sender, eventArgs) =>
+                    {
+                        capture.Dispose();
+                    };
+
+                    capture.StartRecording();
+
+                    // Keep the thread alive so COM objects remain valid.
+                    while (capture != null)
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error starting loopback capture: " + ex.Message);
+                }
+            });
+            captureThread.SetApartmentState(ApartmentState.STA);
+            captureThread.IsBackground = true;
+            captureThread.Start();
         }
 
         /// <summary>
@@ -36,7 +57,10 @@ namespace LightPartyBackgroundProcess
         public static void StopLoopbackCapture()
         {
             if (capture != null)
+            {
                 capture.StopRecording();
+                capture = null; // Signals the captureThread to exit.
+            }
         }
 
         /// <summary>

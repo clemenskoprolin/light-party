@@ -233,14 +233,20 @@ namespace LightParty.Party
                     }
                 }
 
-                double soundLevel = 0f;
-                foreach (float sample in floatData)
+                if (floatData.Length > 0)
                 {
-                    soundLevel += Math.Abs(sample);
-                }
-                soundLevel = Math.Log10(soundLevel / floatData.Length) * 20;
+                    double soundLevel = 0f;
+                    foreach (float sample in floatData)
+                    {
+                        soundLevel += Math.Abs(sample);
+                    }
+                    soundLevel = Math.Log10(soundLevel / floatData.Length) * 20;
 
-                AudioInput.NewRawSoundLevel(soundLevel);
+                    if (!Double.IsNaN(soundLevel) && !Double.IsInfinity(soundLevel))
+                    {
+                        AudioInput.NewRawSoundLevel(soundLevel);
+                    }
+                }
 
                 audioFrameUpdateCount = 0;
             }

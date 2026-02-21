@@ -39,7 +39,16 @@ namespace LightParty.Connection
                 shouldRun = true;
                 backgroundServiceTask = task;
 
-                await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+                try
+                {
+                    await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error while launching full trust process: " + ex.Message);
+                    isCreating = false;
+                    shouldRun = false;
+                }
             }
         }
 
@@ -57,19 +66,28 @@ namespace LightParty.Connection
 
             shouldRun = false;
 
-            ValueSet taskSet = new ValueSet();
-            taskSet.Add("action", "stopTask");
-            taskSet.Add("task", "process");
-
-            AppServiceResponse response = await connection.SendMessageAsync(taskSet);
-
-            if (response.Message != null)
+            try
             {
-                if ((string)response.Message["check"] != "success")
+                ValueSet taskSet = new ValueSet();
+                taskSet.Add("action", "stopTask");
+                taskSet.Add("task", "process");
+
+                AppServiceResponse response = await connection.SendMessageAsync(taskSet);
+
+                if (response?.Message != null)
                 {
-                    Debug.Write("Error while sending stop action to background task!");
+                    if ((string)response.Message["check"] != "success")
+                    {
+                        Debug.WriteLine("Error while sending stop action to background task!");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error while stopping background service: " + ex.Message);
+            }
+
+            runs = false;
         }
 
         /// <summary>
@@ -94,23 +112,38 @@ namespace LightParty.Connection
         /// </summary>
         public static async void AppServiceTriggerEvent()
         {
-            ValueSet taskSet = new ValueSet();
-            taskSet.Add("action", "startTask");
-            taskSet.Add("task", backgroundServiceTask);
-
-            AppServiceResponse response = await connection.SendMessageAsync(taskSet);
-
-            if ((string)response.Message["check"] != "success")
-                Debug.Write("Error while sending action to background task!");
-
-            connection.RequestReceived += RequestReceived;
-
-            isCreating = false;
-            runs = true;
-            if (stopOnCreation)
+            try
             {
-                await StopBackgroundService();
-                stopOnCreation = false;
+                ValueSet taskSet = new ValueSet();
+                taskSet.Add("action", "startTask");
+                taskSet.Add("task", backgroundServiceTask);
+
+                AppServiceResponse response = await connection.SendMessageAsync(taskSet);
+
+                if (response?.Message == null || (string)response.Message["check"] != "success")
+                {
+                    Debug.WriteLine("Error while sending action to background task!");
+                    isCreating = false;
+                    shouldRun = false;
+                    return;
+                }
+
+                connection.RequestReceived += RequestReceived;
+
+                isCreating = false;
+                runs = true;
+                if (stopOnCreation)
+                {
+                    await StopBackgroundService();
+                    stopOnCreation = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error in AppServiceTriggerEvent: " + ex.Message);
+                isCreating = false;
+                shouldRun = false;
+                runs = false;
             }
         }
 
@@ -119,26 +152,33 @@ namespace LightParty.Connection
         /// </summary>
         private static async void RequestReceived(AppServiceConnection connection, AppServiceRequestReceivedEventArgs args)
         {
-            ValueSet checkSet = new ValueSet();
-            string action = (string)args.Request.Message["action"];
-
-            switch (action)
+            try
             {
-                case "loopbackAudio":
-                    double audioLevel = (double)args.Request.Message["audioLevel"];
-                    AudioInput.NewRawSoundLevel(audioLevel);
+                ValueSet checkSet = new ValueSet();
+                string action = (string)args.Request.Message["action"];
 
-                    checkSet.Add("check", "success");
-                    break;
+                switch (action)
+                {
+                    case "loopbackAudio":
+                        double audioLevel = (double)args.Request.Message["audioLevel"];
+                        AudioInput.NewRawSoundLevel(audioLevel);
+
+                        checkSet.Add("check", "success");
+                        break;
+                }
+
+                if (checkSet.Count != 0)
+                {
+                    await args.Request.SendResponseAsync(checkSet);
+                }
+                else
+                {
+                    checkSet.Add("check", "error");
+                }
             }
-
-            if (checkSet.Count != 0)
+            catch (Exception ex)
             {
-                await args.Request.SendResponseAsync(checkSet);
-            }
-            else
-            {
-                checkSet.Add("check", "error");
+                Debug.WriteLine("Error in RequestReceived: " + ex.Message);
             }
         }
     }

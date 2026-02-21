@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <ResourceDictionary Source="/Pages/Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="ms-appx:///Pages/Resources/TextStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- New L-Pattern which is used by other Windows 11 applications, too. -->

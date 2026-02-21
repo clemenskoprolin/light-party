@@ -136,15 +136,16 @@ namespace LightParty.Party
                     brightnessDouble = brightnessDouble < PartyOptions.activePartyOption.minSoundLevel ? PartyOptions.activePartyOption.minSoundLevel : brightnessDouble;
             }
 
-            try
-            {
-                brightness = Convert.ToInt32(brightnessDouble);
-                BasicLightController.SetBrightnessInCommonCommand(brightness);
-            }
-            catch
+            if (Double.IsNaN(brightnessDouble) || Double.IsInfinity(brightnessDouble))
             {
                 brightness = 0;
             }
+            else
+            {
+                brightnessDouble = Math.Max(0, Math.Min(100, brightnessDouble));
+                brightness = Convert.ToInt32(brightnessDouble);
+            }
+            BasicLightController.SetBrightnessInCommonCommand(brightness);
 
             return brightness;
         }
