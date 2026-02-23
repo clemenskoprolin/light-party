@@ -97,6 +97,7 @@ namespace LightParty.Connection
             try
             {
                 BridgeInformation.client = new LocalHueClient(ipAddress);
+                BridgeInformation.client.UseHttps = false;
                 SaveIPAddress(ipAddress);
 
                 return true;
