@@ -192,6 +192,29 @@ namespace LightParty.Connection
         #region Initialization
 
         /// <summary>
+        /// Checks whether the bridge at the saved IP address is actually reachable by sending a lightweight API request.
+        /// </summary>
+        /// <returns>Whether or not the bridge responded successfully</returns>
+        public static async Task<bool> IsBridgeReachable()
+        {
+            if (BridgeInformation.demoMode)
+                return true;
+
+            if (BridgeInformation.client == null)
+                return false;
+
+            try
+            {
+                var config = await BridgeInformation.client.GetConfigAsync();
+                return config != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Trys to load the app key of the last connection and stores it in appKey.
         /// </summary>
         /// <returns>Whether or not a app key could be found</returns>

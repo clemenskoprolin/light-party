@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <muxc:ProgressBar Grid.Row="0" IsIndeterminate="True"/>
@@ -85,5 +86,14 @@
                     VerticalAlignment="Center" TextWrapping="Wrap" Margin="7,0,8,0" Style="{StaticResource MediumInformation}" 
                     Text="Push the button in the center of your Philips Hue Bridge, so that this application can register itself."/>
         </Grid>
+
+        <Button x:Name="BackButton" Grid.Row="2" Margin="0,16,0,0" Padding="8"  Click="BackButton_Click">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Margin="0,2,0,0" Symbol="Back" />
+                    <TextBlock Margin="8,0,0,0" Text="Back to bridge selection" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </Page>

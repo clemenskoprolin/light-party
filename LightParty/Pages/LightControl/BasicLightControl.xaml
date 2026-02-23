@@ -32,7 +32,8 @@
                           Title="Welcome to Light Party!"
                           Message="Thank you for using Light Party!">
                 <muxc:InfoBar.ActionButton>
-                    <HyperlinkButton Content="Please rate this app to support me!" NavigateUri="ms-windows-store://pdp/?ProductId=9n5kgbnczrj4" />
+                    <HyperlinkButton Content="New privacy policy as of 02/2026." NavigateUri="https://koprolin.com/lightparty/legal/privacypolicy/" />
+                                        <!-- <HyperlinkButton Content="Please rate this app to support me!" NavigateUri="ms-windows-store://pdp/?ProductId=9n5kgbnczrj4" /> -->
                 </muxc:InfoBar.ActionButton>
 
             </muxc:InfoBar>

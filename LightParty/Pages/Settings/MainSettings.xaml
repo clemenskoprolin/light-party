@@ -37,32 +37,7 @@
                     <HyperlinkButton Grid.Row="4" Foreground="{ThemeResource SystemBaseHighColor}" Content="Windows color settings" NavigateUri="ms-settings:personalization-colors"/>
                 </Grid>
 
-                <Grid Grid.Row="1" Margin="0,10,0,0" MaxWidth="600" HorizontalAlignment="Left">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Style="{StaticResource MediumInformation}" Text="Telemetry"/>
-                    <TextBlock Grid.Row="1" Style="{StaticResource Paragraph}" TextWrapping="Wrap">
-                        You have the choice to enable or disable telemetry. When telemetry is enabled, Light Party collects information like the 
-                        name of your country and state and stores it anoymized. You can find out more in
-                        "<Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://koprolin.com/lightparty/docs/shouldienabletelemetry/">Should I enable telemetry?</Hyperlink>".
-                    </TextBlock>
-
-                    <ToggleSwitch Grid.Row="2" x:Name="TelemetryToggleSwitch" IsOn="False" Margin="0,5,0,0"
-                                 Toggled="TelemetryToggleSwitch_Toggled">
-                        <ToggleSwitch.OffContent>
-                            Telemetry is disabled.
-                        </ToggleSwitch.OffContent>
-                        <ToggleSwitch.OnContent>
-                            Telemetry is enabled.
-                        </ToggleSwitch.OnContent>
-                    </ToggleSwitch>
-                </Grid>
-
-                <Grid Grid.Row="2" Margin="0,10,0,0">
+                <Grid Grid.Row="1" Margin="0,10,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>

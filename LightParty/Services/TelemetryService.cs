@@ -12,6 +12,7 @@ using LightParty.Services;
 namespace LightParty.Services
 {
     /// <summary>
+    /// DEPRECATED and now longer used as of version 2.2 except SetUseTelemetry and HasTelemetryConfig for backwards compatibility.
     /// This class contains the methods that communicate with the telemetery servers of this application.
     /// </summary>
     class TelemetryService
@@ -47,6 +48,7 @@ namespace LightParty.Services
         }
 
         /// <summary>
+        /// DEPRECATED as of version 2.2.
         /// Trys to send a telemetry report which does not contain any information of the user.
         /// This method is called after the user agreed to the Privacy Policy. This process cannot be deactivated.
         /// </summary>
@@ -65,6 +67,7 @@ namespace LightParty.Services
         }
 
         /// <summary>
+        /// DEPRECATED as of version 2.2.
         /// Trys to send a telemetry report which contains the user's country and state. In order to obtain this information, this application uses a service from Cloudflare.
         /// This method is called after the user started the application and when telemetry is activated.
         /// For more information you can read the summary of the Privacy Policy: https://koprolin.com/lightparty/legal/
@@ -91,6 +94,7 @@ namespace LightParty.Services
         }
 
         /// <summary>
+        /// DEPRECATED as of version 2.2.
         /// This method uses a service from Cloudflare to obtain user's country and state. 
         /// For more information you can read the summary of the Privacy Policy of this application: https://koprolin.com/lightparty/legal/
         /// And the Privacy Policy of Cloudflare: https://www.cloudflare.com/privacypolicy/

@@ -45,7 +45,7 @@ namespace LightParty.Pages.BridgeConfiguration
             PassOn();
         }
 
-        private void PassOn()
+        private async void PassOn()
         {
             if (!TelemetryService.HasTelemetryConfig() || (BridgeInformation.demoMode && !BridgeInformation.showedDemoModeIntroduction))
             {
@@ -55,6 +55,14 @@ namespace LightParty.Pages.BridgeConfiguration
 
             if (BridgeInformation.isConnected)
             {
+                // Verify the bridge is still reachable at the saved IP
+                if (!await ConnectToBridge.IsBridgeReachable())
+                {
+                    BridgeInformation.isConnected = false;
+                    this.Frame.Navigate(typeof(FindBridge));
+                    return;
+                }
+
                 FillWithInformation();
 
                 mainShell.userCanUseNav = true;
@@ -80,7 +88,14 @@ namespace LightParty.Pages.BridgeConfiguration
             {
                 if (ConnectToSavedBridge())
                 {
-                    _ = TelemetryService.SendTelemetryReport();
+                    // Verify the bridge is actually reachable at the saved IP
+                    if (!await ConnectToBridge.IsBridgeReachable())
+                    {
+                        BridgeInformation.isConnected = false;
+                        this.Frame.Navigate(typeof(FindBridge));
+                        return;
+                    }
+
                     mainShell.userCanUseNav = true;
 
                     if (BridgeInformation.redirectToLightControl)
@@ -94,6 +109,9 @@ namespace LightParty.Pages.BridgeConfiguration
                     }
                     return;
                 }
+
+                // Saved bridge connection failed, go to bridge selection
+                this.Frame.Navigate(typeof(FindBridge));
             }
         }
 

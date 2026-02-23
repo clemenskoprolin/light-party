@@ -89,5 +89,12 @@ namespace LightParty.Pages.BridgeConfiguration
                 await Task.Delay(5000);
             }
         }
+        /// <summary>
+        /// Navigates back to the bridge selection page.
+        /// </summary>
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FindBridge));
+        }
     }
 }

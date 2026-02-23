@@ -36,7 +36,6 @@ namespace LightParty.Pages.Settings
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SetThemeRadioButton();
-            SetTelemetryToggleSwitch();
             SetApplicationInformationText();
         }
 
@@ -112,25 +111,7 @@ namespace LightParty.Pages.Settings
         }
 
         #endregion
-        #region Telemetry toggle swtich
 
-        /// <summary>
-        /// Sets the TelemetryToggleSwitch to it's right state.
-        /// </summary>
-        private void SetTelemetryToggleSwitch()
-        {
-            TelemetryToggleSwitch.IsOn = (bool)TelemetryService.useTelemetry;
-        }
-
-        /// <summary>
-        /// Is called, when the TelemetryToggleSwitch is clicked. Calls SetUseTelemetry of TelemetryService.
-        /// </summary>
-        private void TelemetryToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-        {
-            TelemetryService.SetUseTelemetry(((ToggleSwitch)sender).IsOn);
-        }
-
-        #endregion
         #region Application information text
 
         /// <summary>
