@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LightParty")]
-[assembly: AssemblyDescription("Light Party is a controller for Philips Hue lights available for Windows 10. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiple Philips Hue lights with just a few clicks, too. The application is also completely free and open source.")]
+[assembly: AssemblyDescription("Light Party is a controller for Philips Hue lights available for Windows 10 and 11. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiple Philips Hue lights with just a few clicks, too. The application is also completely free and open source.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LightParty")]
-[assembly: AssemblyCopyright("Copyright © Clemens Koprolin 2020")]
+[assembly: AssemblyCopyright("Copyright © Clemens Koprolin 2020-2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,6 +24,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.2.0.0")]
+[assembly: AssemblyFileVersion("2.2.0.0")]
 [assembly: ComVisible(false)]

@@ -37,7 +37,6 @@ namespace LightParty.Pages.PartyMode.Simple
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             SelectLastSaveButton();
-            AudioSourceComboBox.SelectedIndex = (int)PartyOptions.activePartyOption.audioSource;
         }
 
         public void GiveVariables(PartyControl newPartyControl)
@@ -67,7 +66,7 @@ namespace LightParty.Pages.PartyMode.Simple
             SelectSaveButton(id);
         }
 
-        private void SelectSaveButton(int id)
+        private async void SelectSaveButton(int id)
         {
             for (int i = 0; i < PartySavesGrid.Children.Count; i++)
             {
@@ -77,62 +76,48 @@ namespace LightParty.Pages.PartyMode.Simple
                 border.BorderThickness = new Thickness(0);
             }
 
-            Button saveButton = PartySavesGrid.Children[id] as Button;
-            Border saveBorder = saveButton.Content as Border;
+            Button saveButton = PartySavesGrid.Children.OfType<Button>().FirstOrDefault(b => Convert.ToInt32(b.Tag) == id);
+            if (saveButton != null)
+            {
+                Border saveBorder = saveButton.Content as Border;
+                saveBorder.BorderThickness = new Thickness(2);
+            }
 
-            saveBorder.BorderThickness = new Thickness(2);
+            // Stop all sources unconditionally and wait for completion
+            MicrophoneInput.StopMicrophoneInputSafely();
+            LightProcessingRandom.StopUpdates();
+            try { await Connection.BackgroundService.StopBackgroundService(); } catch { }
+            AudioInput.isListening = false;
 
+            // Activate the selected mode
             switch (id)
             {
-                default:
+                case 0: // Desktop Audio
+                    PartyOptions.activePartyOption.audioSource = 1;
+                    PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
+                    await AudioInput.StartAudioInputSafely();
                     break;
-                case 0:
-                    SaveOneDeactivated();
-                    SaveZeroActivated();
+                case 1: // Microphone
+                    PartyOptions.activePartyOption.audioSource = 0;
+                    PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
+                    await AudioInput.StartAudioInputSafely();
                     break;
-                case 1:
-                    SaveZeroDeactivated();
-                    SaveOneActivated();
+                case 2: // Random
+                    if (!LightProcessingRandom.isUpdating)
+                        LightProcessingRandom.StartUpdates();
+                    PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(this, null);
                     break;
             }
             PartyOptions.useRGBColor = LightInformation.IsInRGBMode();
             PartyOptions.useMixedColorSpectrums = LightInformation.IsInMixedColorSpectrumsMode();
         }
 
-        private async void SaveZeroActivated()
-        {
-            PartyUIUpdater.GiveVariablesSlider<PartyControlSimple, PartyControlSimple>(this, null);
-            await AudioInput.StartAudioInputSafely();
-        }
-
-        private async void SaveZeroDeactivated()
-        {
-            await AudioInput.StopAudioInputSafely();
-            PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(null, null);
-        }
-
-        private void SaveOneActivated()
-        {
-            if (!LightProcessingRandom.isUpdating)
-                LightProcessingRandom.StartUpdates();
-
-            PartyUIUpdater.GiveVariablesInterval<PartyControlSimple, PartyControlSimple>(this, null);
-        }
-
-        private void SaveOneDeactivated()
-        {
-            LightProcessingRandom.StopUpdates();
-        }
-
         public void SetMicrophoneInputSlider(double newValue)
         {
-            MicrophoneInputSlider.Value = newValue;
-        }
-
-        private void AudioSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            PartyOptions.activePartyOption.audioSource = AudioSourceComboBox.SelectedIndex;
-            _ = AudioInput.UpdateAudioInputMethod();
+            if (PartyOptions.activePartyOption.audioSource == 0)
+                MicrophoneInputSlider.Value = newValue;
+            else if (PartyOptions.activePartyOption.audioSource == 1)
+                DesktopAudioSlider.Value = newValue;
         }
 
         public void SetRandomUpdateIntervalTextBox(float newValue)

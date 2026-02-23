@@ -156,7 +156,9 @@
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\LightPartyBackgroundProcess\LightPartyBackgroundProcess.csproj" />
+    <ProjectReference Include="..\LightPartyBackgroundProcess\LightPartyBackgroundProcess.csproj">
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
     <ProjectReference Include="..\LightParty\LightParty.csproj" />
   </ItemGroup>
 </Project>

@@ -118,7 +118,7 @@
                         and <Hyperlink Foreground="{ThemeResource SystemBaseHighColor}" NavigateUri="https://github.com/clemenskoprolin/light-party/graphs/contributors">Contributors</Hyperlink> 2026
                     </TextBlock>
 
-                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Offical website" NavigateUri="https://koprolin.com/lightparty/"/>
+                    <HyperlinkButton Grid.Row="3" Padding="0,6,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Official website" NavigateUri="https://koprolin.com/lightparty/"/>
                     <HyperlinkButton Grid.Row="4" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="GitHub repository" NavigateUri="https://github.com/clemenskoprolin/light-party"/>
                     <HyperlinkButton Grid.Row="5" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="Privacy Policy" NavigateUri="https://koprolin.com/lightparty/legal/privacypolicy/"/>
                     <HyperlinkButton Grid.Row="6" Padding="0,3,0,0" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Content="License" NavigateUri="https://koprolin.com/lightparty/legal/license/license.txt"/>

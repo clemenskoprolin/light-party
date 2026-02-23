@@ -10,7 +10,7 @@
   <Identity
     Name="7909ClemensKoprolin.LightParty"
     Publisher="CN=A1FAA64E-06C2-4821-BACF-64F7D2871136"
-    Version="2.1.0.0" />
+    Version="2.2.0.0" />
 
   <Properties>
     <DisplayName>Light Party</DisplayName>

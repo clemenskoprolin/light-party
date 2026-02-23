@@ -19,6 +19,37 @@ namespace LightParty.Party
         public static PartyOption activePartyOption; //The actively used instance of PartyOptions. All changes that the user makes are saved here.
         private static readonly List<PartyOption> partyOptionSaves = new List<PartyOption>() //This list contains the saves (templates) of PartyOption. They can be selected by the user in PartyControlSimple.
         {
+            // Save 0: Desktop audio
+            new PartyOption
+            {
+                ignoreOnReplace = new string[] { "randomInterval", "audioSource", "minSoundLevel", "maxSoundLevel" },
+                randomInterval = 3,
+                audioSource = 1,
+
+                brightnessOptionIndex = 0,
+                minSoundLevel = 45,
+                maxSoundLevel = 85,
+                startWithZeroInRange = true,
+                automaticRangeSelection = true,
+
+                minRandomBrightness = 35,
+                maxRandomBrightness = 100,
+
+                colorOptionIndex = 1,
+
+                colorGradientCount = 2,
+                startColor = Color.FromArgb(255, 0, 255, 255),
+                centerColor = Color.FromArgb(255, 0, 255, 0),
+                endColor = Color.FromArgb(255, 255, 255, 0),
+
+                startColorTemperature = 154,
+                centerColorTemperature = 200,
+                endColorTemperature = 500,
+
+                colorDifferencePercent = 0.6f,
+                changeColorCompletelyRandom = true,
+            },
+            // Save 1: Microphone
             new PartyOption
             {
                 ignoreOnReplace = new string[] { "randomInterval", "audioSource", "minSoundLevel", "maxSoundLevel" },
@@ -48,6 +79,7 @@ namespace LightParty.Party
                 colorDifferencePercent = 1.5f,
                 changeColorCompletelyRandom = true,
             },
+            // Save 2: Random
             new PartyOption
             {
                 ignoreOnReplace = new string[] { "randomInterval", "audioSource" },
