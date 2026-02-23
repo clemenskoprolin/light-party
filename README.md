@@ -1,5 +1,5 @@
 # Light Party
-Light Party is a controller for Philips Hue lights available for Windows 10 and 11. Its main feature is a party mode, where you can sync your lights to your music live! You can control multiply Philips Hue lights with just a few clicks, too. The application is also completely free and open source.
+Light Party is a free, open-source controller for Philips Hue lights on Windows 10 and 11. Its standout feature is Party Mode, which syncs your lights to your music in real time. You can also control multiple Hue lights with just a few clicks.
 
 [<img width="49%" src="https://koprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png" alt="Control muliply light at once with just a few clicks!">](https://koprolin.com/lightparty/images/sharing/screenhots/english/screenhot_2_english.png)
 [<img width="49%" src="https://koprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png" alt="Full dark mode support!">](https://koprolin.com/lightparty/images/sharing/screenhots/english/screenhot_3_english.png)
@@ -24,15 +24,17 @@ You can always download the newest stable version of Light Party from the [Micro
 - ~~More fluent design (e.g. in the navigation view and titel bar)!~~
 - ~~[Redesign of the Party Mode](https://github.com/clemenskoprolin/light-party/issues/3)~~
 - ~~[Redesign for Windows 11](https://github.com/clemenskoprolin/light-party/issues/6)~~
-- [Native way to use the desktop audio of the computer for the Party Mode](https://github.com/clemenskoprolin/light-party/issues/8)
-- Many, many, many bug fixes
-- Comment all parts of the source code (At the beginning Light Party was developed just for fun, so currently not all parts of the source code are commented)
+- ~~[Native way to use the desktop audio of the computer for the Party Mode](https://github.com/clemenskoprolin/light-party/issues/8)~~
+- [Migration from UWP to WinUI 3](https://github.com/clemenskoprolin/light-party/issues/12)
 
-### I found a bug (or have a feature request)!
-There two ways to get in contact. Firstly, you can [directly contact me](https://koprolin.com/contactme/) e.g. per email or you can [open an issue on GitHub](https://github.com/clemenskoprolin/light-party/issues).
+### I found a bug (or have a feature request)?
+There are two ways to get in touch:
+- Open a GitHub issue: https://github.com/clemenskoprolin/light-party/issues
+- Contact me directly by email: https://koprolin.com/contactme/
+
 
 ### License and Privacy Policy
-By using Light Party, you hereby consent to it's [Privacy Policy](https://koprolin.com/lightparty/legal/privacypolicy/). There is also a [summary of the Privacy Policy](https://koprolin.com/lightparty/legal/).
+By using Light Party, you hereby consent to it's [Privacy Policy](https://koprolin.com/lightparty/legal/privacypolicy/).
 
 This application uses the [GNU AFFERO GENERAL PUBLIC LICENSE Version 3](https://koprolin.com/lightparty/legal/license/license.txt). [choosealicense.com](https://choosealicense.com/licenses/agpl-3.0/) from GitHub Inc. provides a summary about the license.
 
